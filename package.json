@@ -1,0 +1,25 @@
+{
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "2nd web project in 42Paris",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpan42/Matcha.git"
+  },
+  "author": "lpan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lpan42/Matcha/issues"
+  },
+  "homepage": "https://github.com/lpan42/Matcha#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "nodemon": "^2.0.2"
+  }
+}
