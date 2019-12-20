@@ -1,0 +1,50 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%-include('partials/flashMessage') %>
+
+<div class="my_profile">
+	<h2>Change Email Address</h2>
+	<form method="post" action="/account/email">
+		Old Email Address<br />
+		<input type="text" name="old_email" /><br />
+		New Email Address<br />
+		<input type="text" name="new_email" /><br />
+		New Email Address repeat<br />
+		<input type="text" name="new_email_repeat" /><br />
+		<button type="submit" name="comfirm_email" value="comfirm_email">
+			Comfirm
+		</button>
+	</form>
+</div>
+
+<div class="my_profile">
+	<h2>Change Firstname</h2>
+	<form method="post" action="/account/firstname">
+		Old Firstname<br />
+		<input type="text" name="old_firstname" /><br />
+		New Firstname<br />
+		<input type="text" name="new_firstname" /><br />
+		New Firstname repeat<br />
+		<input type="text" name="new_firstname_repeat" /><br />
+		<button type="submit" name="comfirm_firstname" value="comfirm_pwd">
+			Comfirm
+		</button>
+	</form>
+</div>
+
+<div class="my_profile">
+	<h2>Change Lastname</h2>
+	<form method="post" action="/account/lastname">
+		Old Lastname<br />
+		<input type="text" name="old_lastname" /><br />
+		New Lastname<br />
+		<input type="text" name="new_lastname" /><br />
+		New Lastname repeat<br />
+		<input type="text" name="new_lastname_repeat" /><br />
+		<button type="submit" name="comfirm_lastname" value="comfirm_lastname">
+			Comfirm
+		</button>
+	</form>
+</div>
+
+<%- include('partials/footer') %>

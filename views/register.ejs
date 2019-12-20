@@ -1,17 +1,20 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flashMessage') %>
 <div>
-    <h1>Register</h1>
-    <form method="POST" action="/register">
-        Email<br />
-        <input type="text" name="email" /><br /> Username<br />
-        <input type="text" name="username" /><br /> Firstname<br />
-        <input type="text" name="firstname"><br /> Lastname<br />
-        <input type="text" name="lastname"><br /> Password<br />
-        <input type="password" name="password" /><br /> Password repeat<br />
-        <input type="password" name="password_repeat" /><br />
-        <button type="submit" value="Register">Register</button>
-    </form>
+  <h1>Register</h1>
+  <form method="POST" action="/register">
+    Email<br /><input type="text" name="email" /><br />
+    Username<br /><input type="text" name="username" /><br />
+    Firstname<br /><input type="text" name="firstname" /><br />
+    Lastname<br /><input type="text" name="lastname" /><br />
+    Password<br /><input type="password" name="password" /><br />
+    Password repeat<br /><input type="password" name="password_repeat" /><br />
+    <button type="submit" value="Register">Register</button>
+  </form>
 </div>
 <div>
-    <p>Have a account? <a href="/login">Login </a></p>
+  <p>Have a account? <a href="/login">Login </a></p>
 </div>
-<script type="text/javascript" src="js/register.js"></script>
+<!-- <script type="text/javascript" src="js/register.js"></script> -->
+<%- include('partials/footer') %>

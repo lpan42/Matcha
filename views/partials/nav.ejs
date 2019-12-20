@@ -1,0 +1,11 @@
+<div id="nav_bar">
+  <header id="logo"><a href="/">Matcha</a></header>
+  <ul id="nav">
+    <% if (user.userid) { %>
+        <p>Hi, <%=user.username%></p>
+        <li><a href="/account">My Account</a></li>
+        <li><a href="">My Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+    <% } %>
+  </ul>
+</div>

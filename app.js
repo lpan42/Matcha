@@ -8,8 +8,11 @@ const express = require('express'),
 
 const app = express();
 
-const index = require('./routes/index');
-register = require('./routes/register');
+const index = require('./routes/index'),
+    register = require('./routes/register'),
+    login = require('./routes/login'),
+    logout = require('./routes/logout'),
+    account = require('./routes/account');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -18,7 +21,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     secret: '0202ahctaM',
-    cookie: { maxAge: 60000 }
+    cookie: { maxAge: 6000000 }
 }));
 app.use(flash());
 
@@ -26,11 +29,14 @@ app.use(flash());
 //Routes
 app.use('/', index);
 app.use('/register', register);
+app.use('/login', login);
+app.use('/logout', logout);
+app.use('/account', account);
+
 
 //view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 
 app.listen(8000, () => {
     console.log(`Server running on port: 8000`);

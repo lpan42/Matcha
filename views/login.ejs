@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flashMessage') %>
+<div>
+  <h1>Login</h1>
+  <form method="POST" action="/login">
+    Username<br /><input type="text" name="username" /><br />
+    Password<br /><input type="password" name="password" /><br />
+    <button type="submit" value="login">Login</button>
+  </form>
+</div>
+<div>
+  <p>Forget password? <a href="">Reset password</a></p>
+  <p>New user? <a href="/register">Register </a></p>
+</div>
+<!-- <script type="text/javascript" src="js/login.js"></script> -->
+<%- include('partials/footer') %>
