@@ -1,18 +1,14 @@
 const express = require('express'),
+    app = express(),
     path = require('path'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     flash = require('connect-flash'),
-    // redis = require('redis'),
     connection = require('./config/database');
 
-const app = express();
-
-const index = require('./routes/index'),
-    register = require('./routes/register'),
-    login = require('./routes/login'),
-    logout = require('./routes/logout'),
-    account = require('./routes/account');
+//view engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,19 +21,15 @@ app.use(session({
 }));
 app.use(flash());
 
+// include router
+const userRoute = require('./routes/userRoute');
+const indexRoute = require('./routes/indexRoute');
 
-//Routes
-app.use('/', index);
-app.use('/register', register);
-app.use('/login', login);
-app.use('/logout', logout);
-app.use('/account', account);
+// routing
+app.use('/', indexRoute);
+app.use('/user', userRoute);
 
-
-//view engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
+// starting server
 app.listen(8000, () => {
     console.log(`Server running on port: 8000`);
 });

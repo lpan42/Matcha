@@ -3,7 +3,7 @@
 <%- include('partials/flashMessage') %>
 <div>
   <h1>Register</h1>
-  <form method="POST" action="/register">
+  <form method="POST" action="/user/register">
     Email<br /><input type="text" name="email" /><br />
     Username<br /><input type="text" name="username" /><br />
     Firstname<br /><input type="text" name="firstname" /><br />
@@ -14,7 +14,7 @@
   </form>
 </div>
 <div>
-  <p>Have a account? <a href="/login">Login </a></p>
+  <p>Have a account? <a href="/user/login">Login </a></p>
 </div>
 <!-- <script type="text/javascript" src="js/register.js"></script> -->
 <%- include('partials/footer') %>
