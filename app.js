@@ -26,7 +26,7 @@ const userRoute = require('./routes/userRoute');
 const indexRoute = require('./routes/indexRoute');
 
 // routing
-app.use('/', indexRoute);
+app.all('/', indexRoute);
 app.use('/user', userRoute);
 
 // starting server

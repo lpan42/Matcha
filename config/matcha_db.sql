@@ -56,7 +56,6 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `location_lat` float NOT NULL,
   `location_lon` float NOT NULL,
   `last_login` time DEFAULT NULL,
-  `online` tinyint(1) NOT NULL DEFAULT '0',
   `fame` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -70,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `active` tinyint(1) DEFAULT '0',
   `active_link` varchar(255) DEFAULT NULL,
   `ini_pwd_link` varchar(255) DEFAULT NULL,
+  `online` tinyint(1) NOT NULL DEFAULT '0',
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `email` (`email`),
