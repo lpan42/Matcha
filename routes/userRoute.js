@@ -3,27 +3,31 @@ const router = express.Router();
 const userController = require('../controllers/userController')
 
 router.route('/register')
-    .get(userController.renderRegister)
     .post(userController.register);
 
 router.route('/login')
-    .get(userController.renderLogin)
     .post(userController.login);
 
 router.route('/logout')
     .get(userController.logout);
 
-router.route('/account')
-    .get(userController.renderAccount);
+router.route('/account/:userid')
+    .get(userController.getAccount);
 
-router.route('/account/email')
-    .post(userController.changeEmail);
+router.route('/modify/email/:userid')
+    .post(userController.modify_email);
 
-router.route('/account/firstname')
-    .post(userController.changeFirstname);
+router.route('/modify/firstname/:userid')
+    .post(userController.modify_firstname);
 
-router.route('/account/lastname')
-    .post(userController.changeLastname);
+router.route('/modify/lastname/:userid')
+    .post(userController.modify_lastname);
+   
+router.route('/modify/profile/:userid')
+    .post(userController.modify_profile);
 
-    
+
+router.route('/profile/:userid')
+    .get(userController.getProfile);
+
 module.exports = router;

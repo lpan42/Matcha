@@ -1,20 +1,45 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Jan 02, 2020 at 08:40 AM
+-- Server version: 5.6.43
+-- PHP Version: 5.6.40
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Database: `matcha`
+--
 CREATE DATABASE IF NOT EXISTS `matcha` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `matcha`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blocks`
+--
 
 CREATE TABLE IF NOT EXISTS `blocks` (
   `id_user` int(11) NOT NULL,
   `blocked` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interests`
+--
 
 CREATE TABLE IF NOT EXISTS `interests` (
   `id_interest` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,10 +47,22 @@ CREATE TABLE IF NOT EXISTS `interests` (
   PRIMARY KEY (`id_interest`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `likes`
+--
+
 CREATE TABLE IF NOT EXISTS `likes` (
   `id_user` int(11) NOT NULL,
   `liked` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message`
+--
 
 CREATE TABLE IF NOT EXISTS `message` (
   `id_message` int(11) NOT NULL AUTO_INCREMENT,
@@ -37,6 +74,12 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (`id_message`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
 CREATE TABLE IF NOT EXISTS `notification` (
   `id_notif` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
@@ -47,10 +90,16 @@ CREATE TABLE IF NOT EXISTS `notification` (
   PRIMARY KEY (`id_notif`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profiles`
+--
+
 CREATE TABLE IF NOT EXISTS `profiles` (
   `id_user` int(11) NOT NULL,
   `gender` varchar(25) NOT NULL,
-  `age` int(11) NOT NULL,
+  `birthday` date NOT NULL,
   `sex_perfer` varchar(25) DEFAULT 'bi',
   `biography` varchar(10000) DEFAULT NULL,
   `location_lat` float NOT NULL,
@@ -58,6 +107,12 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `last_login` time DEFAULT NULL,
   `fame` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
@@ -77,6 +132,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `active_link` (`active_link`),
   UNIQUE KEY `ini_pwd_link` (`ini_pwd_link`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_interests`
+--
+
+CREATE TABLE IF NOT EXISTS `users_interests` (
+  `id_user` int(11) NOT NULL,
+  `id_interest` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `visits`
+--
 
 CREATE TABLE IF NOT EXISTS `visits` (
   `id_user` int(11) NOT NULL,
