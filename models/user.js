@@ -42,7 +42,8 @@ module.exports = {
 
     getInterestsById: (userid, callback) => {
         connection.query('SELECT id_interest FROM users_interests WHERE id_user = ?', userid, (err, rows) => {
-            if (err) callback(err, null);
+            if (err)
+                callback(err, null);
             else callback(null, rows);
         })
     },
@@ -55,6 +56,7 @@ module.exports = {
     },
 
     addNotif: (data, callback) => {
+
         connection.query('INSERT INTO notifications SET ?', data, (err) => {
             if (err) callback(err);
             else callback(null);

@@ -14,10 +14,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // include router
 const userRoute = require('./routes/userRoute');
-const indexRoute = require('./routes/indexRoute');
+// const indexRoute = require('./routes/indexRoute');
 
 // routing
-app.all('/', indexRoute);
+// app.all('/', indexRoute);
 app.use('/user', userRoute);
 
 // starting server
