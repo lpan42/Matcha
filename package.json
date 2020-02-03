@@ -4,7 +4,7 @@
   "description": "2nd web project in 42Paris",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec npx babel-node src"
   },
   "repository": {
     "type": "git",
@@ -26,8 +26,18 @@
     "geolib": "^3.2.1",
     "moment": "^2.24.0",
     "mysql": "^2.17.1",
+    "mysql2": "^2.1.0",
     "nodemon": "^2.0.2",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "util": "^0.12.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.0.0"
+  },
+  "babel": {
+    "presets": ["@babel/preset-env"]
+  }
 }
