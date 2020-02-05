@@ -1,7 +1,7 @@
-const connection = require('../config/database');
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
-const moment = require('moment');
+import * as connection from '../config/database';
+import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
+import * as moment from 'moment';
 
 export async function modify_firstname(data)
 {
@@ -129,7 +129,7 @@ export async function getProfileInfoById (userid)
 {
 	try{
 		const result = await connection.query(
-		`SELECT profiles.id_user, gender, birthday, sex_prefer, biography, location_lat, location_lon, picture, fame, username, firstname, lastname, last_login
+		`SELECT profiles.id_user, gender, birthday, sex_prefer, biography, location_lat, location_lon, picture, fame, username, firstname, lastname, last_login, online
 		FROM profiles 
 		INNER JOIN users on profiles.id_user = users.id_user
 		WHERE profiles.id_user = ?`,
@@ -150,7 +150,15 @@ export async function getInterestsById (userid)
 {
 	try{
 		const result = await connection.query('SELECT id_interest FROM users_interests WHERE id_user = ?', userid);
-		return result[0];
+		return result;
+	}
+	catch(err){
+		throw new Error(err);
+	}
+}
+export async function addFame(userid){
+	try{
+		await connection.query('UPDATE profiles SET fame = fame + 1 WHERE id_user = ?', userid);
 	}
 	catch(err){
 		throw new Error(err);
@@ -161,33 +169,61 @@ export async function visitPlusOne (data)
 {
 	try{
 		const result = await connection.query('INSERT INTO visits SET ?;', data);
-		console.log(result.insertId);
+		addFame(data.id_user);
+		return(result.insertId);
 	}
 	catch(err){
 		throw new Error(err);
 	}
-		// if (err) callback(err, null);
-		// else callback(null, rows.insertId);
 }
 
-// addNotif: (data, callback) => {
-// 	connection.query('INSERT INTO notifications SET ?', data, (err) => {
-// 		if (err) callback(err);
-// 		else callback(null);
-// 	})
-// },
-
-
-export async function modify_email (data)
+export async function addNotif(data)
 {
 	try{
-		const result = await connection.query('SELECT email FROM users WHERE email = ?', data.new_email.toLowerCase());
-		if(result[0]){
-			return { err: 'This email has been used' };
+		await connection.query('INSERT INTO notifications SET ?', data);
+	}
+	catch(err){
+		throw new Error(err);
+	}
+}
+
+export async function modify_email(data)
+{
+	verifyExistEmail(data.new_email);
+	try{
+		await connection.query('UPDATE users SET email = ? Where id_user = ?', [data.new_email.toLowerCase(), data.userid]);   
+	}
+	catch(err){
+		throw new Error(err);
+	}
+}
+
+export async function modify_lastname(data)
+{
+	try{
+		await connection.query('UPDATE users SET lastname = ? Where id_user = ?', [data.new_lastname.toLowerCase(), data.userid]);
+	}
+	catch(err){
+		throw new Error(err);
+	}
+}
+
+export async function modify_profile(data)
+{
+	try{
+		const profile = await connection.query('SELECT id_user FROM profiles WHERE id_user = ?', [data.id_user]);
+		if(!profile[0])
+		{
+			try{
+				await connection.query('INSERT INTO profiles set ?', [data]);
+			}
+			catch(err){
+				throw new Error(err);
+			}
 		}
 		else{
 			try{
-				await connection.query('UPDATE users SET email = ? Where id_user = ?', [data.new_email.toLowerCase(), data.userid]);   
+				await connection.query('UPDATE profiles set ? WHERE id_user = ?', [data, data.id_user]);
 			}
 			catch(err){
 				throw new Error(err);
@@ -199,35 +235,20 @@ export async function modify_email (data)
 	}
 }
 
-export async function modify_lastname (data)
-{
+export async function delete_interest(userid){
 	try{
-		await connection.query('UPDATE users SET lastname = ? Where id_user = ?', [data.new_lastname.toLowerCase(), data.userid]);
+		await connection.query('DELETE FROM users_interests WHERE id_user = ?', userid);
 	}
 	catch(err){
 		throw new Error(err);
 	}
 }
 
-// export async function modify_profile (data)
-// {
-// 	connection.query('SELECT id_user FROM profiles WHERE id_user = ?', data.id_user, (err, rows) => {
-// 		if (err)
-// 			callback(err);
-// 		else if (!rows[0]) {
-// 			connection.query('INSERT INTO profiles set ?', [data], (err) => {
-// 				if (err)
-// 					callback(err);
-// 				else
-// 					callback(null);
-// 			});
-// 		} else {
-// 			connection.query('UPDATE profiles set ? WHERE id_user = ?', [data, data.id_user], (err) => {
-// 				if (err)
-// 					callback(err);
-// 				else
-// 					callback(null);
-// 			});
-// 		}
-// 	});
-// }
+export async function add_interest(data){
+	try{
+		await connection.query('INSERT users_interests SET ?', data);
+	}
+	catch(err){
+		throw new Error(err);
+	}
+}

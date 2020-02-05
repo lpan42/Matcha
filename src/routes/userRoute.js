@@ -25,5 +25,8 @@ router.route('/modify/lastname/:userid')
     .post(userController.modify_lastname);
 router.route('/modify/profile/:userid')
     .post(userController.modify_profile);
-
+router.route('/modify/interest/add/:userid')
+    .post(userController.add_interest);
+router.route('/modify/interest/delete/:userid')
+    .post(userController.delete_interest);
 module.exports = router;
