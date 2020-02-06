@@ -15,18 +15,21 @@ router.route('/account/:userid')
     .get(userController.getAccount);
 router.route('/profile/:userid')
     .get(userController.getProfile);
+// router.route('/notif/:userid')
+//     .get(userController.getUnreadNotif);
 
 //modify
 router.route('/modify/email/:userid')
-    .post(userController.modify_email);
+    .post(userController.modifyEmail);
 router.route('/modify/firstname/:userid')
-    .post(userController.modify_firstname);
+    .post(userController.modifyFirstname);
 router.route('/modify/lastname/:userid')
-    .post(userController.modify_lastname);
+    .post(userController.modifyLastname);
 router.route('/modify/profile/:userid')
-    .post(userController.modify_profile);
+    .post(userController.modifyProfile);
 router.route('/modify/interest/add/:userid')
-    .post(userController.add_interest);
+    .post(userController.addInterest);
 router.route('/modify/interest/delete/:userid')
-    .post(userController.delete_interest);
+    .post(userController.deleteInterest);
+
 module.exports = router;

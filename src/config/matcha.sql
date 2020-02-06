@@ -29,6 +29,22 @@ CREATE TABLE `interests` (
   `interest` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `interests` (`id_interest`, `interest`) VALUES
+(1, 'travel'),
+(2, 'sports'),
+(3, 'arts'),
+(4, 'films'),
+(5, 'music'),
+(6, 'animals'),
+(7, 'dance'),
+(8, 'outdoors'),
+(9, 'food'),
+(10, 'books'),
+(11, 'programming'),
+(12, 'creative'),
+(13, 'languages'),
+(14, 'stargazing');
+
 CREATE TABLE `likes` (
   `id_likes` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
@@ -48,33 +64,34 @@ CREATE TABLE `messages` (
 
 CREATE TABLE `notifications` (
   `id_notif` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
   `id_link` int(11) NOT NULL,
   `notification` varchar(25) NOT NULL,
   `notif_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `readed` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `notifications` (`id_notif`, `id_link`, `notification`, `notif_time`, `readed`) VALUES
-(1, 9, 'visit', '2020-02-05 13:59:04', 0),
-(2, 10, 'visit', '2020-02-05 14:00:47', 0),
-(3, 11, 'visit', '2020-02-05 14:01:25', 0),
-(4, 12, 'visit', '2020-02-05 14:01:37', 0),
-(5, 13, 'visit', '2020-02-05 14:01:46', 0),
-(6, 14, 'visit', '2020-02-05 14:02:40', 0),
-(7, 15, 'visit', '2020-02-05 14:05:07', 0),
-(8, 16, 'visit', '2020-02-05 14:10:27', 0),
-(9, 17, 'visit', '2020-02-05 14:12:20', 0),
-(10, 20, 'visit', '2020-02-05 14:23:00', 0),
-(11, 21, 'visit', '2020-02-05 15:05:08', 0),
-(12, 22, 'visit', '2020-02-05 15:05:53', 0),
-(13, 23, 'visit', '2020-02-05 15:07:20', 0),
-(14, 24, 'visit', '2020-02-05 15:07:30', 0),
-(15, 25, 'visit', '2020-02-05 15:07:39', 0),
-(16, 26, 'visit', '2020-02-05 15:08:00', 0),
-(17, 27, 'visit', '2020-02-05 15:08:34', 0),
-(18, 28, 'visit', '2020-02-05 15:08:36', 0),
-(19, 29, 'visit', '2020-02-05 15:08:59', 0),
-(20, 30, 'visit', '2020-02-05 15:09:01', 0);
+INSERT INTO `notifications` (`id_notif`, `id_user`, `id_link`, `notification`, `notif_time`, `readed`) VALUES
+(1, 1, 9, 'visits', '2020-02-05 13:59:04', 0),
+(2, 1, 10, 'visits', '2020-02-05 14:00:47', 0),
+(3, 1, 11, 'visits', '2020-02-05 14:01:25', 0),
+(4, 1, 12, 'visits', '2020-02-05 14:01:37', 0),
+(5, 1, 13, 'visits', '2020-02-05 14:01:46', 0),
+(6, 1, 14, 'visits', '2020-02-05 14:02:40', 0),
+(7, 1, 15, 'visits', '2020-02-05 14:05:07', 0),
+(8, 1, 16, 'visits', '2020-02-05 14:10:27', 0),
+(9, 1, 17, 'visits', '2020-02-05 14:12:20', 0),
+(10, 1, 20, 'visits', '2020-02-05 14:23:00', 0),
+(11, 1, 21, 'visits', '2020-02-05 15:05:08', 0),
+(12, 1, 22, 'visits', '2020-02-05 15:05:53', 0),
+(13, 1, 23, 'visits', '2020-02-05 15:07:20', 0),
+(14, 1, 24, 'visits', '2020-02-05 15:07:30', 0),
+(15, 1, 25, 'visits', '2020-02-05 15:07:39', 0),
+(16, 1, 26, 'visits', '2020-02-05 15:08:00', 0),
+(17, 1, 27, 'visits', '2020-02-05 15:08:34', 0),
+(18, 1, 28, 'visits', '2020-02-05 15:08:36', 0),
+(19, 1, 29, 'visits', '2020-02-05 15:08:59', 0),
+(20, 1, 30, 'visits', '2020-02-05 15:09:01', 0);
 
 CREATE TABLE `pics` (
   `id_pic` int(11) NOT NULL,
@@ -214,7 +231,7 @@ ALTER TABLE `chatrooms`
   MODIFY `id_chatroom` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `interests`
-  MODIFY `id_interest` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_interest` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 ALTER TABLE `likes`
   MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT;
