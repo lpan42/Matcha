@@ -177,25 +177,37 @@ export async function likeProfile(req,res) {
             id_user: req.params.userid,
             id_sender: req.body.likerid
         }
-        const checklike = await userModel.checkLike(data);
-        if (typeof(checkLike.err) !== 'undefined') {
+        const checklike = await userModel.checkLike(data.id_user, data.id_sender);
+        if (typeof(checklike.err) !== 'undefined') {
             return res.status(400).json({ error: result.err });
         }
-        else if(checkLike[0]){
+        else if(checklike[0]){
             return res.status(200).json({ message: 'You have liked this user before'});
         }
         else{
-            const addlikes = await userModel.addLikes
-            const addnotif = await userModel.addNotif(data);
-            if (typeof(addnotif) !== 'undefined') {
-                return res.status(400).json({ error: addnotif.err });
+            const addlike = await userModel.addLike(data.id_user, data.id_sender);
+            if (typeof(addlike) !== 'undefined') {
+                return res.status(400).json({ error: addlike.err });
             }
             else {
-                const result = await userModel.checkLikeBack(req.params.userid, req.body.likerid);
-                if (typeof(result.err) !== 'undefined') {
-                    return res.status(400).json({ error: result.err });
+                const addnotif = await userModel.addNotif(data);
+                if (typeof(addnotif) !== 'undefined') {
+                    return res.status(400).json({ error: addnotif.err });
                 }
-                return res.status(200).json({ message: 'liked'});
+                else {
+                    const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
+                    if (typeof(checklikeback.err) !== 'undefined') {
+                        return res.status(400).json({ error: checklikeback.err });
+                    }
+                    if(checklikeback[0]){
+                        const chatroom = await userModel.createChatroom(data.id_sender, data.id_user);
+                        if (typeof(chatroom.err) !== 'undefined') {
+                            return res.status(400).json({ error: chatroom.err });
+                        }
+                        return res.status(200).json({ message: 'This user also likes you, now you can chat'});
+                    }
+                    else return res.status(200).json({ message: 'liked'});
+                }
             }
         }
     }

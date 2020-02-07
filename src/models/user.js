@@ -239,11 +239,27 @@ export async function getHistory(userid){
     }
 }
 
-export async function checkLike(data){
+export async function checkLike(userid, likerid){
     try{
-        const result = await connection.query("SELECT * FROM notifications WHERE notification = 'likes' AND id_user = ? AND id_sender = ?", [ data.id_user, data.id_sender]);
+        const result = await connection.query("SELECT * FROM likes WHERE id_user = ? AND id_sender = ?", [userid, likerid]);
         return result;
     }catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function addLike(userid, likerid){
+    try {
+        await connection.query('INSERT INTO likes (id_user, id_sender) VALUES (?, ?)', [userid, likerid]);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function createChatroom(userid1, userid2){
+    try {
+        await connection.query('INSERT INTO chatrooms (id_user_1, id_user_2) VALUES (?, ?)', [userid1, userid2]);
+    } catch (err) {
         throw new Error(err);
     }
 }
