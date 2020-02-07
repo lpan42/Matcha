@@ -15,8 +15,12 @@ router.route('/account/:userid')
     .get(userController.getAccount);
 router.route('/profile/:userid')
     .get(userController.getProfile);
-// router.route('/notif/:userid')
-//     .get(userController.getUnreadNotif);
+router.route('/notif/unread/:userid')
+    .get(userController.getUnreadNotif);
+router.route('/notif/read/:notifid')
+    .get(userController.readNotif);
+router.route('/history/:userid')
+    .get(userController.getHistory);
 
 //modify
 router.route('/modify/email/:userid')
@@ -31,5 +35,8 @@ router.route('/modify/interest/add/:userid')
     .post(userController.addInterest);
 router.route('/modify/interest/delete/:userid')
     .post(userController.deleteInterest);
+router.route('/like/:userid')
+    .post(userController.likeProfile);
 
+ 
 module.exports = router;

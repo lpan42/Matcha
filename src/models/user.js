@@ -1,4 +1,4 @@
-import * as connection from '../config/database';
+const connection = require('../config/database');
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import * as moment from 'moment';
@@ -143,16 +143,6 @@ export async function addFame(userid) {
     }
 }
 
-export async function visitPlusOne(data) {
-    try {
-        const result = await connection.query('INSERT INTO visits SET ?;', data);
-        addFame(data.id_user);
-        return (result.insertId);
-    } catch (err) {
-        throw new Error(err);
-    }
-}
-
 export async function addNotif(data) {
     try {
         await connection.query('INSERT INTO notifications SET ?', data);
@@ -163,17 +153,33 @@ export async function addNotif(data) {
 
 export async function getUnreadNotif(userid) {
     try {
-        const result = await connection.query('SELECT id_link, notification, notif_time FROM notifications WHERE readed = 0 AND id_user = ?', userid);
+        const result = await connection.query('SELECT id_notif, id_sender, notification, notif_time FROM notifications WHERE readed = 0 AND id_user = ? ORDER BY notif_time DESC', userid);
         return (result);
     } catch (err) {
         throw new Error(err);
     }
 }
+export async function getOneNotif(notifid){
+    try {
+        const result = await connection.query('SELECT id_sender, notification, notif_time FROM notifications WHERE id_notif = ?', notifid);
+        if(!result[0]){
+            return { err: 'Notification does not exist' };
+        }
+        try{
+            await connection.query('UPDATE notifications SET readed = 1 WHERE id_notif = ?', notifid);
 
+        }catch (err) {
+            throw new Error(err);
+        }   
+        return (result[0]);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
 export async function modify_email(data) {
     verifyExistEmail(data.new_email);
     try {
-        await connection.query('UPDATE users SET email = ? Where id_user = ?', [data.new_email.toLowerCase(), data.userid]);
+        await connection.query('UPDATE users SET email = ? WHERE id_user = ?', [data.new_email.toLowerCase(), data.userid]);
     } catch (err) {
         throw new Error(err);
     }
@@ -220,6 +226,24 @@ export async function add_interest(data) {
     try {
         await connection.query('INSERT users_interests SET ?', data);
     } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function getHistory(userid){
+    try{
+        const result = await connection.query("SELECT id_notif, id_sender, notification, notif_time FROM notifications WHERE id_user = ? ORDER BY notif_time DESC", userid);
+        return (result);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function checkLike(data){
+    try{
+        const result = await connection.query("SELECT * FROM notifications WHERE notification = 'likes' AND id_user = ? AND id_sender = ?", [ data.id_user, data.id_sender]);
+        return result;
+    }catch (err) {
         throw new Error(err);
     }
 }

@@ -82,22 +82,14 @@ export async function modifyLastname(req, res) {
 
 export async function getProfile(req, res) {
     if (req.body.visitorid != req.params.userid) {
-        let data = {};
-        data.id_user = req.params.userid;
-        data.id_visitor = req.body.visitorid;
-        const id_visits = await userModel.visitPlusOne(data);
-        if (typeof(id_visits.err) !== 'undefined')
-            return res.status(400).json({ error: id_visits.err });
-        else {
-            let data_notif = {
-                notification: 'visits',
-                id_link: id_visits,
-                id_user: req.params.userid
-            }
-            const addnotif = await userModel.addNotif(data_notif);
-            if (typeof(addnotif) !== 'undefined') {
-                return res.status(400).json({ error: addnotif.err });
-            }
+        let data = {
+            notification: 'visits',
+            id_user: req.params.userid,
+            id_sender: req.body.visitorid
+        }
+        const addnotif = await userModel.addNotif(data);
+        if (typeof(addnotif) !== 'undefined') {
+            return res.status(400).json({ error: addnotif.err });
         }
     }
     const result = await userModel.getProfileInfoById(req.params.userid);
@@ -145,13 +137,66 @@ export async function addInterest(req, res) {
         return res.status(200).json({ message: 'Profile has been successfully updated' });
 }
 
-// export async function getUnreadNotif(req, res) {
-//     const result = await userModel.getUnreadNotif(req.params.userid);
-//     if (typeof(result.err) !== 'undefined') {
-//         return res.status(400).json({ error: result.err });
-//     } else {
-//         return res.status(200).json({
-//             data: result
-//         });
-//     }
-// }
+export async function getUnreadNotif(req, res) {
+    const result = await userModel.getUnreadNotif(req.params.userid);
+    if (typeof(result.err) !== 'undefined') {
+        return res.status(400).json({ error: result.err });
+    } else {
+        return res.status(200).json({
+            data: result
+        });
+    }
+}
+
+export async function readNotif(req, res) {
+    const result = await userModel.getOneNotif(req.params.notifid);
+    if (typeof(result.err) !== 'undefined') {
+        return res.status(400).json({ error: result.err });
+    } else {
+        return res.status(200).json({
+            data: result
+        });
+    }
+}
+
+export async function getHistory(req, res){
+    const result = await userModel.getHistory(req.params.userid);
+    if (typeof(result.err) !== 'undefined') {
+        return res.status(400).json({ error: result.err });
+    } else {
+        return res.status(200).json({
+            data: result
+        });
+    }
+}
+
+export async function likeProfile(req,res) {
+    if (req.body.likerid != req.params.userid) {
+        let data = {
+            notification: 'likes',
+            id_user: req.params.userid,
+            id_sender: req.body.likerid
+        }
+        const checklike = await userModel.checkLike(data);
+        if (typeof(checkLike.err) !== 'undefined') {
+            return res.status(400).json({ error: result.err });
+        }
+        else if(checkLike[0]){
+            return res.status(200).json({ message: 'You have liked this user before'});
+        }
+        else{
+            const addlikes = await userModel.addLikes
+            const addnotif = await userModel.addNotif(data);
+            if (typeof(addnotif) !== 'undefined') {
+                return res.status(400).json({ error: addnotif.err });
+            }
+            else {
+                const result = await userModel.checkLikeBack(req.params.userid, req.body.likerid);
+                if (typeof(result.err) !== 'undefined') {
+                    return res.status(400).json({ error: result.err });
+                }
+                return res.status(200).json({ message: 'liked'});
+            }
+        }
+    }
+}
