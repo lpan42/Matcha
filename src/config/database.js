@@ -2,11 +2,12 @@ const mysql = require('mysql');
 const util = require('util');
 
 const connection = mysql.createPool({
-    connectionLimit: 10,
     host: 'localhost',
     user: 'root',
     password: 'rootroot',
-    database: 'matcha'
+    database: 'matcha',
+    connectionLimit: 10,
+    multipleStatements: true
 });
 
 connection.getConnection((err) => {

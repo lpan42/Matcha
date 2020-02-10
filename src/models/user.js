@@ -135,9 +135,9 @@ export async function getInterestsById(userid) {
     }
 }
 
-export async function addFame(userid) {
+export async function addFame(fame, userid) {
     try {
-        await connection.query('UPDATE profiles SET fame = fame + 1 WHERE id_user = ?', userid);
+        await connection.query('SET @i = ?; UPDATE profiles SET fame = fame + @i WHERE id_user = ?', [fame, userid]);
     } catch (err) {
         throw new Error(err);
     }
@@ -256,10 +256,11 @@ export async function addLike(userid, likerid){
     }
 }
 
-export async function createChatroom(userid1, userid2){
-    try {
-        await connection.query('INSERT INTO chatrooms (id_user_1, id_user_2) VALUES (?, ?)', [userid1, userid2]);
-    } catch (err) {
+export async function unlike(userid, unlikerid){
+    try{
+        await connection.query('DELETE FROM likes WHERE id_user = ? AND id_sender = ?;', [userid, unlikerid]);
+    }
+    catch (err) {
         throw new Error(err);
     }
 }

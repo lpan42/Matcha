@@ -1,4 +1,5 @@
 import * as userModel from '../models/user';
+import * as indexModel from '../models/index';
 
 export async function getAccount(req, res) {
     const result = await userModel.getUserInfoById(req.params.userid);
@@ -87,9 +88,15 @@ export async function getProfile(req, res) {
             id_user: req.params.userid,
             id_sender: req.body.visitorid
         }
-        const addnotif = await userModel.addNotif(data);
-        if (typeof(addnotif) !== 'undefined') {
-            return res.status(400).json({ error: addnotif.err });
+        const addNotif = await userModel.addNotif(data);
+        if (typeof(addNotif) !== 'undefined') {
+            return res.status(400).json({ error: addNotif.err });
+        }
+        else{
+            const addFame = await userModel.addFame(1, data.id_user);
+            if(typeof(addFame) !== 'undefined') {
+                return res.status(400).json({ error: addFame.err });
+            }
         }
     }
     const result = await userModel.getProfileInfoById(req.params.userid);
@@ -179,7 +186,7 @@ export async function likeProfile(req,res) {
         }
         const checklike = await userModel.checkLike(data.id_user, data.id_sender);
         if (typeof(checklike.err) !== 'undefined') {
-            return res.status(400).json({ error: result.err });
+            return res.status(400).json({ error: checklike.err });
         }
         else if(checklike[0]){
             return res.status(200).json({ message: 'You have liked this user before'});
@@ -190,25 +197,88 @@ export async function likeProfile(req,res) {
                 return res.status(400).json({ error: addlike.err });
             }
             else {
-                const addnotif = await userModel.addNotif(data);
-                if (typeof(addnotif) !== 'undefined') {
-                    return res.status(400).json({ error: addnotif.err });
+                const addFame = await userModel.addFame(5, data.id_user);
+                if(typeof(addFame) !== 'undefined') {
+                    return res.status(400).json({ error: addFame.err });
                 }
-                else {
-                    const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
-                    if (typeof(checklikeback.err) !== 'undefined') {
-                        return res.status(400).json({ error: checklikeback.err });
+                else{
+                    const addNotif = await userModel.addNotif(data);
+                    if (typeof(addNotif) !== 'undefined') {
+                        return res.status(400).json({ error: addNotif.err });
                     }
-                    if(checklikeback[0]){
-                        const chatroom = await userModel.createChatroom(data.id_sender, data.id_user);
-                        if (typeof(chatroom.err) !== 'undefined') {
-                            return res.status(400).json({ error: chatroom.err });
+                    else {
+                        const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
+                        if (typeof(checklikeback.err) !== 'undefined') {
+                            return res.status(400).json({ error: checklikeback.err });
                         }
-                        return res.status(200).json({ message: 'This user also likes you, now you can chat'});
+                        if(checklikeback[0]){
+                            const chatroom = await indexModel.createChatroom(data.id_sender, data.id_user);
+                            if (typeof(chatroom) !== 'undefined') {
+                                return res.status(400).json({ error: chatroom.err });
+                            }
+                            return res.status(200).json({ message: 'This user also likes you, now you can chat'});
+                        }
+                        else return res.status(200).json({ message: 'liked'});
                     }
-                    else return res.status(200).json({ message: 'liked'});
+                }
+            }
+        }
+    }
+    else{
+        return res.status(400).json({ error: 'You cannot like yourself'});
+    }
+}
+
+export async function unlikeProfile(req,res) {
+    if (req.body.unlikerid != req.params.userid) {
+        let data = {
+            notification: 'unlikes',
+            id_user: req.params.userid,
+            id_sender: req.body.unlikerid
+        }
+        const checklike = await userModel.checkLike(data.id_user, data.id_sender);
+        if (typeof(checklike.err) !== 'undefined') {
+            return res.status(400).json({ error: checklike.err });
+        }
+        else if(!checklike[0]){
+            return res.status(400).json({ error: 'You have not liked this user before'});
+        }
+        else{
+            const unlike = await userModel.unlike(data.id_user, data.id_sender);
+            if (typeof(unlike) !== 'undefined') {
+                return res.status(400).json({ error: unlike.err });
+            }
+            else{
+                const minFame = await userModel.addFame(-5, data.id_user);
+                if (typeof(minFame) !== 'undefined') {
+                    return res.status(400).json({ error: minFame.err });
+                }
+                else{
+                    const addNotif = await userModel.addNotif(data);
+                    if (typeof(addNotif) !== 'undefined') {
+                        return res.status(400).json({ error: addNotif.err });
+                    }
+                    else{
+                        const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
+                        if (typeof(checklikeback.err) !== 'undefined') {
+                            return res.status(400).json({ error: checklikeback.err });
+                        }
+                        else if(checklikeback[0]){// means they are connected user
+                            const chatroom = await indexModel.getChatroomId(data.id_sender, data.id_user);
+                            const unlinkChat = await indexModel.unlinkChat(chatroom.id_chatroom);
+                            if (typeof(unlinkChat) !== 'undefined') {
+                                return res.status(400).json({ error: unlinkChat.err });
+                            }
+                            else
+                                return res.status(200).json({ message: 'You unlike this user, you are not connected anymore, all your previous messages has been destoryed'});
+                        }
+                        else
+                            return res.status(200).json({ message: 'You unlike this user'});
+                    }
                 }
             }
         }
     }
 }
+
+//get chatroom and message

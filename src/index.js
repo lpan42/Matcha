@@ -14,11 +14,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // include router
 const userRoute = require('./routes/userRoute');
-// const indexRoute = require('./routes/indexRoute');
+const indexRoute = require('./routes/indexRoute');
 
 // routing
 app.use('/user/', userRoute);
-// app.all('/', indexRoute);
+app.use('/index/', indexRoute);
 
 // starting server
 app.listen(8000, () => {
