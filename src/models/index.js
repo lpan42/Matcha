@@ -16,8 +16,15 @@ export async function getChatroomId(userid1, userid2){
         throw new Error(err);
     }
 }
+export async function getUserByChatroomId(id_chatroom){
+    try{
+        const result = await connection.query('SELECT id_user_1, id_user_2 FROM chatrooms WHERE id_chatroom = ?', id_chatroom);
+        return result;
+    }catch (err) {
+        throw new Error(err);
+    }
+}
 
-//deleteChatroom & Messages
 export async function unlinkChat(id_chatroom){
     try{
          await connection.query('DELETE FROM chatrooms WHERE id_chatroom = ?; DELETE FROM messages WHERE id_chatroom = ?', [id_chatroom, id_chatroom]);
