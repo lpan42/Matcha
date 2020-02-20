@@ -1,5 +1,6 @@
-import * as userModel from '../models/user';
-import * as indexModel from '../models/index';
+const userModel = require('../models/user');
+const indexModel = require('../models/index');
+const jwtModel = require('../models/jwt');
 
 export async function getAccount(req, res) {
     const result = await userModel.getUserInfoById(req.params.userid);
@@ -14,17 +15,21 @@ export async function getAccount(req, res) {
 
 export async function register(req, res) {
     const check_email = await userModel.verifyExistEmail(req.body.email);
-    if (typeof(check_email.err) !== 'undefined') {
+    if (typeof(check_email) !== 'undefined') {
         return res.status(400).json({ error: check_email.err });
     } else {
         const check_username = await userModel.verifyExistUsername(req.body.username);
-        if (typeof(check_username.err) !== 'undefined') {
+        if (typeof(check_username) !== 'undefined') {
             return res.status(400).json({ error: check_username.err });
         } else {
-            const result = userModel.createNewUser(req.body);
-            if (typeof(result) !== 'undefined') {
+            const result = await userModel.createNewUser(req.body);
+            if (typeof(result.err) !== 'undefined') {
                 return res.status(400).json({ error: result.err });
-            } else return res.status(200).json({ message: 'Successfully register, you may log in' });
+            } else{
+                return res.status(200).json({ 
+                    message: 'Successfully register, you may log in',
+                });
+            }
         }
     }
 }
@@ -34,9 +39,11 @@ export async function login(req, res) {
     if (typeof(result.err) !== 'undefined') {
         return res.status(400).json({ error: result.err });
     } else {
+        const token = jwtModel.generateToken(result.userid, result.username);
         return res.status(200).json({
             message: 'sucessfully login',
-            data: result
+            data: result,
+            token: token
         });
     }
 }
@@ -82,11 +89,12 @@ export async function modifyLastname(req, res) {
 }
 
 export async function getProfile(req, res) {
-    if (req.body.visitorid != req.params.userid) {
+    //req.userid is from the token, verified by middleware.auth
+    if (req.userid != req.params.userid) {
         let data = {
             notification: 'visits',
             id_user: req.params.userid,
-            id_sender: req.body.visitorid
+            id_sender: req.body.userid
         }
         const addNotif = await userModel.addNotif(data);
         if (typeof(addNotif) !== 'undefined') {

@@ -1,7 +1,7 @@
 const connection = require('../config/database');
-import * as bcrypt from 'bcrypt';
-import * as crypto from 'crypto';
-import * as moment from 'moment';
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const moment = require('moment');
 
 export async function modify_firstname(data) {
     try {
@@ -65,7 +65,8 @@ export async function createNewUser(body) {
         active_link: active_link
     };
     try {
-        await connection.query('INSERT INTO users SET ?', data);
+        const result = await connection.query('INSERT INTO users SET ?', data);
+        return result.insertId;
     } catch (err) {
         throw new Error(err);
     }
@@ -85,7 +86,7 @@ export async function login(data) {
             try {
                 await connection.query('UPDATE users set online = 1, last_login = ? where username = ?', [last_login, data.username.toLowerCase()]);
                 const user = {
-                    id: check[0].id_user,
+                    userid: check[0].id_user,
                     username: check[0].username,
                     firstname: check[0].firstname,
                     lastname: check[0].lastname

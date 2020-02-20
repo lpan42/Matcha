@@ -1,0 +1,1 @@
+exports.jwtSecret = "2020matcha42lpancchi";
