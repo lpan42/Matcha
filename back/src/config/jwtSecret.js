@@ -1,1 +1,1 @@
-exports.jwtSecret = "2020matcha42lpancchi";
+export const jwtSecret = "2020matcha42lpancchi";

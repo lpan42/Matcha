@@ -1,8 +1,6 @@
 const express = require('express'),
     app = express(),
-    path = require('path'),
-    bodyParser = require('body-parser'),
-    connection = require('./config/database');
+    bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

@@ -1,5 +1,5 @@
-import * as userModel from '../models/user';
-import * as indexModel from '../models/index';
+const userModel = require('../models/user');
+const indexModel = require('../models/index');
 
 export async function getMessage(req, res){
     const checkUser = await indexModel.getUserByChatroomId(req.params.chatroomid);

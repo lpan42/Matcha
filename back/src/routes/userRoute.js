@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController')
-const auth = require('../middleware/auth')
+const userController = require('../controllers/userController');
+const auth = require('../middleware/auth');
+
 //connect 
 router.route('/register').post(userController.register);
 router.route('/login').post(userController.login);
@@ -27,4 +28,5 @@ router.route('/modify/interest/add/:userid').post(userController.addInterest);
 router.route('/modify/interest/delete/:userid').post(userController.deleteInterest);
 router.route('/like/:userid').post(userController.likeProfile);
 router.route('/unlike/:userid').post(userController.unlikeProfile);
- 
+
+module.exports = router;
