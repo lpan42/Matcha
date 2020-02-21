@@ -47,6 +47,16 @@ export async function login(req, res) {
         });
     }
 }
+export async function authUser(req, res){
+    const result = await userModel.getUserInfoById(req.userid);
+    if (typeof(result.err) !== 'undefined') {
+        return res.status(400).json({ error: result.err });
+    } else {
+        return res.status(200).json({
+            data: result,
+        });
+    }
+}
 
 export async function logout(req, res) {
     const result = await userModel.logout(req.body.userid);

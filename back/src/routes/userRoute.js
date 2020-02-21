@@ -6,6 +6,7 @@ const auth = require('../middleware/auth');
 //connect 
 router.route('/register').post(userController.register);
 router.route('/login').post(userController.login);
+router.route('/auth').get(auth, userController.authUser);
 router.route('/logout').get(userController.logout);
 
 //getInfo

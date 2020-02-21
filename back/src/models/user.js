@@ -88,8 +88,6 @@ export async function login(data) {
                 const user = {
                     userid: check[0].id_user,
                     username: check[0].username,
-                    firstname: check[0].firstname,
-                    lastname: check[0].lastname
                 };
                 return user;
             } catch (err) {

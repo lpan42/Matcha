@@ -1,19 +1,37 @@
-import React, { Component } from "react";
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import "./style/App.css";
+import Header from "./components/layout/Header";
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+import Alert from './components/layout/Alert';
+import Index from './components/layout/index';
 
-// import Footer from "./components/Footer";
-import Header from "./components/Header";
-// import MainContent from "./components/MainContent";
+import PrivateRoute from './components/routing/PrivateRoute';
+import AuthState from './contexts/auth/Authstate';
+import AlertState from './contexts/alert/AlertState';
 
-class App extends Component {
 
-    //lifecycle method
-    render(){
-		return (
-			<div>
-				<Header title='Matcha'/>
-			</div>
-		)
-    }
+const App = () => {
+	return (
+		<AuthState>
+		<AlertState>
+			<Router>
+			<Fragment>
+				<Header />
+				<div className="container">
+					<Alert />
+					<Switch>
+						<PrivateRoute exact path='/' component={Index} />
+						<Route exact path='/register' component={Register} />
+						<Route exact path='/login' component={Login} />
+					</Switch>
+				</div>
+			</Fragment>
+			</Router>
+		</AlertState>
+		</AuthState>
+	)
 }
 
 export default App;
