@@ -1,28 +1,35 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import "./style/App.css";
+import PrivateRoute from './components/routing/PrivateRoute';
+//components
 import Header from "./components/layout/Header";
-import Register from './components/auth/Register';
-import Login from './components/auth/Login';
+import Register from './components/user/Register';
+import Login from './components/user/Login';
 import Alert from './components/layout/Alert';
 import Index from './components/layout/index';
-
-import PrivateRoute from './components/routing/PrivateRoute';
-import AuthState from './contexts/auth/Authstate';
+import Account from './components/user/Account';
+import Profile from './components/profile/Profile';
+//state
+import UserState from './contexts/user/UserState';
 import AlertState from './contexts/alert/AlertState';
+import ProfileState from './contexts/profile/ProfileState';
 
 
 const App = () => {
 	return (
-		<AuthState>
+		<UserState>
+		<ProfileState>
 		<AlertState>
 			<Router>
 			<Fragment>
-				<Header />
+				<Header title ="Matcha"/>
 				<div className="container">
 					<Alert />
 					<Switch>
 						<PrivateRoute exact path='/' component={Index} />
+						<PrivateRoute exact path='/account' component={Account} />
+						<PrivateRoute exact path='/profile/:userid' component={Profile} />
 						<Route exact path='/register' component={Register} />
 						<Route exact path='/login' component={Login} />
 					</Switch>
@@ -30,7 +37,8 @@ const App = () => {
 			</Fragment>
 			</Router>
 		</AlertState>
-		</AuthState>
+		</ProfileState>
+		</UserState>
 	)
 }
 

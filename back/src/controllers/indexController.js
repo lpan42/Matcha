@@ -67,7 +67,7 @@ export async function addMessage(req, res){
                 return res.status(400).json({ error: addNotif.err });
             }
             else{
-                return res.status(200).json({ message: 'Add one new message'});
+                return res.status(200).json({ success: 'Add one new message'});
             }
         }
     }

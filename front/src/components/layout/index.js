@@ -1,11 +1,11 @@
 //rce from es7 react extension
 import React, { useContext, useEffect } from 'react'
-import AuthContext from '../../contexts/auth/authContext';
+import UserContext from '../../contexts/user/userContext';
 
 const Index = () => {
-  const authContext = useContext(AuthContext);
+  const userContext = useContext(UserContext);
   useEffect(() => {
-    authContext.loadUser();
+    userContext.loadUser();
     //eslint-disable-next-line
   }, []);
 

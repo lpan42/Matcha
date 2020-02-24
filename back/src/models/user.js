@@ -3,14 +3,6 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const moment = require('moment');
 
-export async function modify_firstname(data) {
-    try {
-        await connection.query('UPDATE users SET firstname = ? Where id_user = ?', [data.new_firstname.toLowerCase(), data.userid]);
-    } catch (err) {
-        throw new Error(err);
-    }
-}
-
 export async function getUserInfoById(userid) {
     try {
         const result = await connection.query('SELECT * FROM users WHERE id_user = ?', userid);
@@ -31,12 +23,11 @@ export async function getUserInfoById(userid) {
     }
 }
 
-export async function verifyExistEmail(email) {
+export async function verifyExistEmail(email, userid) {
     try {
-        const result = await connection.query('SELECT email FROM users WHERE email = ?', email.toLowerCase());
-        if (result[0]) {
+        const result = await connection.query('SELECT email, id_user FROM users WHERE email = ?', email.toLowerCase());
+        if(result[0] && result[0].id_user != userid)
             return { err: 'This email has been used' };
-        }
     } catch (err) {
         throw new Error(err);
     }
@@ -111,12 +102,12 @@ export async function getProfileInfoById(userid) {
     try {
         const result = await connection.query(
             `SELECT profiles.id_user, gender, birthday, sex_prefer, biography, location_lat, location_lon, picture, fame, username, firstname, lastname, last_login, online
-		FROM profiles 
-		INNER JOIN users on profiles.id_user = users.id_user
-		WHERE profiles.id_user = ?`,
+            FROM profiles 
+            INNER JOIN users on profiles.id_user = users.id_user
+            WHERE profiles.id_user = ?`,
             userid);
         if (!result[0]) {
-            return { err: 'This user profile does not exist' };
+            return { err: 'This user profile has not create his/her profile' };
         } else {
             return result[0];
         }
@@ -175,18 +166,13 @@ export async function getOneNotif(notifid){
         throw new Error(err);
     }
 }
-export async function modify_email(data) {
-    verifyExistEmail(data.new_email);
-    try {
-        await connection.query('UPDATE users SET email = ? WHERE id_user = ?', [data.new_email.toLowerCase(), data.userid]);
-    } catch (err) {
-        throw new Error(err);
+export async function modifyAccount(data, userid) {
+    const result = await verifyExistEmail(data.email, userid);
+    if(typeof(result) !== 'undefined'){
+        return { err: 'This email has been used by another user' };
     }
-}
-
-export async function modify_lastname(data) {
     try {
-        await connection.query('UPDATE users SET lastname = ? Where id_user = ?', [data.new_lastname.toLowerCase(), data.userid]);
+        await connection.query('UPDATE users SET ? WHERE id_user = ?', [data, userid]);
     } catch (err) {
         throw new Error(err);
     }
