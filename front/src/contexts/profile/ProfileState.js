@@ -5,16 +5,16 @@ import ProfileReducer from './profileReducer';
 import setAuthToken from '../../utils/setAuthToken';
 
 import {
-    GET_PROFILE, NORMAL_ERROR, CLEAR_MESSAGE
+    GET_PROFILE, GET_PROFILE_NO, CLEAR_MESSAGE
 } from '../types';
 
 const ProfileState = props => {
     const initialState = {
-        token: localStorage.getItem('token'),
         profile: null,
+        emptyProfile: null,
         loading: true,
         error: null,
-        success: null,
+        success: null
     }
 
     const [state, dispatch] = useReducer(ProfileReducer, initialState);
@@ -29,7 +29,7 @@ const ProfileState = props => {
             });
         }catch(err){
             dispatch({
-                type: NORMAL_ERROR,
+                type: GET_PROFILE_NO,
                 payload: err.response.data.error
             });
         }
@@ -44,8 +44,8 @@ const ProfileState = props => {
     return (
         <ProfileContext.Provider
             value={{
-                token: state.token,
                 profile: state.profile,
+                emptyProfile: state.emptyProfile,
                 loading: state.loading,
                 error: state.error,
                 success: state.success,

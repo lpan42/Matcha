@@ -2,11 +2,11 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #B4D383;
-  --dark-color: #333333;
-  --light-color: #f4f4f4;
-  --danger-color: #f16270;
-  --success-color: #B4D383;
+  --primary-color: #A5C279;
+  --dark-color: #7C776B;
+  --light-color: #E5C971;
+  --danger-color: #E56858;
+  --success-color: #A5C279;
 }
 
 * {
@@ -29,7 +29,7 @@ a {
 }
 
 a:hover {
-  color: #666;
+  color: var(--light-color);
 }
 
 ul {

@@ -17,7 +17,7 @@ const Header = ({ title }) => {
         <Fragment>
             <li>Hello, {user && user.data.username}
                 <a href='/account'>Account</a>
-                <Link to={`/profile/${user && user.data.id}`} >Profile</Link>
+                <a href={`/profile/${user && user.data.id}`} >Profile</a>
             </li>
             <li>
                 <a href="#!" onClick={onLogout}>Logout</a>

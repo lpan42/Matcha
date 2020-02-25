@@ -80,9 +80,9 @@ export async function getProfile(req, res) {
     if(getProfile.err)
     {
         if (req.userid != req.params.userid){
-            return res.status(400).json({ error: getProfile.err });
+           return res.status(400).json({error: getProfile.err});
         }else{
-            return res.status(400).json({ error: "Seems you have not create your profile."})
+           return res.status(400).json({ error: "Seems you have not create your profile."})
         }
     }
     else{

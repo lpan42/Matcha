@@ -106,7 +106,7 @@ export async function getProfileInfoById(userid) {
             INNER JOIN users on profiles.id_user = users.id_user
             WHERE profiles.id_user = ?`,
             userid);
-        if (!result[0]) {
+        if(!result[0]){
             return { err: 'This user profile has not create his/her profile' };
         } else {
             return result[0];
@@ -118,7 +118,11 @@ export async function getProfileInfoById(userid) {
 
 export async function getInterestsById(userid) {
     try {
-        const result = await connection.query('SELECT id_interest FROM users_interests WHERE id_user = ?', userid);
+        const result = await connection.query(`
+            SELECT interest FROM interests 
+            LEFT JOIN users_interests on interests.id_interest = users_interests.id_interest
+            WHERE users_interests.id_user = ?`, 
+        userid);
         return result;
     } catch (err) {
         throw new Error(err);

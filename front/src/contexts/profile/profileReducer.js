@@ -1,6 +1,6 @@
 import {
     GET_PROFILE,
-    NORMAL_ERROR,
+    GET_PROFILE_NO,
     CLEAR_MESSAGE
 } from '../types';
 
@@ -13,11 +13,11 @@ export default (state, action) => {
                 loading:false,
                 profile: action.payload,
             }
-        case NORMAL_ERROR:
+        case GET_PROFILE_NO:
             return{
                 ...state,
-                profile: null,
-                error: action.payload,
+                emptyProfile: action.payload,
+                error: null,
                 loading: false
             }
         case CLEAR_MESSAGE:
