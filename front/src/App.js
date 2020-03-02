@@ -10,6 +10,7 @@ import Alert from './components/layout/Alert';
 import Index from './components/layout/index';
 import Account from './components/user/Account';
 import Profile from './components/profile/Profile';
+import NotFound from './components/layout/NotFound';
 //state
 import UserState from './contexts/user/UserState';
 import AlertState from './contexts/alert/AlertState';
@@ -32,6 +33,7 @@ const App = () => {
 						<PrivateRoute exact path='/profile/:userid' component={Profile} />
 						<Route exact path='/register' component={Register} />
 						<Route exact path='/login' component={Login} />
+						<Route component={NotFound} />
 					</Switch>
 				</div>
 			</Fragment>

@@ -1,21 +1,23 @@
-import React, { Fragment, useContext, useEffect} from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import Interests from './Interests';
-import EditProfile from './EditProfile'
+import EditProfile from './EditProfile';
 
 const Profile = ({ match }) => {
     const  profileContext = useContext(ProfileContext);
     const  alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
 
-    const { getProfile, profile, emptyProfile, error, success, clearMessage } = profileContext;
+    const { getProfile,    getInterestsList,profile, emptyProfile, error, success, clearMessage } = profileContext;
     const { setAlert } = alertContext;
     const { loadUser, user} = userContext;
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         loadUser();
+        getInterestsList();
         getProfile(match.params.userid);
         if(error) {
             setAlert(error, 'danger');
@@ -28,18 +30,21 @@ const Profile = ({ match }) => {
         // eslint-disable-next-line
     }, [error, success]);
 
-    const OnClick =()=>{
-       
+    const OnClick = () => {
+        setEdit(true);
     }
+
     const RenderProfile = (
         <Fragment>
+            {match.params.userid == (user && user.data.id) ? <button className="btn-primary btn-block" onClick={OnClick}>Edit my Profile</button> : null}
             <p>{profile && profile.data.online ? "online" : ("Offline, since: " + (profile && profile.data.last_login))}</p>
             <p>Fame: {profile && profile.data.fame}</p>
             <p>Fristname: {profile && profile.data.firstname}</p>
             <p>Lastname: {profile && profile.data.lastname}</p>
+            <p>Gender: {profile && profile.data.gender}</p>
             <p>Birthday: {profile && profile.data.birthday}</p>
             <p>Biography: {profile && profile.data.biography}</p>
-            <p>Interest: <Interests interests ={profile && profile.data.interests} /></p>
+            <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
         </Fragment>
     )
     
@@ -52,7 +57,8 @@ const Profile = ({ match }) => {
 
     return (
         <div>
-           { !emptyProfile ? RenderProfile: NoProfile }
+           { !emptyProfile && !edit ? RenderProfile: NoProfile }
+           { edit && <EditProfile /> }
         </div>
     )
 }

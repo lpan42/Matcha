@@ -1,5 +1,3 @@
-import { get } from 'http';
-
 const userModel = require('../models/user');
 const indexModel = require('../models/index');
 const jwtModel = require('../models/jwt');
@@ -210,6 +208,13 @@ export async function unlikeProfile(req,res) {
                 return res.status(200).json({ success: 'You unlike this user'});
         }
     }
+}
+
+export async function getInterestsList(req,res) {
+    const result = await userModel.getInterestsList();
+    return res.status(200).json({
+        data: result
+    });
 }
 
 //get chatroom and message

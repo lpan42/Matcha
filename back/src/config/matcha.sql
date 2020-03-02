@@ -1,5 +1,7 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+01:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -79,7 +81,10 @@ INSERT INTO `messages` (`id_chatroom`, `id_message`, `id_sender`, `time`, `messa
 (21, 5, 4, '2020-02-10 18:36:13', 'how are you?', 0),
 (21, 6, 4, '2020-02-10 18:36:58', 'how are you?', 0),
 (21, 7, 4, '2020-02-10 18:37:07', 'how are you?', 0),
-(21, 8, 4, '2020-02-10 18:38:29', 'how are you?', 0);
+(21, 8, 4, '2020-02-10 18:38:29', 'how are you?', 0),
+(21, 9, 4, '2020-02-13 12:11:28', 'are u there?', 0),
+(21, 10, 4, '2020-02-13 12:13:14', 'are u there?', 0),
+(21, 11, 4, '2020-02-13 12:16:47', 'are u there?', 0);
 
 CREATE TABLE `notifications` (
   `id_notif` int(11) NOT NULL,
@@ -150,7 +155,75 @@ INSERT INTO `notifications` (`id_notif`, `id_user`, `id_sender`, `id_link`, `not
 (91, 1, 4, NULL, 'likes', '2020-02-10 15:19:09', 0),
 (92, 1, 8, NULL, 'likes', '2020-02-10 16:15:31', 0),
 (93, 1, 4, NULL, 'unlikes', '2020-02-10 16:15:45', 0),
-(94, 1, 4, NULL, 'likes', '2020-02-10 16:29:52', 0);
+(94, 1, 4, NULL, 'likes', '2020-02-10 16:29:52', 0),
+(95, 1, 4, 11, 'messages', '2020-02-13 11:16:47', 0),
+(96, 1111, 1, NULL, 'visits', '2020-02-24 12:24:46', 0),
+(97, 1111, 1, NULL, 'visits', '2020-02-24 12:25:57', 0),
+(98, 1111, 1, NULL, 'visits', '2020-02-24 12:35:14', 0),
+(99, 1111, 1, NULL, 'visits', '2020-02-24 12:36:06', 0),
+(100, 1111, 1, NULL, 'visits', '2020-02-24 12:48:15', 0),
+(101, 1, 7, NULL, 'visits', '2020-02-24 13:11:17', 0),
+(102, 1, 7, NULL, 'visits', '2020-02-24 13:11:35', 0),
+(103, 1, 7, NULL, 'visits', '2020-02-24 13:14:45', 0),
+(104, 1, 7, NULL, 'visits', '2020-02-24 17:15:50', 0),
+(105, 1, 7, NULL, 'visits', '2020-02-24 17:16:23', 0),
+(106, 1, 7, NULL, 'visits', '2020-02-24 17:16:35', 0),
+(107, 1, 7, NULL, 'visits', '2020-02-24 17:17:04', 0),
+(108, 1, 7, NULL, 'visits', '2020-02-25 12:00:56', 0),
+(109, 1, 7, NULL, 'visits', '2020-02-25 12:01:26', 0),
+(110, 1, 7, NULL, 'visits', '2020-02-25 12:01:44', 0),
+(111, 1, 7, NULL, 'visits', '2020-02-25 12:02:17', 0),
+(112, 1, 7, NULL, 'visits', '2020-02-25 12:02:21', 0),
+(113, 1, 7, NULL, 'visits', '2020-02-25 12:06:29', 0),
+(114, 1, 7, NULL, 'visits', '2020-02-25 12:06:43', 0),
+(115, 1, 7, NULL, 'visits', '2020-02-25 12:07:29', 0),
+(116, 1, 7, NULL, 'visits', '2020-02-25 12:39:30', 0),
+(117, 1, 7, NULL, 'visits', '2020-02-25 15:17:21', 0),
+(118, 1, 7, NULL, 'visits', '2020-02-25 15:17:48', 0),
+(119, 1, 7, NULL, 'visits', '2020-02-25 15:17:50', 0),
+(120, 1, 7, NULL, 'visits', '2020-02-25 15:19:21', 0),
+(121, 1, 7, NULL, 'visits', '2020-02-25 15:19:29', 0),
+(122, 1, 7, NULL, 'visits', '2020-02-25 15:20:09', 0),
+(123, 1, 7, NULL, 'visits', '2020-02-25 15:30:58', 0),
+(124, 1, 7, NULL, 'visits', '2020-02-25 15:31:38', 0),
+(125, 1, 7, NULL, 'visits', '2020-02-25 15:31:43', 0),
+(126, 1, 7, NULL, 'visits', '2020-02-25 15:31:50', 0),
+(127, 1, 7, NULL, 'visits', '2020-02-25 15:31:54', 0),
+(128, 1, 7, NULL, 'visits', '2020-02-25 15:32:10', 0),
+(129, 1, 7, NULL, 'visits', '2020-02-25 15:35:14', 0),
+(130, 1, 7, NULL, 'visits', '2020-02-25 15:35:16', 0),
+(131, 1, 7, NULL, 'visits', '2020-02-25 15:35:29', 0),
+(132, 1, 7, NULL, 'visits', '2020-02-25 15:36:23', 0),
+(133, 1, 7, NULL, 'visits', '2020-02-25 15:36:41', 0),
+(134, 1, 7, NULL, 'visits', '2020-02-25 15:36:49', 0),
+(135, 1, 7, NULL, 'visits', '2020-02-25 15:36:59', 0),
+(136, 1, 7, NULL, 'visits', '2020-02-25 15:37:03', 0),
+(137, 1, 7, NULL, 'visits', '2020-02-25 15:37:09', 0),
+(138, 1, 7, NULL, 'visits', '2020-02-25 15:37:35', 0),
+(139, 1, 7, NULL, 'visits', '2020-02-25 15:37:41', 0),
+(140, 1, 7, NULL, 'visits', '2020-02-25 15:37:45', 0),
+(141, 1, 7, NULL, 'visits', '2020-02-25 15:37:58', 0),
+(142, 1, 7, NULL, 'visits', '2020-02-25 15:38:02', 0),
+(143, 1, 7, NULL, 'visits', '2020-02-25 15:38:09', 0),
+(144, 1, 7, NULL, 'visits', '2020-02-25 15:38:55', 0),
+(145, 1, 7, NULL, 'visits', '2020-02-25 15:39:17', 0),
+(146, 1, 7, NULL, 'visits', '2020-02-25 15:40:00', 0),
+(147, 1, 7, NULL, 'visits', '2020-02-25 15:40:37', 0),
+(148, 1, 7, NULL, 'visits', '2020-02-25 15:42:57', 0),
+(149, 1, 7, NULL, 'visits', '2020-02-25 15:43:00', 0),
+(150, 1, 7, NULL, 'visits', '2020-02-25 15:43:15', 0),
+(151, 1, 7, NULL, 'visits', '2020-02-25 15:43:22', 0),
+(152, 1, 7, NULL, 'visits', '2020-02-25 15:44:28', 0),
+(153, 1, 7, NULL, 'visits', '2020-02-25 15:48:01', 0),
+(154, 1, 7, NULL, 'visits', '2020-02-25 15:49:57', 0),
+(155, 1, 7, NULL, 'visits', '2020-02-25 15:50:02', 0),
+(156, 1, 7, NULL, 'visits', '2020-02-25 15:52:49', 0),
+(157, 1, 7, NULL, 'visits', '2020-02-25 15:52:53', 0),
+(158, 1, 7, NULL, 'visits', '2020-02-25 15:53:30', 0),
+(159, 1, 7, NULL, 'visits', '2020-02-25 16:23:48', 0),
+(160, 1, 7, NULL, 'visits', '2020-03-02 09:43:25', 0),
+(161, 1, 7, NULL, 'visits', '2020-03-02 09:47:21', 0),
+(162, 1, 7, NULL, 'visits', '2020-03-02 09:48:26', 0);
 
 CREATE TABLE `pics` (
   `id_pic` int(11) NOT NULL,
@@ -172,7 +245,7 @@ CREATE TABLE `profiles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `profiles` (`id_profile`, `id_user`, `gender`, `birthday`, `sex_prefer`, `biography`, `location_lat`, `location_lon`, `picture`, `fame`) VALUES
-(1, 1, 'Female', '1987-09-30', 'hetero', 'hahahahhahha', 0, 0, NULL, 126);
+(1, 1, 'Female', '1988-09-07', 'hetero', 'hahahahhahha', 0, 0, NULL, 188);
 
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
@@ -190,7 +263,9 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` (`id_user`, `email`, `username`, `password`, `firstname`, `lastname`, `active`, `active_link`, `ini_pwd_link`, `online`, `last_login`, `creation_date`) VALUES
-(1, 'ashley.lepan@gmail.com', 'admin', '$2b$10$czclxBLC5TnCBp6llJ8qDOMqSJ/M6U0BC3H.v/lF7XEuskJLBBUAm', 'adrien', 'pan', 1, '8464296e9277a72c3b88', NULL, 1, '2020-02-05 13:35:57', '2020-02-05 12:27:23');
+(1, 'adrien1.vardon@yahoo.fr', 'admin', '$2b$10$czclxBLC5TnCBp6llJ8qDOMqSJ/M6U0BC3H.v/lF7XEuskJLBBUAm', 'le', 'pan', 1, '8464296e9277a72c3b88', NULL, 1, '2020-03-02 10:48:31', '2020-02-05 12:27:23'),
+(7, 'ashley1@gmail.com', 'admin1', '$2b$10$yp0ci/ZM6iVOyldoCvYzTertVDjlPHwRRHakxuisax1P.ov9hvjCy', 'le', 'pan', 1, 'ac4f94e120f1160586d2', NULL, 0, '2020-03-02 10:42:54', '2020-02-19 16:53:56'),
+(14, 'adrien.vardon@yahoo.fr', 'test', '$2b$10$y54mGTEqaiDlKzPwHwpeZOTq23j0ZPxNhjldr.K5stN1dEeY22m0a', 'adrien', 'vardon', 0, '8075501784a54b838625', NULL, 0, NULL, '2020-02-21 18:25:49');
 
 CREATE TABLE `users_interests` (
   `id` int(11) NOT NULL,
@@ -202,7 +277,9 @@ INSERT INTO `users_interests` (`id`, `id_user`, `id_interest`) VALUES
 (5, 1, 1),
 (6, 1, 10),
 (7, 1, 5),
-(9, 1, 6);
+(9, 1, 6),
+(10, 1, 14),
+(11, 1, 11);
 
 
 ALTER TABLE `blocks`
@@ -254,10 +331,10 @@ ALTER TABLE `likes`
   MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 ALTER TABLE `notifications`
-  MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 ALTER TABLE `pics`
   MODIFY `id_pic` int(11) NOT NULL AUTO_INCREMENT;
@@ -266,10 +343,11 @@ ALTER TABLE `profiles`
   MODIFY `id_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 ALTER TABLE `users_interests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

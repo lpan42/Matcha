@@ -15,6 +15,7 @@ router.route('/profile/:userid').get(auth, userController.getProfile);
 router.route('/notif/unread/:userid').get(userController.getUnreadNotif);
 router.route('/notif/read/:notifid').get(userController.readNotif);
 router.route('/history/:userid').get(userController.getHistory);
+router.route('/interests_list').get(userController.getInterestsList);
 
 //modify
 router.route('/modify/account').post(auth, userController.modifyAccount);

@@ -1,7 +1,9 @@
 import {
     GET_PROFILE,
     GET_PROFILE_NO,
-    CLEAR_MESSAGE
+    CLEAR_MESSAGE,
+    GET_INTERESTS_LIST,
+    NORMAL_ERROR,
 } from '../types';
 
 
@@ -23,6 +25,13 @@ export default (state, action) => {
         case CLEAR_MESSAGE:
             return {
                 ...state,
+                error: null,
+                success: null
+            }
+        case GET_INTERESTS_LIST:
+            return {
+                ...state,
+                interests_list: action.payload,
                 error: null,
                 success: null
             }

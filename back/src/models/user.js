@@ -119,7 +119,7 @@ export async function getProfileInfoById(userid) {
 export async function getInterestsById(userid) {
     try {
         const result = await connection.query(`
-            SELECT interest FROM interests 
+            SELECT interests.id_interest, interest FROM interests 
             LEFT JOIN users_interests on interests.id_interest = users_interests.id_interest
             WHERE users_interests.id_user = ?`, 
         userid);
@@ -248,6 +248,16 @@ export async function addLike(userid, likerid){
 export async function unlike(userid, unlikerid){
     try{
         await connection.query('DELETE FROM likes WHERE id_user = ? AND id_sender = ?;', [userid, unlikerid]);
+    }
+    catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function getInterestsList(){
+    try{
+        const result = await connection.query('SELECT * FROM interests;');
+        return result;
     }
     catch (err) {
         throw new Error(err);

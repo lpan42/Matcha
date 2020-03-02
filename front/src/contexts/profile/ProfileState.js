@@ -5,13 +5,18 @@ import ProfileReducer from './profileReducer';
 import setAuthToken from '../../utils/setAuthToken';
 
 import {
-    GET_PROFILE, GET_PROFILE_NO, CLEAR_MESSAGE
+    GET_PROFILE, 
+    GET_PROFILE_NO, 
+    CLEAR_MESSAGE, 
+    GET_INTERESTS_LIST,
+    NORMAL_ERROR
 } from '../types';
 
 const ProfileState = props => {
     const initialState = {
         profile: null,
         emptyProfile: null,
+        interests_list: null,
         loading: true,
         error: null,
         success: null
@@ -35,6 +40,19 @@ const ProfileState = props => {
         }
     }
 
+    const getInterestsList = async () => {
+        try{
+            const result =  await axios.get('/user/interests_list');
+            dispatch({
+                type: GET_INTERESTS_LIST,
+                payload: result.data
+            });
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
     const clearMessage = () => {
         dispatch({
             type: CLEAR_MESSAGE
@@ -49,7 +67,9 @@ const ProfileState = props => {
                 loading: state.loading,
                 error: state.error,
                 success: state.success,
+                interests_list: state.interests_list,
                 getProfile,
+                getInterestsList,
                 clearMessage
             }}
         >

@@ -17,3 +17,4 @@ export const EDIT_ACCOUNT_FAIL = 'EDIT_ACCOUNT_FAIL';
 //profile
 export const GET_PROFILE = 'GET_PROFILE';
 export const GET_PROFILE_NO = 'GET_PROFILE_NO';
+export const GET_INTERESTS_LIST = 'GET_INTERESTS_LIST';
