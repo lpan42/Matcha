@@ -6,7 +6,7 @@ const Interests = ({ interests }) => {
         interest.push(<button className="btn-primary btn-sm" key={key}>{interests[key].interest}</button>);
     }
     return (
-        <Fragment>{interest}</Fragment>
+        <Fragment>{ interest }</Fragment>
     )
 }
 

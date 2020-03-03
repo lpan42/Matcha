@@ -13,8 +13,15 @@ const EditProfile = () => {
     const { setAlert } = alertContext;
     const { user} = userContext;
 
-    const [bio,setBio] = useState(profile.data.biography);
-
+    const [bio,setBio] = useState(profile ? profile.data.biography : null);
+    const [update,setUpdate] = useState({
+        gender:'',
+        birthday:'',
+        biography:'',
+        interests:''
+    }
+    );
+       
     useEffect(() => {
         if(error) {
             setAlert(error, 'danger');
@@ -26,10 +33,18 @@ const EditProfile = () => {
         }
         // eslint-disable-next-line
     }, [error, success]);
-    // console.log("edit profile", interests_list);
     const OnSubmit=(e)=>{
         e.preventDefault();
+        console.log(update.birthday);
+        console.log(update.biography);
     }
+    const updateField = e => {
+        setUpdate({
+          ...update,
+          [e.target.name]: e.target.value
+        });
+      };
+
     return (
         <Fragment>
             <p>Firstname:</p> <p>{user && user.data.firstname}</p> 
@@ -37,26 +52,26 @@ const EditProfile = () => {
             <form onSubmit={OnSubmit}>
                 <div className="form-group">
                     <label htmlFor="gender">Gender: </label>
-                    <input type="radio" value="male" 
-                        checked={profile && profile.data.gender==='Male'? true: false}
-                        onChange={e => profile.data.gender = e.target.value}/> 
+                    <input type="radio" value="male"
+                        checked={profile ? (profile.data.gender==='Male'? true: false) : null}
+                        onChange={updateField}/> 
                         Male
-                    <input type="radio" value="female" 
+                    <input type="radio" value="female"
                         checked={profile && profile.data.gender==='Female' ? true : false}
-                        onChange={e => profile.data.gender = e.target.value} /> 
+                        onChange={updateField} /> 
                         Female
                 </div>
                 <div className="form-group">
                     <label htmlFor="birthday">Birthday: </label>
+                    {profile ? profile.data.birthday : null}
                     <input type='date' name='birthday'
-                    placeholder={profile && profile.data.birthday}
-                    onChange={e => profile.data.birthday = e.target.value.toLowerCase()} />
+                    onChange={updateField} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="lastname">Biography: </label>
                     <input type='text' name='biography'
-                        value={bio} 
-                        onChange={e => profile.data.biography = setBio(e.target.value)} />
+                        value={profile && profile.data.biography} 
+                        onChange={updateField} />
                 </div>
                 <div>
                 <EditInterests interests_list={interests_list && interests_list.data} />
