@@ -7,6 +7,7 @@ const connection = mysql.createPool({
     password: 'rootroot',
     database: 'matcha',
     connectionLimit: 10,
+    dateStrings : true,
     multipleStatements: true
 });
 

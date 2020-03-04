@@ -7,7 +7,7 @@ const Account = () => {
   const userContext = useContext(UserContext);
   const alertContext = useContext(AlertContext);
 
-  const { user, error, success, editAccount, clearMessage, loadUser } = userContext;
+  const { user, error, success, clearMessage, loadUser } = userContext;
   const { setAlert } = alertContext;
   const [edit, setEdit] = useState(false);
 

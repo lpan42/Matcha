@@ -119,7 +119,7 @@ export async function getProfileInfoById(userid) {
 export async function getInterestsById(userid) {
     try {
         const result = await connection.query(`
-            SELECT interests.id_interest, interest FROM interests 
+            SELECT interest FROM interests 
             LEFT JOIN users_interests on interests.id_interest = users_interests.id_interest
             WHERE users_interests.id_user = ?`, 
         userid);
@@ -256,7 +256,7 @@ export async function unlike(userid, unlikerid){
 
 export async function getInterestsList(){
     try{
-        const result = await connection.query('SELECT * FROM interests;');
+        const result = await connection.query('SELECT interest FROM interests;');
         return result;
     }
     catch (err) {

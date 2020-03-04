@@ -18,6 +18,7 @@ const Header = ({ title }) => {
             <li>Hello, {user && user.data.username}
                 <a href='/account'>Account</a>
                 <a href={`/profile/${user && user.data.id}`} >Profile</a>
+                <a href='#' className="fa fa-envelope"></a>
             </li>
             <li>
                 <a href="#!" onClick={onLogout}>Logout</a>

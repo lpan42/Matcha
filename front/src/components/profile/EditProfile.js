@@ -9,16 +9,15 @@ const EditProfile = () => {
     const  alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
 
-    const { getProfile, interests_list, profile, emptyProfile, error, success, clearMessage } = profileContext;
+    const { interests_list, profile, emptyProfile, error, success, clearMessage } = profileContext;
     const { setAlert } = alertContext;
     const { user} = userContext;
 
-    const [bio,setBio] = useState(profile ? profile.data.biography : null);
     const [update,setUpdate] = useState({
-        gender:'',
-        birthday:'',
-        biography:'',
-        interests:''
+        gender: profile ? profile.data.gender : null,
+        sex_prefer: profile ? profile.data.sex_prefer : null,
+        birthday: profile ? profile.data.birthday : null,
+        biography: profile ? profile.data.biography : null,
     }
     );
        
@@ -33,11 +32,13 @@ const EditProfile = () => {
         }
         // eslint-disable-next-line
     }, [error, success]);
+
     const OnSubmit=(e)=>{
         e.preventDefault();
-        console.log(update.birthday);
-        console.log(update.biography);
+        console.log(update);
+  
     }
+
     const updateField = e => {
         setUpdate({
           ...update,
@@ -52,28 +53,35 @@ const EditProfile = () => {
             <form onSubmit={OnSubmit}>
                 <div className="form-group">
                     <label htmlFor="gender">Gender: </label>
-                    <input type="radio" value="male"
-                        checked={profile ? (profile.data.gender==='Male'? true: false) : null}
-                        onChange={updateField}/> 
-                        Male
-                    <input type="radio" value="female"
-                        checked={profile && profile.data.gender==='Female' ? true : false}
-                        onChange={updateField} /> 
-                        Female
+                    <input type="button" name="gender" value="male" 
+                        className={update.gender == 'male' ? "btn-primary btn-sm" : "btn-light btn-sm"}
+                        onClick={updateField}/> 
+                    <input type="button" name="gender" value="female" 
+                        className={update.gender == 'female' ? "btn-primary btn-sm" : "btn-light btn-sm"}
+                        onClick={updateField}/>
+                </div>
+                <div>
+                <label htmlFor="sex_prefer">Sex Orientation: </label>
+                    <input type="button" name="sex_prefer" value="hetero" 
+                        className={update.sex_prefer == 'hetero' ? "btn-primary btn-sm" : "btn-light btn-sm"}
+                        onClick={updateField}/> 
+                        <input type="button" name="sex_prefer" value="homo" 
+                        className={update.sex_prefer == 'homo' ? "btn-primary btn-sm" : "btn-light btn-sm"}
+                        onClick={updateField}/>
+                    <input type="button" name="sex_prefer" value="bio" 
+                        className={update.sex_prefer == 'bio' ? "btn-primary btn-sm" : "btn-light btn-sm"}
+                        onClick={updateField}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="birthday">Birthday: </label>
-                    {profile ? profile.data.birthday : null}
-                    <input type='date' name='birthday'
-                    onChange={updateField} />
+                    <input type='date' name='birthday' value={update.birthday} onChange={updateField} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="lastname">Biography: </label>
-                    <input type='text' name='biography'
-                        value={profile && profile.data.biography} 
-                        onChange={updateField} />
+                    <label htmlFor="biography">Biography: </label>
+                    <textarea rows="4" cols="50" name='biography' value={update.biography} onChange={updateField} />
                 </div>
-                <div>
+                <div  className="form-group">
+                <label htmlFor="Interests">Interests: </label>
                 <EditInterests interests_list={interests_list && interests_list.data} />
                 </div>
                 <input type="submit" value="Comfirm" className="btn btn-primary btn-block" />

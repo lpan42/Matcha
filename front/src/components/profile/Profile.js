@@ -10,7 +10,7 @@ const Profile = ({ match }) => {
     const  alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
 
-    const { getProfile,    getInterestsList,profile, emptyProfile, error, success, clearMessage } = profileContext;
+    const { getProfile, getInterestsList,profile, emptyProfile, error, success, clearMessage } = profileContext;
     const { setAlert } = alertContext;
     const { loadUser, user} = userContext;
     const [edit, setEdit] = useState(false);
@@ -42,6 +42,7 @@ const Profile = ({ match }) => {
             <p>Fristname: {profile && profile.data.firstname}</p>
             <p>Lastname: {profile && profile.data.lastname}</p>
             <p>Gender: {profile && profile.data.gender}</p>
+            <p>Sex Orientation: {profile && profile.data.sex_prefer}</p>
             <p>Birthday: {profile && profile.data.birthday}</p>
             <p>Biography: {profile && profile.data.biography}</p>
             <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
@@ -50,14 +51,15 @@ const Profile = ({ match }) => {
     
     const NoProfile = (
         <Fragment>
-            <p className="text-center">{emptyProfile}</p>
-            {match.params.userid == (user && user.data.id) ? <button className="btn-primary btn-block" onClick={OnClick}>Create my Profile</button> : null}
+            <div className="text-center">{emptyProfile}
+            {(match.params.userid == (user && user.data.id) && !edit) ? <button className="btn-primary btn-block" onClick={OnClick}>Create my Profile</button> : null}
+            </div>
         </Fragment>
     )
 
     return (
         <div>
-           { !emptyProfile && !edit ? RenderProfile: NoProfile }
+           { (!emptyProfile && !edit) ? RenderProfile: NoProfile }
            { edit && <EditProfile /> }
         </div>
     )
