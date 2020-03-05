@@ -3,6 +3,8 @@ import {
     GET_PROFILE_NO,
     CLEAR_MESSAGE,
     GET_INTERESTS_LIST,
+    UPDATE_INTERESTS,
+    UPDATE_PROFILE,
     NORMAL_ERROR,
 } from '../types';
 
@@ -34,6 +36,17 @@ export default (state, action) => {
                 interests_list: action.payload,
                 error: null,
                 success: null
+            }
+        case UPDATE_PROFILE:
+            return {
+                ...state,
+                loading: false,
+                success: action.payload
+            }
+        case UPDATE_INTERESTS:
+            return {
+                ...state,
+                loading: false,
             }
         default:
             return state;

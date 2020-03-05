@@ -116,6 +116,15 @@ export async function getProfileInfoById(userid) {
     }
 }
 
+export async function getCreateProfile(userid){
+    try {
+        const result = await connection.query(`SELECT id_user, username, firstname, lastname, last_login, online FROM users WHERE id_user = ?`,userid);
+        return result[0];
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export async function getInterestsById(userid) {
     try {
         const result = await connection.query(`
@@ -203,20 +212,13 @@ export async function modify_profile(data) {
     }
 }
 
-export async function delete_interest(userid) {
-    try {
-        await connection.query('DELETE FROM users_interests WHERE id_user = ?', userid);
-    } catch (err) {
-        throw new Error(err);
-    }
-}
-
-export async function add_interest(data) {
-    try {
-        await connection.query('INSERT users_interests SET ?', data);
-    } catch (err) {
-        throw new Error(err);
-    }
+export async function modifyInterests(data) {
+    console.log(data.interest)
+    // try {
+    //     await connection.query('INSERT users_interests SET ?', data);
+    // } catch (err) {
+    //     throw new Error(err);
+    // }
 }
 
 export async function getHistory(userid){

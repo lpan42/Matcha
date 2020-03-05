@@ -9,7 +9,9 @@ import {
     GET_PROFILE_NO, 
     CLEAR_MESSAGE, 
     GET_INTERESTS_LIST,
-    NORMAL_ERROR
+    NORMAL_ERROR,
+    UPDATE_INTERESTS,
+    UPDATE_PROFILE
 } from '../types';
 
 const ProfileState = props => {
@@ -53,6 +55,42 @@ const ProfileState = props => {
         }
     }
 
+    const updateProfile = async (formData) => {
+        setAuthToken(localStorage.token);
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try{
+            const result =  await axios.post('/user/modify/profile', formData, config);
+            dispatch({
+                type: UPDATE_PROFILE,
+                payload: result.data.success
+            });
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const updateInterests = async (formData) => {
+        setAuthToken(localStorage.token);
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try{
+            await axios.post('/user/modify/interests', formData, config);
+            dispatch({
+                type: UPDATE_INTERESTS
+                // payload: result.data.success
+            });
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     const clearMessage = () => {
         dispatch({
             type: CLEAR_MESSAGE
@@ -70,6 +108,8 @@ const ProfileState = props => {
                 interests_list: state.interests_list,
                 getProfile,
                 getInterestsList,
+                updateProfile,
+                updateInterests,
                 clearMessage
             }}
         >

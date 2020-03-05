@@ -80,7 +80,11 @@ export async function getProfile(req, res) {
         if (req.userid != req.params.userid){
            return res.status(400).json({error: getProfile.err});
         }else{
-           return res.status(400).json({ error: "Seems you have not create your profile."})
+            let createProfile = await userModel.getCreateProfile(req.userid);
+                createProfile.interests = [];
+           return res.status(200).json({ 
+               data: createProfile
+            })
         }
     }
     else{
@@ -112,21 +116,16 @@ export async function getProfile(req, res) {
 
 export async function modifyProfile(req, res) {
     let data = req.body;
-    data.id_user = req.params.userid;
+    data.id_user = req.userid;
     await userModel.modify_profile(data);
     return res.status(200).json({ success: 'Profile has been successfully updated' });
 }
 
-export async function deleteInterest(req, res) {
-    await userModel.delete_interest(req.params.userid);
-    return res.status(200).json({ success: 'success' });
-}
-
-export async function addInterest(req, res) {
+export async function modifyInterests(req, res) {
     let data = {};
-    data.id_user = req.params.userid;
-    data.id_interest = req.body.id_interest;
-    await userModel.add_interest(data);
+    data.id_user = req.userid;
+    data.interest = req.body;
+    await userModel.modifyInterests(data);
     res.status(200).json({ success: 'Profile has been successfully updated' });
 }
 

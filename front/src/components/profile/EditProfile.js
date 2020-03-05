@@ -9,15 +9,15 @@ const EditProfile = () => {
     const  alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
 
-    const { interests_list, profile, emptyProfile, error, success, clearMessage } = profileContext;
+    const { interests_list, profile, emptyProfile, error, success, clearMessage, updateProfile, updateInterests } = profileContext;
     const { setAlert } = alertContext;
     const { user} = userContext;
 
     const [update,setUpdate] = useState({
-        gender: profile ? profile.data.gender : null,
-        sex_prefer: profile ? profile.data.sex_prefer : null,
-        birthday: profile ? profile.data.birthday : null,
-        biography: profile ? profile.data.biography : null,
+        gender: profile ? profile.data.gender : '',
+        sex_prefer: profile ? profile.data.sex_prefer : '',
+        birthday: profile ? profile.data.birthday : '',
+        biography: profile ? profile.data.biography : '',
     }
     );
        
@@ -36,7 +36,9 @@ const EditProfile = () => {
     const OnSubmit=(e)=>{
         e.preventDefault();
         console.log(update);
-  
+        console.log(profile.data.interests)
+        // updateProfile(update);
+        updateInterests(profile.data.interests);
     }
 
     const updateField = e => {
@@ -62,14 +64,14 @@ const EditProfile = () => {
                 </div>
                 <div>
                 <label htmlFor="sex_prefer">Sex Orientation: </label>
-                    <input type="button" name="sex_prefer" value="hetero" 
-                        className={update.sex_prefer == 'hetero' ? "btn-primary btn-sm" : "btn-light btn-sm"}
+                    <input type="button" name="sex_prefer" value="straight" 
+                        className={update.sex_prefer == 'straight' ? "btn-primary btn-sm" : "btn-light btn-sm"}
                         onClick={updateField}/> 
-                        <input type="button" name="sex_prefer" value="homo" 
-                        className={update.sex_prefer == 'homo' ? "btn-primary btn-sm" : "btn-light btn-sm"}
+                        <input type="button" name="sex_prefer" value="gay" 
+                        className={update.sex_prefer == 'gay' ? "btn-primary btn-sm" : "btn-light btn-sm"}
                         onClick={updateField}/>
-                    <input type="button" name="sex_prefer" value="bio" 
-                        className={update.sex_prefer == 'bio' ? "btn-primary btn-sm" : "btn-light btn-sm"}
+                    <input type="button" name="sex_prefer" value="bi" 
+                        className={update.sex_prefer == 'bi' ? "btn-primary btn-sm" : "btn-light btn-sm"}
                         onClick={updateField}/>
                 </div>
                 <div className="form-group">
