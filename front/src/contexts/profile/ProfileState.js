@@ -9,7 +9,6 @@ import {
     GET_PROFILE_NO, 
     CLEAR_MESSAGE, 
     GET_INTERESTS_LIST,
-    NORMAL_ERROR,
     UPDATE_INTERESTS,
     UPDATE_PROFILE
 } from '../types';

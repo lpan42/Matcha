@@ -25,7 +25,7 @@ const EditInterests = ({ interests_list }) => {
     interests_list.map((interest,key) => {
         if(selectedInterests){
             selectedInterests.map((selectedInterest) => {
-                if (interest.interest == selectedInterest.interest){
+                if (interest.interest === selectedInterest.interest){
                     interests.push(<input className={selected} type="button" onClick={removeInterests} key={key} value={interest.interest}/>);
                     check = true;
                 }

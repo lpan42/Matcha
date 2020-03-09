@@ -5,7 +5,6 @@ import {
     GET_INTERESTS_LIST,
     UPDATE_INTERESTS,
     UPDATE_PROFILE,
-    NORMAL_ERROR,
 } from '../types';
 
 

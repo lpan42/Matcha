@@ -33,10 +33,9 @@ const Profile = ({ match }) => {
     const OnClick = () => {
         setEdit(true);
     }
-
     const RenderProfile = (
         <Fragment>
-            {match.params.userid == (user && user.data.id) ? <button className="btn-primary btn-block" onClick={OnClick}>Edit my Profile</button> : null}
+            {+match.params.userid === (user && user.data.id) ? <button className="btn-primary btn-block" onClick={OnClick}>Edit my Profile</button> : null}
             <p>{profile && profile.data.online ? "online" : ("Offline, since: " + (profile && profile.data.last_login))}</p>
             <p>Fame: {profile && profile.data.fame}</p>
             <p>Fristname: {profile && profile.data.firstname}</p>
@@ -52,7 +51,7 @@ const Profile = ({ match }) => {
     const NoProfile = (
         <Fragment>
             <div className="text-center">{emptyProfile}
-            {(match.params.userid == (user && user.data.id) && !edit) ? <button className="btn-primary btn-block" onClick={OnClick}>Create my Profile</button> : null}
+            {(+match.params.userid === (user && user.data.id) && !edit) ? <button className="btn-primary btn-block" onClick={OnClick}>Create my Profile</button> : null}
             </div>
         </Fragment>
     )
