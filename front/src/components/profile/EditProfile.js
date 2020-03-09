@@ -36,8 +36,8 @@ const EditProfile = () => {
     const OnSubmit=(e)=>{
         e.preventDefault();
         console.log(update);
-        console.log(profile.data.interests)
-        // updateProfile(update);
+        console.log(profile.data.interests);
+        updateProfile(update);
         updateInterests(profile.data.interests);
     }
 

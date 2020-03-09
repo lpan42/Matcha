@@ -213,12 +213,24 @@ export async function modify_profile(data) {
 }
 
 export async function modifyInterests(data) {
-    console.log(data.interest)
-    // try {
-    //     await connection.query('INSERT users_interests SET ?', data);
-    // } catch (err) {
-    //     throw new Error(err);
-    // }
+    try{
+        await connection.query('DELETE FROM users_interests WHERE id_user = ?', data.id_user);
+    }catch(err){
+        throw new Error(err);
+    }
+    data.interest.map( async (interest) => {
+        try{
+            const id_interest = await connection.query('SELECT id_interest FROM interests WHERE interest = ?', interest.interest);
+            try{
+                await connection.query(' INSERT INTO users_interests (id_user, id_interest) VALUES (?,?)',
+                     [data.id_user, id_interest[0].id_interest])
+            }catch (err) {
+                throw new Error(err);
+            }
+        }catch (err) {
+            throw new Error(err);
+        }
+    })
 }
 
 export async function getHistory(userid){
