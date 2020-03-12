@@ -220,9 +220,9 @@ img {
 }
 
 .btn-sm {
-  font-size: 1rem;
-  padding: 0.3rem 1rem;
-  margin-right: 0.2rem;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+  margin-left: 0.4rem;
 }
 
 .badge {

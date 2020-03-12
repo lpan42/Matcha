@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import MailIcon from '@material-ui/icons/Mail';
-import NotifContext from '../../contexts/notif/notifContext';
+import NotifContext from '../../contexts/notification/notifContext';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -17,11 +17,10 @@ const NotifBadge = () => {
     const { unread } = notifContext;
 
     const classes = useStyles();
-    // const nbr = nofif.lengh;
-    // console.log(nbr)
+    const nbr = unread && unread.data.length;
     return (
         <div className={classes.root}>
-        <Badge badgeContent={4} color="primary"><MailIcon /></Badge>
+            <Badge badgeContent={nbr} max={99} color="primary" showZero><MailIcon /></Badge>
         </div>
     );
 }

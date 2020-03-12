@@ -15,7 +15,7 @@ import {
    LOGOUT,
    EDIT_ACCOUNT_FAIL,
    EDIT_ACCOUNT_SUCCESS,
-   NORMAL_ERROR
+   NORMAL_ERROR,
 } from '../types';
 
 const UserState = props => {
@@ -100,6 +100,7 @@ const UserState = props => {
             })
         }
     }
+    
     const clearMessage = () => {
         dispatch({
             type: CLEAR_MESSAGE

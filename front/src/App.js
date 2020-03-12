@@ -17,7 +17,7 @@ import Unread_list from './components\/notification/Unread_list';
 import UserState from './contexts/user/UserState';
 import AlertState from './contexts/alert/AlertState';
 import ProfileState from './contexts/profile/ProfileState';
-import NotifState from './contexts/notif/NotifState';
+import NotifState from './contexts/notification/NotifState';
 
 const App = () => {
 	return (

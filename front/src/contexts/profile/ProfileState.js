@@ -10,7 +10,11 @@ import {
     CLEAR_MESSAGE, 
     GET_INTERESTS_LIST,
     UPDATE_INTERESTS,
-    UPDATE_PROFILE
+    UPDATE_PROFILE,
+    CHECK_LIKE,
+    ADD_LIKE,
+    UN_LIKE,
+    NORMAL_ERROR,
 } from '../types';
 
 const ProfileState = props => {
@@ -18,6 +22,7 @@ const ProfileState = props => {
         profile: null,
         emptyProfile: null,
         interests_list: null,
+        like: false,
         loading: true,
         error: null,
         success: null
@@ -50,7 +55,6 @@ const ProfileState = props => {
             });
         }
         catch(err){
-            console.log(err)
         }
     }
 
@@ -68,7 +72,6 @@ const ProfileState = props => {
                 payload: result.data.success
             });
         }catch(err){
-            console.log(err);
         }
     }
 
@@ -83,10 +86,52 @@ const ProfileState = props => {
             await axios.post('/user/modify/interests', formData, config);
             dispatch({
                 type: UPDATE_INTERESTS
-                // payload: result.data.success
+            });
+        }catch(err){
+        }
+    }
+    const checkLike = async(userid) => {
+        setAuthToken(localStorage.token);
+        try{
+            const result = await axios.get(`/user/checklike/${userid}`);
+            dispatch({
+                type: CHECK_LIKE,
+                payload: result.data.like
             });
         }catch(err){
             console.log(err);
+        }
+    }
+
+    const addLike = async (userid) => {
+        setAuthToken(localStorage.token);
+        try{
+            const result = await axios.post(`/user/like/${userid}`);
+            dispatch({
+                type: ADD_LIKE,
+                payload: result.data.success
+            });
+        }catch(err){
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
+        }
+    }
+
+    const unLike = async (userid) => {
+        setAuthToken(localStorage.token);
+        try{
+            const result = await axios.post(`/user/unlike/${userid}`);
+            dispatch({
+                type: UN_LIKE,
+                payload: result.data.success
+            });
+        }catch(err){
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
 
@@ -102,6 +147,7 @@ const ProfileState = props => {
                 profile: state.profile,
                 emptyProfile: state.emptyProfile,
                 loading: state.loading,
+                like: state.like,
                 error: state.error,
                 success: state.success,
                 interests_list: state.interests_list,
@@ -109,7 +155,10 @@ const ProfileState = props => {
                 getInterestsList,
                 updateProfile,
                 updateInterests,
-                clearMessage
+                clearMessage,
+                checkLike,
+                addLike,
+                unLike,
             }}
         >
         {props.children}

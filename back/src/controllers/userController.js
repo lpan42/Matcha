@@ -130,21 +130,15 @@ export async function modifyInterests(req, res) {
 }
 
 export async function getUnreadNotif(req, res) {
-    const result = await userModel.getUnreadNotif(req.params.userid);
+    const result = await userModel.getUnreadNotif(req.userid);
     return res.status(200).json({
         data: result
     });
 }
 
-export async function readNotif(req, res) {
-    const result = await userModel.getOneNotif(req.params.notifid);
-    if (typeof(result.err) !== 'undefined') {
-        return res.status(400).json({ error: result.err });
-    } else {
-        return res.status(200).json({
-            data: result
-        });
-    }
+export async function clearNotif(req, res) {
+    await userModel.clearNotif(req.userid);
+    return res.status(200).json({ success: 'All you notification has been cleaned'});
 }
 
 export async function getHistory(req, res){
@@ -154,12 +148,20 @@ export async function getHistory(req, res){
     });
 }
 
+export async function checkLike(req,res){
+    const result = await userModel.checkLike(req.params.userid, req.userid);
+    let like = false;
+    if(result[0])
+        like = true;
+    return res.status(200).json({like});
+}
+
 export async function likeProfile(req,res) {
-    if (req.body.likerid != req.params.userid) {
+    if (req.userid != req.params.userid) {
         let data = {
             notification: 'likes',
             id_user: req.params.userid,
-            id_sender: req.body.likerid
+            id_sender: req.userid
         }
         const checklike = await userModel.checkLike(data.id_user, data.id_sender);
         if(checklike[0]){
@@ -183,11 +185,11 @@ export async function likeProfile(req,res) {
 }
 
 export async function unlikeProfile(req,res) {
-    if (req.body.unlikerid != req.params.userid) {
+    if (req.userid != req.params.userid) {
         let data = {
             notification: 'unlikes',
             id_user: req.params.userid,
-            id_sender: req.body.unlikerid
+            id_sender: req.userid
         }
         const checklike = await userModel.checkLike(data.id_user, data.id_sender);
         if(!checklike[0]){

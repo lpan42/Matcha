@@ -5,6 +5,10 @@ import {
     GET_INTERESTS_LIST,
     UPDATE_INTERESTS,
     UPDATE_PROFILE,
+    CHECK_LIKE,
+    ADD_LIKE,
+    NORMAL_ERROR,
+    UN_LIKE,
 } from '../types';
 
 
@@ -46,6 +50,32 @@ export default (state, action) => {
             return {
                 ...state,
                 loading: false,
+            }
+        case CHECK_LIKE:
+            return {
+                ...state,
+                loading: false,
+                like:action.payload,
+            }
+        case ADD_LIKE:
+            return {
+                ...state,
+                loading: false,
+                like:true,
+                success:action.payload
+            }
+        case UN_LIKE:
+            return {
+                ...state,
+                loading: false,
+                like: false,
+                success:action.payload
+            }
+        case NORMAL_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error:action.payload
             }
         default:
             return state;

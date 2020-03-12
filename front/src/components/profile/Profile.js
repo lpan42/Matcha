@@ -5,20 +5,28 @@ import ProfileContext from '../../contexts/profile/profileContext';
 import Interests from './Interests';
 import EditProfile from './EditProfile';
 
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
 const Profile = ({ match }) => {
     const  profileContext = useContext(ProfileContext);
     const  alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
 
-    const { getProfile, getInterestsList,profile, emptyProfile, error, success, clearMessage } = profileContext;
+    const { 
+        profile, emptyProfile, like, error, success,
+        getProfile, checkLike, getInterestsList, clearMessage, unLike, addLike,
+    } = profileContext;
     const { setAlert } = alertContext;
     const { loadUser, user} = userContext;
+
     const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         loadUser();
         getInterestsList();
         getProfile(match.params.userid);
+        checkLike(match.params.userid);
         if(error) {
             setAlert(error, 'danger');
             clearMessage();
@@ -33,19 +41,34 @@ const Profile = ({ match }) => {
     const OnClick = () => {
         setEdit(true);
     }
+    const likeClick = () =>{
+        if(like) unLike(match.params.userid);
+        else addLike(match.params.userid);
+    }
+
     const RenderProfile = (
-        <Fragment>
-            {+match.params.userid === (user && user.data.id) ? <button className="btn-primary btn-block" onClick={OnClick}>Edit my Profile</button> : null}
-            <p>{profile && profile.data.online ? "online" : ("Offline, since: " + (profile && profile.data.last_login))}</p>
-            <p>Fame: {profile && profile.data.fame}</p>
-            <p>Fristname: {profile && profile.data.firstname}</p>
-            <p>Lastname: {profile && profile.data.lastname}</p>
-            <p>Gender: {profile && profile.data.gender}</p>
-            <p>Sex Orientation: {profile && profile.data.sex_prefer}</p>
-            <p>Birthday: {profile && profile.data.birthday}</p>
-            <p>Biography: {profile && profile.data.biography}</p>
-            <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
-        </Fragment>
+        <div>
+            {+match.params.userid === (user && user.data.id) ? 
+                null :
+                (like ? 
+                    <div><FavoriteIcon color="primary" onClick={likeClick}/></div> :
+                    <div><FavoriteBorderIcon color="primary" onClick={likeClick}/></div>
+                )
+            }
+            <div>
+                {+match.params.userid === (user && user.data.id) ? <button className="btn-primary btn-block" onClick={OnClick}>Edit my Profile</button> : null}
+                <p>{profile && profile.data.online ? "online" : ("Offline, since: " + (profile && profile.data.last_login))}</p>
+                <p>Fame: {profile && profile.data.fame}</p>
+                <p>Fristname: {profile && profile.data.firstname}</p>
+                <p>Lastname: {profile && profile.data.lastname}</p>
+                <p>Gender: {profile && profile.data.gender}</p>
+                <p>Sex Orientation: {profile && profile.data.sex_prefer}</p>
+                <p>Birthday: {profile && profile.data.birthday}</p>
+                <p>Biography: {profile && profile.data.biography}</p>
+                <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
+            </div>
+        </div>
+       
     )
     
     const NoProfile = (

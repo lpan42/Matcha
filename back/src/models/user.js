@@ -156,29 +156,26 @@ export async function addNotif(data) {
 
 export async function getUnreadNotif(userid) {
     try {
-        const result = await connection.query('SELECT id_notif, id_sender, notification, notif_time FROM notifications WHERE readed = 0 AND id_user = ? ORDER BY notif_time DESC', userid);
+        const result = await connection.query(`
+        SELECT id_notif, id_sender, users.username, notification, notif_time 
+        FROM notifications 
+        LEFT JOIN users on notifications.id_sender = users.id_user
+        WHERE readed = 0 AND notifications.id_user = ? 
+        ORDER BY notif_time DESC`
+        , userid);
         return (result);
     } catch (err) {
         throw new Error(err);
     }
 }
-export async function getOneNotif(notifid){
-    try {
-        const result = await connection.query('SELECT id_sender, notification, notif_time FROM notifications WHERE id_notif = ?', notifid);
-        if(!result[0]){
-            return { err: 'Notification does not exist' };
-        }
-        try{
-            await connection.query('UPDATE notifications SET readed = 1 WHERE id_notif = ?', notifid);
-
-        }catch (err) {
-            throw new Error(err);
-        }   
-        return (result[0]);
-    } catch (err) {
+export async function clearNotif(userid){
+    try{
+        await connection.query('UPDATE notifications SET readed = 1 WHERE id_user = ?', userid);
+    }catch (err) {
         throw new Error(err);
-    }
+    }   
 }
+
 export async function modifyAccount(data, userid) {
     const result = await verifyExistEmail(data.email, userid);
     if(typeof(result) !== 'undefined'){
