@@ -18,8 +18,8 @@ export const ADD_LIKE = 'ADD_LIKE';
 export const UN_LIKE = 'UN_LIKE';
 
 //notif
-export const GET_UNREAD_MESSAGE = 'GET_UNREAD_MESSAGE';
-export const CLEAR_NOTIF = 'CLEAR_NOTIF';
+export const GET_NOTIF = 'GET_NOTIF';
+export const READ_NOTIF = 'READ_NOTIF';
 
 //profile
 export const GET_PROFILE = 'GET_PROFILE';

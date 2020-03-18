@@ -1,29 +1,31 @@
 import {
-    GET_UNREAD_MESSAGE,
-    CLEAR_NOTIF,
+    GET_NOTIF,
+    READ_NOTIF,
     CLEAR_MESSAGE,
 } from '../types';
 
 
 export default (state, action) => {
     switch (action.type) {
-        case GET_UNREAD_MESSAGE:
+        case GET_NOTIF:
             return{
                 ...state,
                 loading:false,
-                unread: action.payload,
+                notif: action.payload,
             }
-            case CLEAR_NOTIF:
+            case READ_NOTIF:
                 return{
                     ...state,
-                    unread:null,
+                    notif:action.payload,
                     loading:false,
-                    success: action.payload,
+                    error: null,
+                    success: null
                 }
             
             case CLEAR_MESSAGE:
                 return {
                     ...state,
+                    loading:false,
                     error: null,
                     success: null
                 }

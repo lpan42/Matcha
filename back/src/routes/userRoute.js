@@ -12,10 +12,10 @@ router.route('/logout').get(auth, userController.logout);
 //getInfo
 router.route('/account/:userid').get(auth, userController.getAccount);
 router.route('/profile/:userid').get(auth, userController.getProfile);
-
 router.route('/interests_list').get(userController.getInterestsList);
-router.route('/notif/unread').get(auth, userController.getUnreadNotif);
-router.route('/notif/clear').get(auth, userController.clearNotif);
+
+router.route('/notif/get_notif').get(auth, userController.getNotif);
+router.route('/notif/read/:id_notif').get(auth, userController.readNotif);
 router.route('/history/:userid').get(userController.getHistory);
 
 router.route('/checklike/:userid').get(auth,userController.checkLike);

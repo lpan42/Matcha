@@ -5,14 +5,14 @@ import NotifReducer from './notifReducer';
 import setAuthToken from '../../utils/setAuthToken';
 
 import {
-    GET_UNREAD_MESSAGE,
-    CLEAR_NOTIF,
+    GET_NOTIF,
+    READ_NOTIF,
     CLEAR_MESSAGE
  } from '../types';
  
  const NotifState = props => {
     const initialState = {
-        unread: null,
+        notif: null,
         loading: true,
         error: null,
         success: null
@@ -20,29 +20,29 @@ import {
 
     const [state, dispatch] = useReducer(NotifReducer, initialState);
 
-    const get_unread_message = async () => {
+    const getNotif = async () => {
         setAuthToken(localStorage.token);
         try{
-            const result =  await axios.get('/user/notif/unread');
+            const result =  await axios.get('/user/notif/get_notif');
             dispatch({
-                type: GET_UNREAD_MESSAGE,
+                type: GET_NOTIF,
                 payload: result.data
             });
         }catch(err){
-               console.log(err);
+            console.log(err);
         }
     }
     
-    const clearNotif = async () =>{
+    const readNotif = async (id_notif) => {
         setAuthToken(localStorage.token);
         try{
-            const result =  await axios.get('/user/notif/clear');
+            const result =  await axios.get(`/user/notif/read/${id_notif}`);
             dispatch({
-                type: CLEAR_NOTIF,
-                payload: result.data.success
+                type: READ_NOTIF,
+                payload: result.data
             });
         }catch(err){
-               console.log(err);
+            console.log(err);
         }
     }
 
@@ -54,12 +54,12 @@ import {
     return (
         <NotifContext.Provider
             value={{
-                unread: state.unread,
+                notif: state.notif,
                 loading: state.loading,
                 error: state.error,
                 success: state.success,
-                get_unread_message,
-                clearNotif,
+                getNotif,
+                readNotif,
                 clearMessage,
             }}
         >

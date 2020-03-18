@@ -129,16 +129,19 @@ export async function modifyInterests(req, res) {
     res.status(200).json({ success: 'Profile has been successfully updated' });
 }
 
-export async function getUnreadNotif(req, res) {
-    const result = await userModel.getUnreadNotif(req.userid);
+export async function getNotif(req, res) {
+    const result = await userModel.getNotif(req.userid);
     return res.status(200).json({
         data: result
     });
 }
 
-export async function clearNotif(req, res) {
-    await userModel.clearNotif(req.userid);
-    return res.status(200).json({ success: 'All you notification has been cleaned'});
+export async function readNotif(req, res) {
+    await userModel.readNotif(req.params.id_notif);
+    const result = await userModel.getNotif(req.userid);
+    return res.status(200).json({
+        data: result
+    });
 }
 
 export async function getHistory(req, res){

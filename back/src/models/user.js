@@ -154,13 +154,13 @@ export async function addNotif(data) {
     }
 }
 
-export async function getUnreadNotif(userid) {
+export async function getNotif(userid) {
     try {
         const result = await connection.query(`
-        SELECT id_notif, id_sender, users.username, notification, notif_time 
+        SELECT id_notif, id_sender, users.username, notification, notif_time, readed
         FROM notifications 
         LEFT JOIN users on notifications.id_sender = users.id_user
-        WHERE readed = 0 AND notifications.id_user = ? 
+        WHERE notifications.id_user = ? 
         ORDER BY notif_time DESC`
         , userid);
         return (result);
@@ -168,9 +168,9 @@ export async function getUnreadNotif(userid) {
         throw new Error(err);
     }
 }
-export async function clearNotif(userid){
+export async function readNotif(id_notif){
     try{
-        await connection.query('UPDATE notifications SET readed = 1 WHERE id_user = ?', userid);
+        await connection.query('UPDATE notifications SET readed = 1 WHERE id_notif = ?', id_notif);
     }catch (err) {
         throw new Error(err);
     }   
@@ -230,14 +230,14 @@ export async function modifyInterests(data) {
     })
 }
 
-export async function getHistory(userid){
-    try{
-        const result = await connection.query("SELECT id_notif, id_sender, notification, notif_time FROM notifications WHERE id_user = ? ORDER BY notif_time DESC", userid);
-        return (result);
-    } catch (err) {
-        throw new Error(err);
-    }
-}
+// export async function getHistory(userid){
+//     try{
+//         const result = await connection.query("SELECT id_notif, id_sender, notification, notif_time,readed FROM notifications WHERE id_user = ? ORDER BY notif_time DESC", userid);
+//         return (result);
+//     } catch (err) {
+//         throw new Error(err);
+//     }
+// }
 
 export async function checkLike(userid, likerid){
     try{

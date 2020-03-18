@@ -4,6 +4,7 @@ import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import Interests from './Interests';
 import EditProfile from './EditProfile';
+import Spinner from '../layout/Spinner';
 
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -14,14 +15,14 @@ const Profile = ({ match }) => {
     const  userContext = useContext(UserContext);
 
     const { 
-        profile, emptyProfile, like, error, success,
+        profile, emptyProfile, like, error, success, loading,
         getProfile, checkLike, getInterestsList, clearMessage, unLike, addLike,
     } = profileContext;
     const { setAlert } = alertContext;
     const { loadUser, user} = userContext;
 
     const [edit, setEdit] = useState(false);
-
+  
     useEffect(() => {
         loadUser();
         getInterestsList();
@@ -37,6 +38,8 @@ const Profile = ({ match }) => {
         }
         // eslint-disable-next-line
     }, [error, success]);
+
+    if (loading) return <Spinner />;
 
     const OnClick = () => {
         setEdit(true);
@@ -56,7 +59,7 @@ const Profile = ({ match }) => {
                 )
             }
             <div>
-                {+match.params.userid === (user && user.data.id) ? <button className="btn-primary btn-block" onClick={OnClick}>Edit my Profile</button> : null}
+                {+match.params.userid === (user && user.data.id) ? <button className="btn-primary" onClick={OnClick}>Edit my Profile</button> : null}
                 <p>{profile && profile.data.online ? "online" : ("Offline, since: " + (profile && profile.data.last_login))}</p>
                 <p>Fame: {profile && profile.data.fame}</p>
                 <p>Fristname: {profile && profile.data.firstname}</p>
@@ -68,7 +71,6 @@ const Profile = ({ match }) => {
                 <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
             </div>
         </div>
-       
     )
     
     const NoProfile = (

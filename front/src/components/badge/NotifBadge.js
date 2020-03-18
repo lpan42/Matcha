@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import MailIcon from '@material-ui/icons/Mail';
@@ -14,10 +14,16 @@ const useStyles = makeStyles(theme => ({
 
 const NotifBadge = () => {
     const notifContext = useContext(NotifContext);
-    const { unread } = notifContext;
+    const { notif } = notifContext;
 
     const classes = useStyles();
-    const nbr = unread && unread.data.length;
+   
+    let nbr = 0; 
+    notif && notif.data.map((message) => {
+    if(!message.readed)
+        nbr++;
+    });
+
     return (
         <div className={classes.root}>
             <Badge badgeContent={nbr} max={99} color="primary" showZero><MailIcon /></Badge>

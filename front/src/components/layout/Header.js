@@ -5,17 +5,20 @@ import { Link } from 'react-router-dom';//import from default does not need {}
 import UserContext from '../../contexts/user/userContext';
 import NotifContext from '../../contexts/notification/notifContext';
 import NotifBadge from '../badge/NotifBadge';
+import Spinner from '../layout/Spinner';
 
 const Header = ({ title }) => {
     const userContext = useContext(UserContext);
     const notifContext = useContext(NotifContext);
 
-    const { token, logout, user } = userContext;
-    const { unread, get_unread_message } = notifContext;
+    const { token, logout, user, loading} = userContext;
+    const { getNotif } = notifContext;
 
     useEffect(() => {
-        get_unread_message();
+        getNotif();
     }, []);
+
+    if (loading) return <Spinner />;
 
     const onLogout = () => {
         logout();
@@ -23,13 +26,10 @@ const Header = ({ title }) => {
 
     const authLinks = (
         <Fragment>
-            <li>Hello, {user && user.data.username}
+            <li>Hi, {user && user.data.username}
                 <a href='/notif'><NotifBadge /></a>
                 <a href='/account'>Account</a>
                 <a href={`/profile/${user && user.data.id}`} >Profile</a>
-                
-            </li>
-            <li>
                 <a href="#!" onClick={onLogout}>Logout</a>
             </li>
         </Fragment>
