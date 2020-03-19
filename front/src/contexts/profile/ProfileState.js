@@ -15,6 +15,7 @@ import {
     ADD_LIKE,
     UN_LIKE,
     NORMAL_ERROR,
+    CLEAR_PROFILE,
 } from '../types';
 
 const ProfileState = props => {
@@ -134,6 +135,11 @@ const ProfileState = props => {
             });
         }
     }
+    const clearProfile = () => {
+        dispatch({
+            type: CLEAR_PROFILE
+        })
+    }
 
     const clearMessage = () => {
         dispatch({
@@ -159,6 +165,7 @@ const ProfileState = props => {
                 checkLike,
                 addLike,
                 unLike,
+                clearProfile,
             }}
         >
         {props.children}

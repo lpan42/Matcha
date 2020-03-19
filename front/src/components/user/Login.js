@@ -2,17 +2,25 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
+import NotifContext from '../../contexts/notification/notifContext';
+import ProfileContext from '../../contexts/profile/profileContext';
 
 const Login = (props) => {
     const alertContext = useContext(AlertContext);
     const userContext = useContext(UserContext);
+    const notifContext = useContext(NotifContext);
+    const  profileContext = useContext(ProfileContext);
 
     const { setAlert } = alertContext;
-    const { login, error, clearMessage, token, success } = userContext;
-
+    const { login, error, clearMessage, token, success,user } = userContext;
+    const { getProfile} = profileContext;
+    const { getNotif } = notifContext;
+    
     useEffect(() => {
-        if(token){
-            props.history.push('/');//redirect
+        if(token && user){
+            getNotif();
+            getProfile(user && user.data.id);
+            props.history.push('/');
         }
         if(error) {
             setAlert(error, 'danger');
@@ -23,16 +31,16 @@ const Login = (props) => {
             clearMessage();
         }
         //eslint-disable-next-line
-    }, [error, token, props.history, success]);
+    }, [error, token, user, props.history, success]);
     
-    const [user, setUser] = useState({
+    const [loginUser, setLoginUser] = useState({
         username: '',
         password: '',
     })
-    const { username, password } = user;
+    const { username, password } = loginUser;
     
     const onChange = e => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
     }
 
     const onSubmit = e => {

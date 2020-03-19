@@ -9,6 +9,7 @@ import {
     ADD_LIKE,
     NORMAL_ERROR,
     UN_LIKE,
+    CLEAR_PROFILE,
 } from '../types';
 
 
@@ -76,6 +77,17 @@ export default (state, action) => {
                 ...state,
                 loading: false,
                 error:action.payload
+            }
+        case CLEAR_PROFILE:
+            return {
+                ...state,
+                profile: null,
+                emptyProfile: null,
+                interests_list: null,
+                like: false,
+                loading: true,
+                error: null,
+                success: null
             }
         default:
             return state;

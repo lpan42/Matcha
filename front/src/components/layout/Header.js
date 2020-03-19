@@ -4,29 +4,37 @@ import PropTypes from 'prop-types';//shortcut impt
 import { Link } from 'react-router-dom';//import from default does not need {}
 import UserContext from '../../contexts/user/userContext';
 import NotifContext from '../../contexts/notification/notifContext';
+import ProfileContext from '../../contexts/profile/profileContext';
 import NotifBadge from '../badge/NotifBadge';
-import Spinner from '../layout/Spinner';
+import ImageAvatars from '../badge/ImageAvatars';
+
 
 const Header = ({ title }) => {
     const userContext = useContext(UserContext);
     const notifContext = useContext(NotifContext);
+    const  profileContext = useContext(ProfileContext);
 
-    const { token, logout, user, loading} = userContext;
-    const { getNotif } = notifContext;
+    const { token, logout, user } = userContext;
+    const { getProfile, clearProfile} = profileContext;
+    const { getNotif, clearNotif } = notifContext;
 
     useEffect(() => {
-        getNotif();
-    }, []);
-
-    if (loading) return <Spinner />;
+        if(user){
+            getNotif();
+            getProfile(user && user.data.id);
+        }
+        //eslint-disable-next-line
+    }, [user]);
 
     const onLogout = () => {
         logout();
+        clearNotif();
+        clearProfile();
     }
 
     const authLinks = (
         <Fragment>
-            <li>Hi, {user && user.data.username}
+            <li><ImageAvatars />
                 <a href='/notif'><NotifBadge /></a>
                 <a href='/account'>Account</a>
                 <a href={`/profile/${user && user.data.id}`} >Profile</a>

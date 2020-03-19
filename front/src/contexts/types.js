@@ -20,6 +20,7 @@ export const UN_LIKE = 'UN_LIKE';
 //notif
 export const GET_NOTIF = 'GET_NOTIF';
 export const READ_NOTIF = 'READ_NOTIF';
+export const CLEAR_NOTIF = 'CLEAR_NOTIF';
 
 //profile
 export const GET_PROFILE = 'GET_PROFILE';
@@ -28,5 +29,5 @@ export const GET_INTERESTS_LIST = 'GET_INTERESTS_LIST';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const UPDATE_INTERESTS = 'UPDATE_INTERESTS';
 export const CHECK_LIKE = 'CHECK_LIKE';
-
+export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 

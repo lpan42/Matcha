@@ -12,16 +12,16 @@ const Account = () => {
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
-	loadUser();
-	if(error) {
-		setAlert(error, 'danger');
-		clearMessage();
-	}
-	if(success) {
-    setAlert(success, 'success');
-    clearMessage();
-	}
-    //eslint-disable-next-line
+    loadUser();
+    if(error) {
+      setAlert(error, 'danger');
+      clearMessage();
+    }
+    if(success) {
+      setAlert(success, 'success');
+      clearMessage();
+    }
+      //eslint-disable-next-line
   }, [error, success]);
 
   const onClick = () => {

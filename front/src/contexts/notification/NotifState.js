@@ -7,7 +7,8 @@ import setAuthToken from '../../utils/setAuthToken';
 import {
     GET_NOTIF,
     READ_NOTIF,
-    CLEAR_MESSAGE
+    CLEAR_MESSAGE,
+    CLEAR_NOTIF,
  } from '../types';
  
  const NotifState = props => {
@@ -45,7 +46,11 @@ import {
             console.log(err);
         }
     }
-
+    const clearNotif = () => {
+        dispatch({
+            type: CLEAR_NOTIF
+        })
+    }
     const clearMessage = () => {
         dispatch({
             type: CLEAR_MESSAGE
@@ -61,6 +66,7 @@ import {
                 getNotif,
                 readNotif,
                 clearMessage,
+                clearNotif,
             }}
         >
         {props.children}
