@@ -16,6 +16,7 @@ import {
     UN_LIKE,
     NORMAL_ERROR,
     CLEAR_PROFILE,
+    UPDATE_AVATAR,
 } from '../types';
 
 const ProfileState = props => {
@@ -147,6 +148,28 @@ const ProfileState = props => {
         })
     }
     
+    const updateAvatar = async (formData) => {
+        setAuthToken(localStorage.token);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        try{
+            const result = await axios.post(`/user/upload/avatar`, formData, config);
+            dispatch({
+                type: UPDATE_AVATAR,
+                payload: result.data.success
+            });
+        }catch(err){
+            console.log(err);
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
+        }
+    }
+
     return (
         <ProfileContext.Provider
             value={{
@@ -166,6 +189,7 @@ const ProfileState = props => {
                 addLike,
                 unLike,
                 clearProfile,
+                updateAvatar,
             }}
         >
         {props.children}

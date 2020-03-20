@@ -230,15 +230,6 @@ export async function modifyInterests(data) {
     })
 }
 
-// export async function getHistory(userid){
-//     try{
-//         const result = await connection.query("SELECT id_notif, id_sender, notification, notif_time,readed FROM notifications WHERE id_user = ? ORDER BY notif_time DESC", userid);
-//         return (result);
-//     } catch (err) {
-//         throw new Error(err);
-//     }
-// }
-
 export async function checkLike(userid, likerid){
     try{
         const result = await connection.query("SELECT * FROM likes WHERE id_user = ? AND id_sender = ?", [userid, likerid]);
@@ -272,5 +263,23 @@ export async function getInterestsList(){
     }
     catch (err) {
         throw new Error(err);
+    }
+}
+
+export async function uploadAvatar(userid, filename){
+    const profile = await connection.query('SELECT id_user FROM profiles WHERE id_user = ?', userid);
+    if (!profile[0]) {
+        try {
+            await connection.query('INSERT INTO profiles ( picture, id_user) VALUES (?, ?)', [filename, userid]);
+        } catch (err) {
+            throw new Error(err);
+        }
+    }else{
+        try{
+            await connection.query('UPDATE profiles SET picture = ? WHERE id_user = ?', [filename, userid]);
+        } 
+        catch (err) {
+            throw new Error(err);
+        }
     }
 }

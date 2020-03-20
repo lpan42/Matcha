@@ -30,4 +30,4 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const UPDATE_INTERESTS = 'UPDATE_INTERESTS';
 export const CHECK_LIKE = 'CHECK_LIKE';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
-
+export const UPDATE_AVATAR = 'UPDATE_AVATAR';

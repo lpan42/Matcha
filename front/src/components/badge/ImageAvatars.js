@@ -21,7 +21,7 @@ const ImageAvatars = () => {
         <div className={classes.root}>
         {
           picture
-          ? <Avatar alt={profile && profile.data.firstname} src={`../images/${profile && profile.data.picture}`}/>
+          ? <Avatar alt={picture} src={`../images/${picture}`}/>
           : <Avatar>{profile && profile.data.firstname}</Avatar>
         }
             

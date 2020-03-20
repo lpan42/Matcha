@@ -9,6 +9,7 @@ import ImageAvatars from '../badge/ImageAvatars';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
+
 const Profile = ({ match }) => {
     const  profileContext = useContext(ProfileContext);
     const  alertContext = useContext(AlertContext);
@@ -60,7 +61,7 @@ const Profile = ({ match }) => {
             }
             <div>
                 {+match.params.userid === (user && user.data.id) ? <button className="btn-primary" onClick={OnClick}>Edit my Profile</button> : null}
-                <ImageAvatars />    
+                <ImageAvatars />
                 <p>{profile && profile.data.online ? "online" : ("Offline, since: " + (profile && profile.data.last_login))}</p>
                 <p>Fame: {profile && profile.data.fame}</p>
                 <p>Fristname: {profile && profile.data.firstname}</p>

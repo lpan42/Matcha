@@ -10,6 +10,7 @@ import {
     NORMAL_ERROR,
     UN_LIKE,
     CLEAR_PROFILE,
+    UPDATE_AVATAR,
 } from '../types';
 
 
@@ -25,7 +26,6 @@ export default (state, action) => {
             return{
                 ...state,
                 emptyProfile: action.payload,
-                error: null,
                 loading: false
             }
         case CLEAR_MESSAGE:
@@ -89,6 +89,13 @@ export default (state, action) => {
                 error: null,
                 success: null
             }
+        case UPDATE_AVATAR:
+            return{
+                ...state,
+                loading: false,
+                success: action.payload
+            }
+
         default:
             return state;
     }

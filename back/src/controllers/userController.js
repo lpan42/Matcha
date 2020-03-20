@@ -1,6 +1,7 @@
 const userModel = require('../models/user');
 const indexModel = require('../models/index');
 const jwtModel = require('../models/jwt');
+var fs = require('fs');
 
 export async function getAccount(req, res) {
     const result = await userModel.getUserInfoById(req.userid);
@@ -221,4 +222,21 @@ export async function getInterestsList(req,res) {
     });
 }
 
+export async function uploadAvatar(req,res) {
+    if(req.files == null){
+        return res.status(400).json({ error: 'No file was uploaded'});
+    }
+    const file = req.files.file;
+    const filename = req.userid + "_1";
+    file.mv(`../front/public/images/${filename}`, err => {
+        if(err){
+            console.log(err);
+            return res.status(500).send(err);
+        }
+    });
+    await userModel.uploadAvatar(req.userid, filename);
+    return res.status(200).json({
+        success: "You avatar has been updated successfully"
+    });
+}
 //get chatroom and message

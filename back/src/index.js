@@ -1,11 +1,13 @@
 const express = require('express'),
     app = express(),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    fileUpload = require('express-fileupload');
     // io = require('socket.io')(http);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
+// app.use(express.static(path.join(__dirname, '/public')));
 
 // include router
 const userRoute = require('./routes/userRoute');

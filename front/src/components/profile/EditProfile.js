@@ -16,10 +16,10 @@ const EditProfile = () => {
     const { user} = userContext;
 
     const [update,setUpdate] = useState({
-        gender: profile ? profile.data.gender : '',
-        sex_prefer: profile ? profile.data.sex_prefer : '',
-        birthday: profile ? profile.data.birthday : '',
-        biography: profile ? profile.data.biography : '',
+        gender: profile.data.gender ? profile.data.gender : '',
+        sex_prefer: profile.data.sex_prefer ? profile.data.sex_prefer : '',
+        birthday: profile.data.birthday ? profile.data.birthday : '',
+        biography: profile.data.biography ? profile.data.biography : '',
     }
     );
        
@@ -47,7 +47,7 @@ const EditProfile = () => {
           [e.target.name]: e.target.value
         });
       };
-
+    
     return (
         <Fragment>
             <ImageAvatars /> <UploadAvatars />
