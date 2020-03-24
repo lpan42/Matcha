@@ -3,8 +3,9 @@ import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import EditInterests from './EditInterests';
-import UploadAvatars from './UploadAvatars';
-import ImageAvatars from '../badge/ImageAvatars';
+import UploadAvatars from '../modals/UploadAvatars';
+import ImageAvatars from '../badges/ImageAvatars';
+import EditPictures from './EditPictures';
 
 const EditProfile = () => {
     const  profileContext = useContext(ProfileContext);
@@ -50,9 +51,10 @@ const EditProfile = () => {
     
     return (
         <Fragment>
-            <ImageAvatars /> <UploadAvatars />
-            <p>Firstname:</p> <p>{user && user.data.firstname}</p> 
-            <p>Lastname:</p> <p>{user && user.data.lastname}</p>
+            <ImageAvatars avatarPath={profile && profile.data.avatar}/> <UploadAvatars />
+            <p>Username: {user && user.data.username}</p>
+            <p>Firstname: {user && user.data.firstname}</p> 
+            <p>Lastname: {user && user.data.lastname}</p>
             <form onSubmit={OnSubmit}>
                 <div className="form-group">
                     <label htmlFor="gender">Gender: </label>
@@ -78,7 +80,7 @@ const EditProfile = () => {
                     <input type='date' name='birthday' value={update.birthday} onChange={updateField} />
                     <br/>
                     <label htmlFor="Pictures">Pictures: </label><br/>
-                    {/* <UploadPics /> */}
+                    <EditPictures />
                     <br/>
                     <label htmlFor="biography">Biography: </label>
                     <textarea rows="4" cols="50" name='biography' value={update.biography} onChange={updateField} />

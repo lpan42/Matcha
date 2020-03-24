@@ -31,6 +31,7 @@ const Account = () => {
   const accountInfo = (
     <Fragment>
       <div className="form-group"> 
+          <p>Username:</p> <p>{user && user.data.username}</p> 
           <p>Email:</p> <p>{user && user.data.email}</p> 
           <p>Firstname:</p> <p>{user && user.data.firstname}</p> 
           <p>Lastname:</p> <p>{user && user.data.lastname}</p>

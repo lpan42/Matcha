@@ -56,21 +56,24 @@ export default (state, action) => {
             return {
                 ...state,
                 loading: false,
-                like:action.payload,
+                like:action.payload.like,
+                connected:action.payload.connected,
             }
         case ADD_LIKE:
             return {
                 ...state,
                 loading: false,
                 like:true,
-                success:action.payload
+                connected:action.payload.connected,
+                success:action.payload.success
             }
         case UN_LIKE:
             return {
                 ...state,
                 loading: false,
                 like: false,
-                success:action.payload
+                connected:action.payload.connected,
+                success:action.payload.success
             }
         case NORMAL_ERROR:
             return {

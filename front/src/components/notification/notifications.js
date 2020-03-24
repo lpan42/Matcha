@@ -41,7 +41,7 @@ const Notifications = () => {
             <li key={key} style={message.readed ? {color:"black"} : {color:"var(--primary-color)"}}>
                 {message.username} {message.notification} you on {message.notif_time} 
                 {message.notification === "messages" ? 
-                    <button className="btn-sm btn-primary" ><a href="/" style={{color: "white"}}> Send a message</a></button> :
+                    <button className="btn-sm btn-primary" ><a href="/" style={{color: "white"}}> Send a message</a></button> : 
                     <button className="btn-sm btn-primary" onClick={()=>{visitProfile(message.id_sender, message.id_notif)}} style={{color: "white"}}>Visit Profile</button> 
                 }
             </li>

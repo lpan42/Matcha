@@ -37,8 +37,8 @@ const UploadPics = () => {
 
   const [open, setOpen] = React.useState(false);
   const [pic, setPic] = useState(null);
-  const [picName, setPicName] = useState(profile.data.picture ? profile.data.picture : null);
-  const [src, setSrc] = useState(profile.data.picture ? `../images/${picName}` : null);
+  const [picName, setPicName] = useState(profile.data.avatar ? profile.data.avatar : null);
+  const [src, setSrc] = useState(profile.data.avatar ? `../images/${picName}` : null);
 
   useEffect(() => {
       if(error) {
@@ -76,9 +76,9 @@ const UploadPics = () => {
 
   const OnChange = (e) => {
       if(checkPic(e.target.files[0])){
-		setPic(e.target.files[0]);
-		setSrc(URL.createObjectURL(e.target.files[0]));
-		setPicName(e.target.files[0].name);
+      setPic(e.target.files[0]);
+      setSrc(URL.createObjectURL(e.target.files[0]));
+      setPicName(e.target.files[0].name);
 	  }
   }
 
@@ -91,9 +91,9 @@ const UploadPics = () => {
   }
 
   return (
-      <div>
+      <Fragment>
         <button type="button" className="btn btn-primary btn-sm" onClick={handleOpen}>
-          Edit
+        Edit Avatar
         </button>
         <Modal
           className={classes.modal}
@@ -116,7 +116,7 @@ const UploadPics = () => {
             </div>
           </Fade>
         </Modal>
-      </div>
+      </Fragment>
   );
 }
 

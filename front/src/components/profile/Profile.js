@@ -1,11 +1,15 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
+import moment from 'moment';
 import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import Interests from './Interests';
 import EditProfile from './EditProfile';
+import Pictures from './Pictures';
 import Spinner from '../layout/Spinner';
-import ImageAvatars from '../badge/ImageAvatars';
+import DiscounnectComfirm from '../modals/DisconnectComfirm';
+
+import ImageAvatars from '../badges/ImageAvatars';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
@@ -16,14 +20,15 @@ const Profile = ({ match }) => {
     const  userContext = useContext(UserContext);
 
     const { 
-        profile, emptyProfile, like, error, success, loading,
+        profile, emptyProfile, like, error, success, loading, connected,
         getProfile, checkLike, getInterestsList, clearMessage, unLike, addLike,
     } = profileContext;
     const { setAlert } = alertContext;
     const { loadUser, user} = userContext;
 
     const [edit, setEdit] = useState(false);
-  
+    const [show, setShow] = useState(false);
+    
     useEffect(() => {
         loadUser();
         getInterestsList();
@@ -45,31 +50,51 @@ const Profile = ({ match }) => {
     const OnClick = () => {
         setEdit(true);
     }
-    const likeClick = () =>{
-        if(like) unLike(match.params.userid);
-        else addLike(match.params.userid);
+    const LikeClick = () => {
+        addLike(match.params.userid);
     }
+
+    const UnLikeClick = () => {
+        if(!connected){
+            unLike(match.params.userid);
+        }
+        else{
+            setShow(true);
+        }
+    }
+    const calculateAge = moment().diff(profile && profile.data.birthday,'years');
 
     const RenderProfile = (
         <div>
             {+match.params.userid === (user && user.data.id) ? 
                 null :
                 (like ? 
-                    <div><FavoriteIcon color="primary" onClick={likeClick}/></div> :
-                    <div><FavoriteBorderIcon color="primary" onClick={likeClick}/></div>
+                    <div><FavoriteIcon color="primary" onClick={UnLikeClick}/></div> :
+                    <div><FavoriteBorderIcon color="primary" onClick={LikeClick}/></div>
                 )
             }
+            {show ? <DiscounnectComfirm show={show} handleClose={()=>setShow(false)}/> : null}
             <div>
-                {+match.params.userid === (user && user.data.id) ? <button className="btn-primary" onClick={OnClick}>Edit my Profile</button> : null}
-                <ImageAvatars />
+                {+match.params.userid === (user && user.data.id) ? 
+                    <button className="btn-primary" onClick={OnClick}>Edit my Profile</button> : 
+                    <Fragment>
+                        <button className="btn-danger" >Block this user</button>
+                        {connected ? <button className="btn-primary">Send a message</button> : null}
+                    </Fragment> }
+                <ImageAvatars avatarPath={profile && profile.data.avatar} />
                 <p>{profile && profile.data.online ? "online" : ("Offline, since: " + (profile && profile.data.last_login))}</p>
                 <p>Fame: {profile && profile.data.fame}</p>
+                <p>Username: {profile && profile.data.username}</p>
                 <p>Fristname: {profile && profile.data.firstname}</p>
                 <p>Lastname: {profile && profile.data.lastname}</p>
                 <p>Gender: {profile && profile.data.gender}</p>
                 <p>Sex Orientation: {profile && profile.data.sex_prefer}</p>
+                <p>Age: { calculateAge }</p>
                 <p>Birthday: {profile && profile.data.birthday}</p>
                 <p>Biography: {profile && profile.data.biography}</p>
+                <div>pictures: 
+                        <Pictures />
+                </div>
                 <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
             </div>
         </div>

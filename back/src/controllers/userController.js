@@ -103,11 +103,13 @@ export async function getProfile(req, res) {
             return res.status(400).json({ error: result.err });
         } else {
             const interests = await userModel.getInterestsById(req.params.userid);
-            if (typeof(interests.err) !== 'undefined')
-                return res.status(400).json({ error: interests.err });
-            else {
-                result.interests = interests;
-            }
+            result.interests = interests;
+            const pictures = await userModel.getPictureById(req.params.userid);
+            result.pictures = pictures;
+            // if (typeof(interests.err) !== 'undefined')
+            //     return res.status(400).json({ error: interests.err });
+            // else {
+            // }
         }
         return res.status(200).json({
             data: result
@@ -155,9 +157,18 @@ export async function getHistory(req, res){
 export async function checkLike(req,res){
     const result = await userModel.checkLike(req.params.userid, req.userid);
     let like = false;
-    if(result[0])
+    let connected = false;
+    if(result[0]){
         like = true;
-    return res.status(200).json({like});
+        const checklikeback = await userModel.checkLike(req.userid, req.params.userid);
+        if(checklikeback[0]){
+            connected = true;
+        }
+    }
+    return res.status(200).json({
+        like,
+        connected
+    });
 }
 
 export async function likeProfile(req,res) {
@@ -169,7 +180,9 @@ export async function likeProfile(req,res) {
         }
         const checklike = await userModel.checkLike(data.id_user, data.id_sender);
         if(checklike[0]){
-            return res.status(200).json({ success: 'You have liked this user before'});
+            return res.status(200).json({ 
+                connected: false,
+                success: 'You have liked this user before'});
         }
         else{
             await userModel.addLike(data.id_user, data.id_sender);
@@ -178,9 +191,13 @@ export async function likeProfile(req,res) {
             const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
             if(checklikeback[0]){
                 await indexModel.createChatroom(data.id_sender, data.id_user);
-                return res.status(200).json({ success: 'This user also likes you, now you can chat'});
+                return res.status(200).json({ 
+                    connected: true,
+                    success: 'This user also likes you, now you can chat'});
             }
-            else return res.status(200).json({ success: 'liked'});
+            else return res.status(200).json({ 
+                connected: false,
+                success: 'liked'});
         }
     }
     else{
@@ -207,10 +224,14 @@ export async function unlikeProfile(req,res) {
             if(checklikeback[0]){// means they are connected user
                 const chatroom = await indexModel.getChatroomId(data.id_sender, data.id_user);
                 await indexModel.unlinkChat(chatroom.id_chatroom);
-                return res.status(200).json({ success: 'You unlike this user, you are not connected anymore, all your previous messages has been destoryed'});
+                return res.status(200).json({
+                    connected: false,
+                    success: 'You unlike this user, you are not connected anymore, all your previous messages has been destoryed'});
             }
             else
-                return res.status(200).json({ success: 'You unlike this user'});
+                return res.status(200).json({
+                    connected: false,
+                    success: 'You unlike this user'});
         }
     }
 }

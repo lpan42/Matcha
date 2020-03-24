@@ -14,6 +14,8 @@ export async function getUserInfoById(userid) {
                 firstname: result[0].firstname,
                 lastname: result[0].lastname,
             };
+            const avatar = await connection.query('SELECT avatar FROM profiles WHERE id_user = ?', userid);
+            user.avatar = avatar;
             return user;
         } else {
             return { err: "This user does not exist" };
@@ -101,7 +103,7 @@ export async function logout(userid) {
 export async function getProfileInfoById(userid) {
     try {
         const result = await connection.query(
-            `SELECT profiles.id_user, gender, birthday, sex_prefer, biography, location_lat, location_lon, picture, fame, username, firstname, lastname, last_login, online
+            `SELECT profiles.id_user, gender, birthday, sex_prefer, biography, location_lat, location_lon, avatar, fame, username, firstname, lastname, last_login, online
             FROM profiles 
             INNER JOIN users on profiles.id_user = users.id_user
             WHERE profiles.id_user = ?`,
@@ -131,6 +133,18 @@ export async function getInterestsById(userid) {
             SELECT interest FROM interests 
             LEFT JOIN users_interests on interests.id_interest = users_interests.id_interest
             WHERE users_interests.id_user = ?`, 
+        userid);
+        return result;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function getPictureById(userid){
+    try {
+        const result = await connection.query(`
+            SELECT path FROM pics 
+            WHERE id_user = ?`, 
         userid);
         return result;
     } catch (err) {
@@ -270,13 +284,13 @@ export async function uploadAvatar(userid, filename){
     const profile = await connection.query('SELECT id_user FROM profiles WHERE id_user = ?', userid);
     if (!profile[0]) {
         try {
-            await connection.query('INSERT INTO profiles ( picture, id_user) VALUES (?, ?)', [filename, userid]);
+            await connection.query('INSERT INTO profiles ( avatar, id_user) VALUES (?, ?)', [filename, userid]);
         } catch (err) {
             throw new Error(err);
         }
     }else{
         try{
-            await connection.query('UPDATE profiles SET picture = ? WHERE id_user = ?', [filename, userid]);
+            await connection.query('UPDATE profiles SET avatar = ? WHERE id_user = ?', [filename, userid]);
         } 
         catch (err) {
             throw new Error(err);

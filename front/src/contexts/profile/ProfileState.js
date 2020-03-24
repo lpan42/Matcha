@@ -25,6 +25,7 @@ const ProfileState = props => {
         emptyProfile: null,
         interests_list: null,
         like: false,
+        connected: false,
         loading: true,
         error: null,
         success: null
@@ -92,13 +93,14 @@ const ProfileState = props => {
         }catch(err){
         }
     }
+
     const checkLike = async(userid) => {
         setAuthToken(localStorage.token);
         try{
             const result = await axios.get(`/user/checklike/${userid}`);
             dispatch({
                 type: CHECK_LIKE,
-                payload: result.data.like
+                payload: result.data
             });
         }catch(err){
             console.log(err);
@@ -111,7 +113,7 @@ const ProfileState = props => {
             const result = await axios.post(`/user/like/${userid}`);
             dispatch({
                 type: ADD_LIKE,
-                payload: result.data.success
+                payload: result.data
             });
         }catch(err){
             dispatch({
@@ -127,7 +129,7 @@ const ProfileState = props => {
             const result = await axios.post(`/user/unlike/${userid}`);
             dispatch({
                 type: UN_LIKE,
-                payload: result.data.success
+                payload: result.data
             });
         }catch(err){
             dispatch({
@@ -177,6 +179,7 @@ const ProfileState = props => {
                 emptyProfile: state.emptyProfile,
                 loading: state.loading,
                 like: state.like,
+                connected: state.connected,
                 error: state.error,
                 success: state.success,
                 interests_list: state.interests_list,

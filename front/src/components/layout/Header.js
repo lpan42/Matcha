@@ -5,26 +5,24 @@ import { Link } from 'react-router-dom';//import from default does not need {}
 import UserContext from '../../contexts/user/userContext';
 import NotifContext from '../../contexts/notification/notifContext';
 import ProfileContext from '../../contexts/profile/profileContext';
-import NotifBadge from '../badge/NotifBadge';
-import ImageAvatars from '../badge/ImageAvatars';
-
+import NotifBadge from '../badges/NotifBadge';
+import ImageAvatars from '../badges/ImageAvatars';
 
 const Header = ({ title }) => {
     const userContext = useContext(UserContext);
     const notifContext = useContext(NotifContext);
-    const  profileContext = useContext(ProfileContext);
+    const profileContext = useContext(ProfileContext);
 
     const { token, logout, user } = userContext;
-    const { getProfile, clearProfile} = profileContext;
+    const { clearProfile } = profileContext;
     const { getNotif, clearNotif } = notifContext;
 
     useEffect(() => {
-        if(user){
+        if(token){
             getNotif();
-            getProfile(user && user.data.id);
         }
         //eslint-disable-next-line
-    }, [user]);
+    }, [token]);
 
     const onLogout = () => {
         logout();
@@ -34,7 +32,8 @@ const Header = ({ title }) => {
 
     const authLinks = (
         <Fragment>
-            <li><ImageAvatars />
+            <li>
+                <ImageAvatars avatarPath={user && user.data.avatar[0].avatar}/>
                 <a href='/notif'><NotifBadge /></a>
                 <a href='/account'>Account</a>
                 <a href={`/profile/${user && user.data.id}`} >Profile</a>
