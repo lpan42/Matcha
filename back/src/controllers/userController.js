@@ -1,7 +1,7 @@
 const userModel = require('../models/user');
 const indexModel = require('../models/index');
 const jwtModel = require('../models/jwt');
-var fs = require('fs');
+const fs = require('fs');
 
 export async function getAccount(req, res) {
     const result = await userModel.getUserInfoById(req.userid);
@@ -248,7 +248,7 @@ export async function uploadAvatar(req,res) {
         return res.status(400).json({ error: 'No file was uploaded'});
     }
     const file = req.files.file;
-    const filename = req.userid + "_1";
+    const filename = req.userid + "_0";
     file.mv(`../front/public/images/${filename}`, err => {
         if(err){
             console.log(err);

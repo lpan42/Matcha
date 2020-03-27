@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
   
-const UploadPics = () => {
+const UploadAvatars = () => {
   const  alertContext = useContext(AlertContext);
   const  profileContext = useContext(ProfileContext);
 
@@ -61,33 +61,33 @@ const UploadPics = () => {
   };
   
   const checkPic = (file) => {
-	const types = ['image/png', 'image/jpeg'];
-	if (types.every(type => file.type !== type)){
-		handleClose();
-		setAlert("Only png/jpeg(jpg) is allowed", "danger");
-	}
-	const size = 2000000;
-	if (file.size > size){
-		handleClose();
-		setAlert("File is too big", "danger");
-	}
-	return (true);
+    const types = ['image/png', 'image/jpeg'];
+    if (types.every(type => file.type !== type)){
+      handleClose();
+      setAlert("Only png/jpeg(jpg) is allowed", "danger");
+    }
+    const size = 2000000;
+    if (file.size > size){
+      handleClose();
+      setAlert("File is too big", "danger");
+    }
+    return (true);
   }
 
   const OnChange = (e) => {
-      if(checkPic(e.target.files[0])){
+    if(checkPic(e.target.files[0])){
       setPic(e.target.files[0]);
       setSrc(URL.createObjectURL(e.target.files[0]));
       setPicName(e.target.files[0].name);
-	  }
+    }
   }
 
   const OnSubmit = (e) => {
-	e.preventDefault();
-	let formData = new FormData();
-	formData.append('file', pic);
-	updateAvatar(formData);
-	handleClose();
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append('file', pic);
+    updateAvatar(formData);
+    handleClose();
   }
 
   return (
@@ -120,4 +120,4 @@ const UploadPics = () => {
   );
 }
 
-export default UploadPics
+export default UploadAvatars

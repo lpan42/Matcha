@@ -23,8 +23,9 @@ const EditProfile = () => {
         biography: profile.data.biography ? profile.data.biography : '',
     }
     );
-       
+    const oldProfilePics = profile.data.pictures;
     useEffect(() => {
+        
         if(error) {
             setAlert(error, 'danger');
             clearMessage();
@@ -38,8 +39,14 @@ const EditProfile = () => {
 
     const OnSubmit=(e)=>{
         e.preventDefault();
-        updateProfile(update);
-        updateInterests(profile.data.interests);
+        // updateProfile(update);
+        // updateInterests(profile.data.interests);
+        console.log(oldProfilePics)
+        console.log(profile.data.pictures)
+        if (JSON.stringify(oldProfilePics) !== JSON.stringify(profile.data.pictures))
+        {
+            console.log("Changed!");
+        }
     }
 
     const updateField = e => {

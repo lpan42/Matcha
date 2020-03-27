@@ -34,6 +34,7 @@ const Profile = ({ match }) => {
         getInterestsList();
         getProfile(match.params.userid);
         checkLike(match.params.userid);
+
         if(error) {
             setAlert(error, 'danger');
             clearMessage();
@@ -82,7 +83,9 @@ const Profile = ({ match }) => {
                         {connected ? <button className="btn-primary">Send a message</button> : null}
                     </Fragment> }
                 <ImageAvatars avatarPath={profile && profile.data.avatar} />
-                <p>{profile && profile.data.online ? "online" : ("Offline, since: " + (profile && profile.data.last_login))}</p>
+                {profile && profile.data.online ? 
+                    <p style={{color:"var(--primary-color)"}}>Online</p> : 
+                    <p style={{color:"var(--danger-color)"}}>Offline, Last login time: {profile && profile.data.last_login}</p>}
                 <p>Fame: {profile && profile.data.fame}</p>
                 <p>Username: {profile && profile.data.username}</p>
                 <p>Fristname: {profile && profile.data.firstname}</p>
@@ -90,7 +93,7 @@ const Profile = ({ match }) => {
                 <p>Gender: {profile && profile.data.gender}</p>
                 <p>Sex Orientation: {profile && profile.data.sex_prefer}</p>
                 <p>Age: { calculateAge }</p>
-                <p>Birthday: {profile && profile.data.birthday}</p>
+                {/* <p>Birthday: {profile && profile.data.birthday}</p> */}
                 <p>Biography: {profile && profile.data.biography}</p>
                 <div>pictures: 
                         <Pictures />
