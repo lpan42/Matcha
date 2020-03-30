@@ -2,6 +2,7 @@ const connection = require('../config/database');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const moment = require('moment');
+const fs = require('fs');
 
 export async function getUserInfoById(userid) {
     try {
@@ -285,7 +286,7 @@ export async function getInterestsList(){
 }
 
 export async function uploadAvatar(userid, filename){
-    const profile = await connection.query('SELECT id_user FROM profiles WHERE id_user = ?', userid);
+    const profile = await connection.query('SELECT id_user, avatar FROM profiles WHERE id_user = ?', userid);
     if (!profile[0]) {
         try {
             await connection.query('INSERT INTO profiles ( avatar, id_user) VALUES (?, ?)', [filename, userid]);
@@ -293,11 +294,36 @@ export async function uploadAvatar(userid, filename){
             throw new Error(err);
         }
     }else{
+        if(profile[0].avatar){
+            fs.unlink(`../front/public/images/${profile[0].avatar}`, err => {
+                console.log(err);
+            });
+        }
         try{
             await connection.query('UPDATE profiles SET avatar = ? WHERE id_user = ?', [filename, userid]);
         } 
         catch (err) {
             throw new Error(err);
         }
+    }
+}
+
+export async function uploadPics(userid, filename){
+    try {
+        await connection.query('INSERT INTO pics ( id_user, path ) VALUES (?, ?)', [userid, filename]);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function deletePics(filename){
+    fs.unlink(`../front/public/images/${filename}`, err => {
+        console.log(err);
+    });
+    try{
+        await connection.query('DELETE FROM pics WHERE path = ?', filename);
+    }
+    catch (err) {
+        throw new Error(err);
     }
 }

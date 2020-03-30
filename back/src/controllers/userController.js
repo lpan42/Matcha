@@ -1,7 +1,7 @@
 const userModel = require('../models/user');
 const indexModel = require('../models/index');
 const jwtModel = require('../models/jwt');
-const fs = require('fs');
+const crypto = require('crypto');
 
 export async function getAccount(req, res) {
     const result = await userModel.getUserInfoById(req.userid);
@@ -106,10 +106,6 @@ export async function getProfile(req, res) {
             result.interests = interests;
             const pictures = await userModel.getPictureById(req.params.userid);
             result.pictures = pictures;
-            // if (typeof(interests.err) !== 'undefined')
-            //     return res.status(400).json({ error: interests.err });
-            // else {
-            // }
         }
         return res.status(200).json({
             data: result
@@ -244,12 +240,11 @@ export async function getInterestsList(req,res) {
 }
 
 export async function uploadAvatar(req,res) {
-    console.log(req.files)
     if(req.files == null){
         return res.status(400).json({ error: 'No file was uploaded'});
     }
     const file = req.files.file;
-    const filename = req.userid + "_0";
+    const filename = req.userid + crypto.randomBytes(5).toString('hex');
     file.mv(`../front/public/images/${filename}`, err => {
         if(err){
             console.log(err);
@@ -263,12 +258,41 @@ export async function uploadAvatar(req,res) {
 }
 
 export async function modifyPictures(req, res){
-    // console.log(req.userid)
-    console.log(req.body)
+    const getCurrent = await userModel.getPictureById(req.userid);//must have previous pics
+    // if(req.body.length){
+        for(let i = 0; i < getCurrent.length; i++) {
+            let check = false;
+            for(let ii = 0; ii < req.body.length; ii++){
+                if(getCurrent[i].path === req.body[ii].path)
+                {
+                    check = true;
+                    break ;
+                }
+            }
+            if(check === false){
+                await userModel.deletePics(getCurrent[i].path);
+            }
+        }
+    // }
+    return res.status(200);
 }
 
 export async function uploadPictures(req, res){
-    // console.log(req.userid)
-    console.log(req.files)
+    if(req.files == null){
+        return res.status(400).json({ error: 'No file was uploaded'});
+    }
+    const files = req.files.file;
+    console.log(files)
+    for(let i = 0; i < files.length; i++){
+        const filename = req.userid + crypto.randomBytes(5).toString('hex');
+        files[i].mv(`../front/public/images/${filename}`, err => {
+            if(err){
+                console.log(err);
+                return res.status(500).send(err);
+            }
+        });
+        await userModel.uploadPics(req.userid, filename);
+    }
+    return res.status(200);
 }
 //get chatroom and message

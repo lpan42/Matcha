@@ -89,9 +89,9 @@ const ProfileState = props => {
         }
         try{
             await axios.post('/user/modify/interests', formData, config);
-            dispatch({
-                type: UPDATE_INTERESTS
-            });
+            // dispatch({
+            //     type: UPDATE_INTERESTS
+            // });
         }catch(err){
         }
     }
@@ -184,9 +184,9 @@ const ProfileState = props => {
         }
         try{
             await axios.post('/user/upload/pictures', formData, config);
-            dispatch({
-                type: UPLOAD_PICTURES
-            });
+            // dispatch({
+            //     type: UPLOAD_PICTURES
+            // });
         }catch(err){
             console.log(err);
         }
@@ -201,9 +201,9 @@ const ProfileState = props => {
         }
         try{
             await axios.post('/user/modify/pictures', data, config);
-            dispatch({
-                type: MODIFY_PICTURES
-            });
+            // dispatch({
+            //     type: MODIFY_PICTURES
+            // });
         }catch(err){
             console.log(err);
         }
