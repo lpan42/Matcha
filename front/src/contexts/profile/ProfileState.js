@@ -17,6 +17,8 @@ import {
     NORMAL_ERROR,
     CLEAR_PROFILE,
     UPDATE_AVATAR,
+    UPLOAD_PICTURES,    
+    MODIFY_PICTURES,
 } from '../types';
 
 const ProfileState = props => {
@@ -82,7 +84,7 @@ const ProfileState = props => {
         setAuthToken(localStorage.token);
         const config = {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             }
         }
         try{
@@ -93,6 +95,7 @@ const ProfileState = props => {
         }catch(err){
         }
     }
+    
 
     const checkLike = async(userid) => {
         setAuthToken(localStorage.token);
@@ -158,7 +161,7 @@ const ProfileState = props => {
             }
         }
         try{
-            const result = await axios.post(`/user/upload/avatar`, formData, config);
+            const result = await axios.post('/user/upload/avatar', formData, config);
             dispatch({
                 type: UPDATE_AVATAR,
                 payload: result.data.success
@@ -169,6 +172,40 @@ const ProfileState = props => {
                 type: NORMAL_ERROR,
                 payload: err.response.data.error
             });
+        }
+    }
+
+    const uploadPictures = async (formData) => {
+        setAuthToken(localStorage.token);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        try{
+            await axios.post('/user/upload/pictures', formData, config);
+            dispatch({
+                type: UPLOAD_PICTURES
+            });
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const modifyPictures = async (data) => {
+        setAuthToken(localStorage.token);
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try{
+            await axios.post('/user/modify/pictures', data, config);
+            dispatch({
+                type: MODIFY_PICTURES
+            });
+        }catch(err){
+            console.log(err);
         }
     }
 
@@ -193,6 +230,8 @@ const ProfileState = props => {
                 unLike,
                 clearProfile,
                 updateAvatar,
+                uploadPictures,
+                modifyPictures
             }}
         >
         {props.children}

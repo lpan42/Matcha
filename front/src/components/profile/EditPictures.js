@@ -45,16 +45,14 @@ const EditPictures = () => {
     const classes = useStyles();
 
     const [profilePictures, setProfilePictures] = useState(profile.data.pictures);
-    const [newSrcs, setNewSrcs] = useState([]);
     const [showDelete, setShowDelete] = useState(false);
+
+    let pictures = [];
 
     useEffect(() => {
         profile && (profile.data.pictures = profilePictures);
     }, [profilePictures]);
-
-    let pictures = [];
-    let newPics = [];
-
+    
     const checkPic = (file) => {
         const types = ['image/png', 'image/jpeg'];
         if(types.every(type => file.type !== type)) {
@@ -71,66 +69,51 @@ const EditPictures = () => {
 
     const OnChange =(e) => {
         if(checkPic(e.target.files[0])){
-            setNewSrcs(newSrcs.concat({src: URL.createObjectURL(e.target.files[0])}));
             setProfilePictures(profilePictures.concat({file: e.target.files[0]}));
         }
-        // console.log(profilePictures)
     }
 
     const showDeleteBtn = () => {
         setShowDelete(true);
-        // console.log(profilePictures)
     } 
 
     const deletePic = (e) => {
-        console.log(e.currentTarget.id)
-        // e.preventDefault()
-        // console.log(profilePictures)
-        // console.log(newSrcs)
-        // setNewSrcs(newSrcs.splice(e.currentTarget.id-profilePictures.length))
-        console.log(profilePictures[e.currentTarget.id])
-        setProfilePictures(profilePictures.splice(e.currentTarget.id, 1));
-        console.log(profilePictures)
+        e.preventDefault();
+        profilePictures.splice(e.currentTarget.id, 1);
+        setShowDelete(false);
     }
 
-    profilePictures.map((picture, key) => {
-        // console.log(profilePictures)
+    profilePictures.map((picture, index) => {
         if(picture.path){
             pictures.push(
-                <div className={classes.imageContainer} key={key}>
+                <div className={classes.imageContainer} key={index}>
                     <img className={classes.image} src={`../images/${picture.path}`}></img>
-                    {showDelete ? <DeleteIcon className={classes.deleteBtn} id={key} color="primary" onClick={deletePic}/>: null}
+                    {showDelete ? <DeleteIcon className={classes.deleteBtn} id={index} color="primary" onClick={deletePic}/>: null}
+                </div>
+            );
+        }
+        else if(picture.file){
+            pictures.push(
+                <div className={classes.imageContainer} key={index}>
+                    <img className={classes.image} src={URL.createObjectURL(picture.file)}></img>
+                    {showDelete ? <DeleteIcon className={classes.deleteBtn} id={index} color="primary" onClick={deletePic}/>: null}
                 </div>
             );
         }
     })
- 
-    newSrcs.map((newSrc, key) => {
-        // console.log("render newpic")
-        let newId = pictures.length + newPics.length;
-        newPics.push(
-            <div className={classes.imageContainer} key={key}>
-                <img className={classes.image} src={newSrc.src}></img>
-                {showDelete ? <DeleteIcon className={classes.deleteBtn} id={newId} color="primary" onClick={deletePic}/>: null}
-            </div>
-        );
-    })
 
-    let count_picture = pictures.length + newSrcs.length;
-    
+
     return (
         <Fragment>
             <div className={classes.root}>
                 { pictures }
-                { newPics }
             </div>
-            {count_picture < 4 ?
+            {pictures.length < 4 ?
             <Fragment>
                 <input accept=".jpg,.png" className={classes.input} id="contained-button-file" type="file" onChange={OnChange}/>
                 <label htmlFor="contained-button-file"><Button className={classes.buttons} variant="contained" color="primary" component="span">+</Button></label>
             </Fragment> : null}
             { pictures.length === 0 ? null : <Button className={classes.buttons} variant="contained" color="primary" component="span" onClick={showDeleteBtn}>-</Button> }
-        
         </Fragment>
     )
 }

@@ -12,7 +12,9 @@ const EditProfile = () => {
     const  alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
 
-    const { interests_list, profile, error, success, clearMessage, updateProfile, updateInterests } = profileContext;
+    const { interests_list, profile, error, success, 
+        clearMessage, updateProfile, updateInterests, uploadPictures, modifyPictures 
+    } = profileContext;
     const { setAlert } = alertContext;
     const { user} = userContext;
 
@@ -23,9 +25,7 @@ const EditProfile = () => {
         biography: profile.data.biography ? profile.data.biography : '',
     }
     );
-    const oldProfilePics = profile.data.pictures;
     useEffect(() => {
-        
         if(error) {
             setAlert(error, 'danger');
             clearMessage();
@@ -38,15 +38,21 @@ const EditProfile = () => {
     }, [error, success]);
 
     const OnSubmit=(e)=>{
-        e.preventDefault();
+        e.preventDefault(); 
         // updateProfile(update);
         // updateInterests(profile.data.interests);
-        console.log(oldProfilePics)
-        console.log(profile.data.pictures)
-        if (JSON.stringify(oldProfilePics) !== JSON.stringify(profile.data.pictures))
-        {
-            console.log("Changed!");
+        let updatePics = [];
+        let formData = new FormData();
+        for(let x = 0; x < profile.data.pictures.length; x++) {
+            if(profile.data.pictures[x].file){
+                formData.append('file', profile.data.pictures[x].file);
+            }
+            if(profile.data.pictures[x].path){
+                updatePics.push({ path: profile.data.pictures[x].path });
+            }
         }
+        uploadPictures(formData);
+        modifyPictures(updatePics);
     }
 
     const updateField = e => {

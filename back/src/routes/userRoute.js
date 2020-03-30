@@ -26,6 +26,8 @@ router.route('/unlike/:userid').post(auth, userController.unlikeProfile);
 router.route('/modify/account').post(auth, userController.modifyAccount);
 router.route('/modify/profile').post(auth, userController.modifyProfile);
 router.route('/modify/interests').post(auth, userController.modifyInterests);
+router.route('/modify/pictures').post(auth, userController.modifyPictures);
 
 router.route('/upload/avatar').post(auth,userController.uploadAvatar);
+router.route('/upload/pictures').post(auth, userController.uploadPictures);
 module.exports = router;

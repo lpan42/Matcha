@@ -59,7 +59,11 @@ export async function createNewUser(body) {
     };
     try {
         const result = await connection.query('INSERT INTO users SET ?', data);
-        return result.insertId;
+        try{
+            await connection.query('INSERT INTO profiles (id_user) value (?)', result.insertId);
+        }catch (err) {
+            throw new Error(err);
+        }
     } catch (err) {
         throw new Error(err);
     }
@@ -109,7 +113,7 @@ export async function getProfileInfoById(userid) {
             WHERE profiles.id_user = ?`,
             userid);
         if(!result[0]){
-            return { err: 'This user profile has not create his/her profile' };
+            return { err: 'User does not exist' };
         } else {
             return result[0];
         }

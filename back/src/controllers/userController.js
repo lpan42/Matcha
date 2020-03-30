@@ -244,6 +244,7 @@ export async function getInterestsList(req,res) {
 }
 
 export async function uploadAvatar(req,res) {
+    console.log(req.files)
     if(req.files == null){
         return res.status(400).json({ error: 'No file was uploaded'});
     }
@@ -259,5 +260,15 @@ export async function uploadAvatar(req,res) {
     return res.status(200).json({
         success: "You avatar has been updated successfully"
     });
+}
+
+export async function modifyPictures(req, res){
+    // console.log(req.userid)
+    console.log(req.body)
+}
+
+export async function uploadPictures(req, res){
+    // console.log(req.userid)
+    console.log(req.files)
 }
 //get chatroom and message

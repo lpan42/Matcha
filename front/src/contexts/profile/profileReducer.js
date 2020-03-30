@@ -11,6 +11,8 @@ import {
     UN_LIKE,
     CLEAR_PROFILE,
     UPDATE_AVATAR,
+    UPLOAD_PICTURES,
+    MODIFY_PICTURES
 } from '../types';
 
 
@@ -52,6 +54,11 @@ export default (state, action) => {
                 ...state,
                 loading: false,
             }
+        // case UPDATE_PICTURES:
+        //     return {
+        //         ...state,
+        //         loading: false,
+        //     }
         case CHECK_LIKE:
             return {
                 ...state,
