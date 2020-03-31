@@ -2,16 +2,14 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 
 import NotifContext from '../../contexts/notification/notifContext';
-import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
 import Spinner from '../layout/Spinner';
+import { toast } from 'react-toastify';
 
 const Notifications = () => {
     const notifContext = useContext(NotifContext);
-    const alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
-    const { notif, readNotif, clearMessage, success, error,loading } = notifContext;
-    const { setAlert } = alertContext;
+    const { notif, readNotif, success, error,loading } = notifContext;
     const { loadUser } = userContext;
     const notif_message = [];
     const history = useHistory();
@@ -19,12 +17,10 @@ const Notifications = () => {
     useEffect(() => {
         loadUser();
         if(error) {
-            setAlert(error, 'danger');
-            clearMessage();
+            toast.error(error);
         }
         if(success) {
-            setAlert(success, 'success');
-            clearMessage();
+            toast.success(success);
         }
         //eslint-disable-next-line
       }, [error, success]);

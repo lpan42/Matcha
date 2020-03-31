@@ -1,25 +1,21 @@
 import React,{ Fragment, useState, useContext, useEffect }  from 'react';
 import UserContext from '../../contexts/user/userContext';
-import AlertContext from '../../contexts/alert/alertContext';
 import EditAccount from './EditAccount';
+import { toast } from 'react-toastify';
 
 const Account = () => {
   const userContext = useContext(UserContext);
-  const alertContext = useContext(AlertContext);
 
-  const { user, error, success, clearMessage, loadUser } = userContext;
-  const { setAlert } = alertContext;
+  const { user, error, success, loadUser } = userContext;
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     loadUser();
     if(error) {
-      setAlert(error, 'danger');
-      clearMessage();
+      toast.error(error);
     }
     if(success) {
-      setAlert(success, 'success');
-      clearMessage();
+        toast.success(success);
     }
       //eslint-disable-next-line
   }, [error, success]);

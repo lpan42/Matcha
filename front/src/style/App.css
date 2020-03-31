@@ -7,6 +7,18 @@
   --danger-color: #E56858;
   --success-color: #A5C279;
 }
+.Toastify__toast--success {
+  background-color: #A5C279 !important;
+}
+.Toastify__toast--error {
+  background-color: #E56858 !important;
+}
+.Toastify__toast--info {
+  background-color: #A5C279 !important;
+}
+.Toastify__toast--warning {
+  background-color: #E5C971 !important;
+}
 
 * {
   box-sizing: border-box;

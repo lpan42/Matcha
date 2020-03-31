@@ -1,7 +1,6 @@
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    CLEAR_MESSAGE,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOAD_USER,
@@ -54,12 +53,6 @@ export default (state, action) => {
                 user: null,
                 error: action.payload,
                 loading: false
-            }
-        case CLEAR_MESSAGE:
-            return {
-                ...state,
-                error: null,
-                success: null
             }
         case LOGIN_SUCCESS:
             localStorage.setItem('token', action.payload.token);

@@ -1,9 +1,9 @@
 import React, { Fragment, useContext, useState, useEffect, Children }from 'react'
 import ProfileContext from '../../contexts/profile/profileContext';
-import AlertContext from '../../contexts/alert/alertContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -38,9 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 const EditPictures = () => {
     const  profileContext = useContext(ProfileContext);
-    const  alertContext = useContext(AlertContext);
-
-    const { setAlert } = alertContext;
+  
     const { profile } = profileContext;
     const classes = useStyles();
 
@@ -56,12 +54,12 @@ const EditPictures = () => {
     const checkPic = (file) => {
         const types = ['image/png', 'image/jpeg'];
         if(types.every(type => file.type !== type)) {
-            setAlert("Only png/jpeg(jpg) is allowed", "danger");
+            toast.error("Only png/jpeg(jpg) is allowed");
             return(false);
         };
         const size = 2000000;
         if (file.size > size) {
-            setAlert("File is too big", "danger");
+            toast.error("File is too big");
             return(false);
         };
         return (true);
@@ -72,7 +70,7 @@ const EditPictures = () => {
             setProfilePictures(profilePictures.concat({file: e.target.files[0]}));
         }
     }
-
+    
     const showDeleteBtn = () => {
         setShowDelete(true);
     } 

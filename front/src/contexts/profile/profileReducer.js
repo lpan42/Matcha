@@ -1,7 +1,6 @@
 import {
     GET_PROFILE,
     GET_PROFILE_NO,
-    CLEAR_MESSAGE,
     GET_INTERESTS_LIST,
     UPDATE_INTERESTS,
     UPDATE_PROFILE,
@@ -29,12 +28,6 @@ export default (state, action) => {
                 ...state,
                 emptyProfile: action.payload,
                 loading: false
-            }
-        case CLEAR_MESSAGE:
-            return {
-                ...state,
-                error: null,
-                success: null
             }
         case GET_INTERESTS_LIST:
             return {
@@ -105,7 +98,6 @@ export default (state, action) => {
                 loading: false,
                 success: action.payload
             }
-
         default:
             return state;
     }

@@ -1,7 +1,6 @@
 import {
     GET_NOTIF,
     READ_NOTIF,
-    CLEAR_MESSAGE,
     CLEAR_NOTIF,
 } from '../types';
 
@@ -18,14 +17,6 @@ export default (state, action) => {
                 return{
                     ...state,
                     notif:action.payload,
-                    loading:false,
-                    error: null,
-                    success: null
-                }
-            
-            case CLEAR_MESSAGE:
-                return {
-                    ...state,
                     loading:false,
                     error: null,
                     success: null

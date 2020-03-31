@@ -7,7 +7,6 @@ import setAuthToken from '../../utils/setAuthToken';
 import {
     GET_PROFILE, 
     GET_PROFILE_NO, 
-    CLEAR_MESSAGE, 
     GET_INTERESTS_LIST,
     UPDATE_INTERESTS,
     UPDATE_PROFILE,
@@ -63,29 +62,26 @@ const ProfileState = props => {
         }
     }
 
-    const updateProfile = async (formData) => {
+    const updateProfile = async (profile) => {
         setAuthToken(localStorage.token);
         const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: {'Content-Type': 'application/json'}
         }
         try{
-            const result =  await axios.post('/user/modify/profile', formData, config);
+            const result =  await axios.post('/user/modify/profile', profile, config);
             dispatch({
                 type: UPDATE_PROFILE,
                 payload: result.data.success
             });
         }catch(err){
+            console.log(err);
         }
     }
 
     const updateInterests = async (formData) => {
         setAuthToken(localStorage.token);
         const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+            headers: {'Content-Type': 'application/json'}
         }
         try{
             await axios.post('/user/modify/interests', formData, config);
@@ -96,6 +92,35 @@ const ProfileState = props => {
         }
     }
     
+    const uploadPictures = async (formData) => {
+        setAuthToken(localStorage.token);
+        const config = {
+            headers: {'Content-Type': 'multipart/form-data'}
+        }
+        try{
+            await axios.post('/user/upload/pictures', formData, config);
+            // dispatch({
+            //     type: UPLOAD_PICTURES
+            // });
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const modifyPictures = async (data) => {
+        setAuthToken(localStorage.token);
+        const config = {
+            headers: {'Content-Type': 'application/json'}
+        }
+        try{
+            await axios.post('/user/modify/pictures', data, config);
+            // dispatch({
+            //     type: MODIFY_PICTURES
+            // });
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     const checkLike = async(userid) => {
         setAuthToken(localStorage.token);
@@ -146,19 +171,11 @@ const ProfileState = props => {
             type: CLEAR_PROFILE
         })
     }
-
-    const clearMessage = () => {
-        dispatch({
-            type: CLEAR_MESSAGE
-        })
-    }
     
     const updateAvatar = async (formData) => {
         setAuthToken(localStorage.token);
         const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+            headers: {'Content-Type': 'multipart/form-data'}
         }
         try{
             const result = await axios.post('/user/upload/avatar', formData, config);
@@ -172,40 +189,6 @@ const ProfileState = props => {
                 type: NORMAL_ERROR,
                 payload: err.response.data.error
             });
-        }
-    }
-
-    const uploadPictures = async (formData) => {
-        setAuthToken(localStorage.token);
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
-        try{
-            await axios.post('/user/upload/pictures', formData, config);
-            // dispatch({
-            //     type: UPLOAD_PICTURES
-            // });
-        }catch(err){
-            console.log(err);
-        }
-    }
-
-    const modifyPictures = async (data) => {
-        setAuthToken(localStorage.token);
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        try{
-            await axios.post('/user/modify/pictures', data, config);
-            // dispatch({
-            //     type: MODIFY_PICTURES
-            // });
-        }catch(err){
-            console.log(err);
         }
     }
 
@@ -224,7 +207,6 @@ const ProfileState = props => {
                 getInterestsList,
                 updateProfile,
                 updateInterests,
-                clearMessage,
                 checkLike,
                 addLike,
                 unLike,

@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import moment from 'moment';
-import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import Interests from './Interests';
@@ -12,18 +11,16 @@ import DiscounnectComfirm from '../modals/DisconnectComfirm';
 import ImageAvatars from '../badges/ImageAvatars';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-
+import { toast } from 'react-toastify';
 
 const Profile = ({ match }) => {
     const  profileContext = useContext(ProfileContext);
-    const  alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
 
     const { 
         profile, emptyProfile, like, error, success, loading, connected,
-        getProfile, checkLike, getInterestsList, clearMessage, unLike, addLike,
+        getProfile, checkLike, getInterestsList, unLike, addLike,
     } = profileContext;
-    const { setAlert } = alertContext;
     const { loadUser, user} = userContext;
 
     const [edit, setEdit] = useState(false);
@@ -36,12 +33,10 @@ const Profile = ({ match }) => {
         checkLike(match.params.userid);
 
         if(error) {
-            setAlert(error, 'danger');
-            clearMessage();
+            toast.error(error);
         }
         if(success) {
-            setAlert(success, 'success');
-            clearMessage();
+            toast.success(success);
         }
         // eslint-disable-next-line
     }, [error, success]);

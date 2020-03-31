@@ -100,12 +100,6 @@ const UserState = props => {
             })
         }
     }
-    
-    const clearMessage = () => {
-        dispatch({
-            type: CLEAR_MESSAGE
-        })
-    }
 
     const editAccount = async (formData) => {
         setAuthToken(localStorage.token);
@@ -138,7 +132,6 @@ const UserState = props => {
                 error: state.error,
                 success: state.success,
                 register,
-                clearMessage,
                 login,
                 loadUser,
                 logout,

@@ -7,7 +7,6 @@ import setAuthToken from '../../utils/setAuthToken';
 import {
     GET_NOTIF,
     READ_NOTIF,
-    CLEAR_MESSAGE,
     CLEAR_NOTIF,
  } from '../types';
  
@@ -51,11 +50,7 @@ import {
             type: CLEAR_NOTIF
         })
     }
-    const clearMessage = () => {
-        dispatch({
-            type: CLEAR_MESSAGE
-        })
-    }
+ 
     return (
         <NotifContext.Provider
             value={{
@@ -65,7 +60,6 @@ import {
                 success: state.success,
                 getNotif,
                 readNotif,
-                clearMessage,
                 clearNotif,
             }}
         >

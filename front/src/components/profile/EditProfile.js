@@ -1,21 +1,19 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import EditInterests from './EditInterests';
 import UploadAvatars from '../modals/UploadAvatars';
 import ImageAvatars from '../badges/ImageAvatars';
 import EditPictures from './EditPictures';
+import { toast } from 'react-toastify';
 
 const EditProfile = () => {
     const  profileContext = useContext(ProfileContext);
-    const  alertContext = useContext(AlertContext);
     const  userContext = useContext(UserContext);
 
     const { interests_list, profile, error, success, 
-        clearMessage, updateProfile, updateInterests, uploadPictures, modifyPictures 
+        updateProfile, updateInterests, uploadPictures, modifyPictures 
     } = profileContext;
-    const { setAlert } = alertContext;
     const { user} = userContext;
 
     const [update,setUpdate] = useState({
@@ -27,20 +25,17 @@ const EditProfile = () => {
     );
     useEffect(() => {
         if(error) {
-            setAlert(error, 'danger');
-            clearMessage();
+            toast.error(error);
         }
         if(success) {
-            setAlert(success, 'success');
-            clearMessage();
+            toast.success(success);
         }
         // eslint-disable-next-line
     }, [error, success]);
 
     const OnSubmit=(e)=>{
         e.preventDefault(); 
-        // updateProfile(update);
-        // updateInterests(profile.data.interests);
+        
         let updatePics = [];
         let formData = new FormData();
         for(let x = 0; x < profile.data.pictures.length; x++) {
@@ -51,8 +46,11 @@ const EditProfile = () => {
                 updatePics.push({ path: profile.data.pictures[x].path });
             }
         }
+        updateProfile(update);
+        updateInterests(profile.data.interests);
         uploadPictures(formData);
         modifyPictures(updatePics);
+        window.location.reload();
     }
 
     const updateField = e => {

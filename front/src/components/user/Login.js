@@ -1,18 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
 import NotifContext from '../../contexts/notification/notifContext';
 import ProfileContext from '../../contexts/profile/profileContext';
+import { toast } from 'react-toastify';
 
 const Login = (props) => {
-    const alertContext = useContext(AlertContext);
     const userContext = useContext(UserContext);
     const notifContext = useContext(NotifContext);
     const  profileContext = useContext(ProfileContext);
 
-    const { setAlert } = alertContext;
-    const { login, error, clearMessage, token, success,user } = userContext;
+    const { login, error, token, success, user} = userContext;
     const { getProfile} = profileContext;
     const { getNotif } = notifContext;
     
@@ -23,15 +21,13 @@ const Login = (props) => {
             props.history.push('/');
         }
         if(error) {
-            setAlert(error, 'danger');
-            clearMessage();
+            toast.error(error);
         }
         if(success) {
-            setAlert(success, 'success');
-            clearMessage();
+            toast.success(success);
         }
         //eslint-disable-next-line
-    }, [error, token, user, props.history, success]);
+    }, [token, user, props.history, error,success]);
     
     const [loginUser, setLoginUser] = useState({
         username: '',
@@ -46,7 +42,7 @@ const Login = (props) => {
     const onSubmit = e => {
         e.preventDefault();
         if(username === '' || password === ''){
-            setAlert('All the fields need to be filled', 'danger');
+            toast.warning('All the fields need to be filled');
         }
         else{
            login({
@@ -55,7 +51,6 @@ const Login = (props) => {
            });
         }
     }
-
     return (
         <div className='form-container'>
             <h1>

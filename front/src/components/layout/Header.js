@@ -25,9 +25,9 @@ const Header = ({ title }) => {
     }, [token]);
 
     const onLogout = () => {
-        logout();
         clearNotif();
         clearProfile();
+        logout();
     }
 
     const authLinks = (

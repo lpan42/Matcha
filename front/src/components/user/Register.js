@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import AlertContext from '../../contexts/alert/alertContext';
 import UserContext from '../../contexts/user/userContext';
+import { toast } from 'react-toastify';
+import Spinner from '../layout/Spinner';
 
 const Register = (props) => {
-    const alertContext = useContext(AlertContext);
     const userContext = useContext(UserContext);
 
     const [user, setUser] = useState({
@@ -16,21 +16,17 @@ const Register = (props) => {
         re_password:''
     })
 
-    const { setAlert } = alertContext;
-    const { register, error, success, clearMessage, token } = userContext;
+    const { register, error, success, token, loading } = userContext;
 
     useEffect(() => {
         if(token){
             props.history.push('/');//redirect
         }
         if(error) {
-            setAlert(error, 'danger');
-            clearMessage();
+            toast.error(error);
         }
         if(success) {
-            setAlert(success, 'success');
-            clearMessage();
-            props.history.push('/login');
+            toast.success(success);
         }
         //eslint-disable-next-line
     }, [error, token, props.history, success]);
@@ -44,10 +40,10 @@ const Register = (props) => {
     const onSubmit = e => {
         e.preventDefault();
         if(username === '' || email === '' || firstname === '' || lastname === '' || password === '' || re_password === ''){
-            setAlert('All the fields need to be filled', 'danger');
+            toast.warning('All the fields need to be filled');
         }
         else if(password !== re_password){
-            setAlert('Two passwords unmatched', 'danger');
+            toast.error('Two passwords unmatched');
         }else{
             register({
                 username,
@@ -60,7 +56,7 @@ const Register = (props) => {
         }
         
     }
-
+    if (loading) return <Spinner />;
     return (
         <div className='form-container'>
             <h1>

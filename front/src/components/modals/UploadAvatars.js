@@ -1,10 +1,10 @@
 import React, {useContext, Fragment, useState,useEffect} from 'react'
-import AlertContext from '../../contexts/alert/alertContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -27,11 +27,9 @@ const useStyles = makeStyles(theme => ({
   }));
   
 const UploadAvatars = () => {
-  const  alertContext = useContext(AlertContext);
   const  profileContext = useContext(ProfileContext);
 
-  const { setAlert } = alertContext;
-  const { profile, updateAvatar, error, success, clearMessage } = profileContext;
+  const { profile, updateAvatar, error, success } = profileContext;
 
   const classes = useStyles();
 
@@ -41,14 +39,12 @@ const UploadAvatars = () => {
   const [src, setSrc] = useState(profile.data.avatar ? `../images/${picName}` : null);
 
   useEffect(() => {
-      if(error) {
-          setAlert(error, 'danger');
-          clearMessage();
-      }
-      if(success) {
-          setAlert(success, 'success');
-          clearMessage();
-      }
+    if(error) {
+      toast.error(error);
+    }
+    if(success) {
+        toast.success(success);
+    }
       // eslint-disable-next-line
   }, [error, success]);
 
@@ -64,12 +60,12 @@ const UploadAvatars = () => {
     const types = ['image/png', 'image/jpeg'];
     if (types.every(type => file.type !== type)){
       handleClose();
-      setAlert("Only png/jpeg(jpg) is allowed", "danger");
+      toast.error("Only png/jpeg(jpg) is allowed");
     }
     const size = 2000000;
     if (file.size > size){
       handleClose();
-      setAlert("File is too big", "danger");
+      toast.error("File is too big");
     }
     return (true);
   }

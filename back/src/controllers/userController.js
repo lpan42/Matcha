@@ -279,20 +279,31 @@ export async function modifyPictures(req, res){
 
 export async function uploadPictures(req, res){
     if(req.files == null){
-        return res.status(400).json({ error: 'No file was uploaded'});
+        return res.status(200);
     }
     const files = req.files.file;
-    console.log(files)
-    for(let i = 0; i < files.length; i++){
+    if(Array.isArray(files)){
+        for(let i = 0; i < files.length; i++){
+            const filename = req.userid + crypto.randomBytes(5).toString('hex');
+            files[i].mv(`../front/public/images/${filename}`, err => {
+                if(err){
+                    console.log(err);
+                    return res.status(500).send(err);
+                }
+            });
+            await userModel.uploadPics(req.userid, filename);
+        }
+    }else{
         const filename = req.userid + crypto.randomBytes(5).toString('hex');
-        files[i].mv(`../front/public/images/${filename}`, err => {
-            if(err){
-                console.log(err);
-                return res.status(500).send(err);
-            }
-        });
-        await userModel.uploadPics(req.userid, filename);
+            files.mv(`../front/public/images/${filename}`, err => {
+                if(err){
+                    console.log(err);
+                    return res.status(500).send(err);
+                }
+            });
+            await userModel.uploadPics(req.userid, filename);
     }
+   
     return res.status(200);
 }
 //get chatroom and message
