@@ -176,9 +176,10 @@ export async function addNotif(data) {
 export async function getNotif(userid) {
     try {
         const result = await connection.query(`
-        SELECT id_notif, id_sender, users.username, notification, notif_time, readed
+        SELECT id_notif, id_sender, users.firstname, profiles.avatar, notification, notif_time, readed
         FROM notifications 
         LEFT JOIN users on notifications.id_sender = users.id_user
+        LEFT JOIN profiles on notifications.id_sender = profiles.id_user
         WHERE notifications.id_user = ? 
         ORDER BY notif_time DESC`
         , userid);
@@ -258,9 +259,26 @@ export async function checkLike(userid, likerid){
     }
 }
 
+export async function checkBlock(userid, blockerid){
+    try{
+        const result = await connection.query("SELECT * FROM blocks WHERE id_user = ? AND id_sender = ?", [userid, blockerid]);
+        return result;
+    }catch (err) {
+        throw new Error(err);
+    }
+}
+
 export async function addLike(userid, likerid){
     try {
         await connection.query('INSERT INTO likes (id_user, id_sender) VALUES (?, ?)', [userid, likerid]);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function addBlock(userid, blockerid){
+    try {
+        await connection.query('INSERT INTO blocks (id_user, id_sender) VALUES (?, ?)', [userid, blockerid]);
     } catch (err) {
         throw new Error(err);
     }

@@ -57,7 +57,7 @@ const EditPictures = () => {
             toast.error("Only png/jpeg(jpg) is allowed");
             return(false);
         };
-        const size = 2000000;
+        const size = 4000000;
         if (file.size > size) {
             toast.error("File is too big");
             return(false);

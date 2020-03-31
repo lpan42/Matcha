@@ -7,7 +7,7 @@ import EditProfile from './EditProfile';
 import Pictures from './Pictures';
 import Spinner from '../layout/Spinner';
 import DiscounnectComfirm from '../modals/DisconnectComfirm';
-import NotFound from '../layout/NotFound';
+import BlockComfirm from '../modals/BlockComfirm';
 
 import ImageAvatars from '../badges/ImageAvatars';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -25,8 +25,9 @@ const Profile = ({ match }) => {
     const { loadUser, user} = userContext;
 
     const [edit, setEdit] = useState(false);
-    const [show, setShow] = useState(false);
-    
+    const [showUnlike, setShowUnlike] = useState(false);
+    const [showBlock, setShowBlock] = useState(false);
+
     useEffect(() => {
         loadUser();
         getInterestsList();
@@ -59,9 +60,14 @@ const Profile = ({ match }) => {
             unLike(match.params.userid);
         }
         else{
-            setShow(true);
+            setShowUnlike(true);
         }
     }
+    
+    const BlockUser = () => {
+        setShowBlock(true);
+    }
+
     const calculateAge = moment().diff(profile && profile.data.birthday,'years');
 
     const RenderProfile = (
@@ -73,12 +79,13 @@ const Profile = ({ match }) => {
                     <div><FavoriteBorderIcon color="primary" onClick={LikeClick}/></div>
                 )
             }
-            {show ? <DiscounnectComfirm show={show} handleClose={()=>setShow(false)}/> : null}
+            {showUnlike ? <DiscounnectComfirm show={showUnlike} handleClose={()=>setShowUnlike(false)}/> : null}
             <div>
                 {+match.params.userid === (user && user.data.id) ? 
                     <button className="btn-primary" onClick={OnClick}>Edit my Profile</button> : 
                     <Fragment>
-                        <button className="btn-danger" >Block this user</button>
+                        <button className="btn-danger" onClick={BlockUser}>Block this user</button>
+                        {showBlock ? <BlockComfirm show={showBlock} handleClose={()=>setShowBlock(false)}/> : null}
                         {connected ? <button className="btn-primary">Send a message</button> : null}
                     </Fragment> }
                 <ImageAvatars avatarPath={profile && profile.data.avatar} />

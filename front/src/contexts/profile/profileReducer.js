@@ -11,7 +11,8 @@ import {
     CLEAR_PROFILE,
     UPDATE_AVATAR,
     UPLOAD_PICTURES,
-    MODIFY_PICTURES
+    MODIFY_PICTURES,
+    BLOCK_USER
 } from '../types';
 
 
@@ -97,6 +98,12 @@ export default (state, action) => {
                 ...state,
                 loading: false,
                 success: action.payload
+            }
+        case BLOCK_USER:
+            return {
+                ...state,
+                loading: false,
+                success: action.payload.success
             }
         default:
             return state;

@@ -18,6 +18,7 @@ import {
     UPDATE_AVATAR,
     UPLOAD_PICTURES,    
     MODIFY_PICTURES,
+    BLOCK_USER,
 } from '../types';
 
 const ProfileState = props => {
@@ -166,6 +167,24 @@ const ProfileState = props => {
             });
         }
     }
+    
+    const blockUser = async (userid) => {
+        setAuthToken(localStorage.token);
+        try{
+            const result = await axios.post(`/user/block/${userid}`);
+            dispatch({
+                type: BLOCK_USER,
+                payload: result.data
+            });
+        }catch(err){
+            console.log(err)
+            // dispatch({
+            //     type: NORMAL_ERROR,
+            //     payload: err.response.data.error
+            // });
+        }
+    }
+
     const clearProfile = () => {
         dispatch({
             type: CLEAR_PROFILE
@@ -213,7 +232,8 @@ const ProfileState = props => {
                 clearProfile,
                 updateAvatar,
                 uploadPictures,
-                modifyPictures
+                modifyPictures,
+                blockUser
             }}
         >
         {props.children}

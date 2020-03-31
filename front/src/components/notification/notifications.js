@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import NotifContext from '../../contexts/notification/notifContext';
 import UserContext from '../../contexts/user/userContext';
 import Spinner from '../layout/Spinner';
+import ImageAvatars from '../badges/ImageAvatars';
 import { toast } from 'react-toastify';
 
 const Notifications = () => {
@@ -34,13 +35,13 @@ const Notifications = () => {
 
     notif && notif.data.map((message,key) => {
         notif_message.push(
-            <li key={key} style={message.readed ? {color:"black"} : {color:"var(--primary-color)"}}>
-                {message.username} {message.notification} you on {message.notif_time} 
+            <div key={key} style={message.readed ? {color:"black"} : {color:"var(--primary-color)"}}>
+                <ImageAvatars avatarPath={message.avatar}/>{message.firstname} {message.notification} you on {message.notif_time} 
                 {message.notification === "messages" ? 
                     <button className="btn-sm btn-primary" ><a href="/" style={{color: "white"}}> Send a message</a></button> : 
                     <button className="btn-sm btn-primary" onClick={()=>{visitProfile(message.id_sender, message.id_notif)}} style={{color: "white"}}>Visit Profile</button> 
                 }
-            </li>
+            </div>
         );
     })
 

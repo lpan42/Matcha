@@ -1,4 +1,4 @@
-import React,{ useContext } from 'react'
+import React, { useContext } from 'react'
 import ProfileContext from '../../contexts/profile/profileContext';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,13 +7,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const DisconnectComfirm = ({show, handleClose}) => {
+const BlockComfirm = ({show, handleClose}) => {
     const  profileContext = useContext(ProfileContext);
 
-    const { profile, unLike } = profileContext;
+    const { profile, blockUser } = profileContext;
 
-    const DisconnectUser = () => {
-        unLike(profile.data.id_user);
+    const BlockUser = () => {
+        blockUser(profile.data.id_user);
         handleClose();
     }
 
@@ -25,15 +25,15 @@ const DisconnectComfirm = ({show, handleClose}) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">{`Are you sure to disconnect with ${profile.data.firstname}?`}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{`Are you sure to block ${profile.data.firstname}?`}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                Once you unlike (disconnect with) this user, all your chat messages will be deleted and you cannot get them back.
+                Once you block this user, you cannot get any notification about this user and also cannot search or visit this user.
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={DisconnectUser} color="primary">
-                Comfirm to disconnect
+              <Button onClick={BlockUser} color="primary">
+                Comfirm to block
               </Button>
               <Button onClick={handleClose} color="primary">
                 cancel
@@ -44,4 +44,4 @@ const DisconnectComfirm = ({show, handleClose}) => {
       );
 }
 
-export default DisconnectComfirm
+export default BlockComfirm

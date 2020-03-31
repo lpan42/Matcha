@@ -201,6 +201,31 @@ export async function likeProfile(req,res) {
     }
 }
 
+export async function blockUser(req,res) {
+    if (req.userid != req.params.userid) {
+        let data = {
+            notification: 'blocks',
+            id_user: req.params.userid,
+            id_sender: req.userid
+        }
+        const checkBlock = await userModel.checkBlock(data.id_user, data.id_sender);
+        if(checkBlock[0]){
+            return res.status(200).json({ 
+                success: 'You have blocked this user before'});
+        }
+        else{
+            await userModel.addBlock(data.id_user, data.id_sender);
+            await userModel.addFame(-50, data.id_user);
+            await userModel.addNotif(data);
+            return res.status(200).json({ 
+                success: 'You have blocked this user, You cannot get any information from this user'});
+        }
+    }
+    else{
+        return res.status(400).json({ error: 'You cannot block yourself'});
+    }
+}
+
 export async function unlikeProfile(req,res) {
     if (req.userid != req.params.userid) {
         let data = {
