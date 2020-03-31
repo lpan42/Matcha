@@ -1,6 +1,6 @@
-import React, {Fragment, useContext} from 'react';
-
+import React, {Fragment, useContext, useEffect} from 'react';
 import UserContext from '../../contexts/user/userContext';
+
 const EditAccount = () => {
     const userContext = useContext(UserContext);
     const { user, editAccount } = userContext;

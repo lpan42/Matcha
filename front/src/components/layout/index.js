@@ -2,13 +2,23 @@
 import React, { useContext, useEffect } from 'react'
 import UserContext from '../../contexts/user/userContext';
 // import Spinner from '../layout/Spinner';
+import { toast } from 'react-toastify';
 
 const Index = () => {
   const userContext = useContext(UserContext);
+
+  const { error, success, loadUser} = userContext;
+  
   useEffect(() => {
-    userContext.loadUser();
+    loadUser();
+    if(error) {
+            toast.error(error);
+        }
+        if(success) {
+            toast.success(success);
+        }
     //eslint-disable-next-line
-  }, []);
+  }, [error, success]);
 
   // if (loading) return <Spinner />;
 

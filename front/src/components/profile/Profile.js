@@ -7,6 +7,7 @@ import EditProfile from './EditProfile';
 import Pictures from './Pictures';
 import Spinner from '../layout/Spinner';
 import DiscounnectComfirm from '../modals/DisconnectComfirm';
+import NotFound from '../layout/NotFound';
 
 import ImageAvatars from '../badges/ImageAvatars';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -35,11 +36,14 @@ const Profile = ({ match }) => {
         if(error) {
             toast.error(error);
         }
+        if(emptyProfile){
+            toast.warning(emptyProfile);
+        }
         if(success) {
             toast.success(success);
         }
         // eslint-disable-next-line
-    }, [error, success]);
+    }, [error, emptyProfile, success]);
 
     if (loading) return <Spinner />;
 
@@ -100,8 +104,8 @@ const Profile = ({ match }) => {
     
     const NoProfile = (
         <Fragment>
-            <div className="text-center">{emptyProfile}
-            {(+match.params.userid === (user && user.data.id) && !edit) ? <button className="btn-primary btn-block" onClick={OnClick}>Create my Profile</button> : null}
+            <div className="text-center">
+                {emptyProfile}
             </div>
         </Fragment>
     )

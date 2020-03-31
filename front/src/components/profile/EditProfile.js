@@ -1,20 +1,19 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import EditInterests from './EditInterests';
 import UploadAvatars from '../modals/UploadAvatars';
 import ImageAvatars from '../badges/ImageAvatars';
 import EditPictures from './EditPictures';
-import { toast } from 'react-toastify';
 
 const EditProfile = () => {
     const  profileContext = useContext(ProfileContext);
     const  userContext = useContext(UserContext);
 
-    const { interests_list, profile, error, success, 
+    const { interests_list, profile,
         updateProfile, updateInterests, uploadPictures, modifyPictures 
     } = profileContext;
-    const { user} = userContext;
+    const { user } = userContext;
 
     const [update,setUpdate] = useState({
         gender: profile.data.gender ? profile.data.gender : '',
@@ -23,16 +22,7 @@ const EditProfile = () => {
         biography: profile.data.biography ? profile.data.biography : '',
     }
     );
-    useEffect(() => {
-        if(error) {
-            toast.error(error);
-        }
-        if(success) {
-            toast.success(success);
-        }
-        // eslint-disable-next-line
-    }, [error, success]);
-
+    
     const OnSubmit=(e)=>{
         e.preventDefault(); 
         

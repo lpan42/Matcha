@@ -2,7 +2,6 @@ import React,{ Fragment, useState, useContext, useEffect }  from 'react';
 import UserContext from '../../contexts/user/userContext';
 import EditAccount from './EditAccount';
 import { toast } from 'react-toastify';
-
 const Account = () => {
   const userContext = useContext(UserContext);
 
@@ -12,10 +11,10 @@ const Account = () => {
   useEffect(() => {
     loadUser();
     if(error) {
-      toast.error(error);
+        toast.error(error);
     }
     if(success) {
-        toast.success(success);
+      toast.success(success);
     }
       //eslint-disable-next-line
   }, [error, success]);

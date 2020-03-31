@@ -10,7 +10,7 @@ const Login = (props) => {
     const notifContext = useContext(NotifContext);
     const  profileContext = useContext(ProfileContext);
 
-    const { login, error, token, success, user} = userContext;
+    const { login, error, token, user} = userContext;
     const { getProfile} = profileContext;
     const { getNotif } = notifContext;
     
@@ -23,11 +23,8 @@ const Login = (props) => {
         if(error) {
             toast.error(error);
         }
-        if(success) {
-            toast.success(success);
-        }
         //eslint-disable-next-line
-    }, [token, user, props.history, error,success]);
+    }, [token, user, props.history, error]);
     
     const [loginUser, setLoginUser] = useState({
         username: '',
