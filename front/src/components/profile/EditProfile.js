@@ -40,7 +40,7 @@ const EditProfile = () => {
         updateInterests(profile.data.interests);
         uploadPictures(formData);
         modifyPictures(updatePics);
-        window.location.reload();
+        // window.location.reload();
     }
 
     const updateField = e => {

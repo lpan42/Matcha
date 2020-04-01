@@ -8,16 +8,16 @@
   --success-color: #A5C279;
 }
 .Toastify__toast--success {
-  background-color: #A5C279 !important;
+  background-color: var(--primary-color) !important;
 }
 .Toastify__toast--error {
-  background-color: #E56858 !important;
+  background-color: var(--danger-color) !important;
 }
 .Toastify__toast--info {
-  background-color: #A5C279 !important;
+  background-color: var(--primary-color) !important;
 }
 .Toastify__toast--warning {
-  background-color: #E5C971 !important;
+  background-color: var(--light-color) !important;
 }
 
 * {

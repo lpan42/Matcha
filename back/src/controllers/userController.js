@@ -77,17 +77,7 @@ export async function modifyAccount(req,res){
 export async function getProfile(req, res) {
     const getProfile = await userModel.getProfileInfoById(req.params.userid);
     if(getProfile.err)
-    {
-        if (req.userid != req.params.userid){
-           return res.status(400).json({error: getProfile.err});
-        }else{
-            let createProfile = await userModel.getCreateProfile(req.userid);
-                createProfile.interests = [];
-           return res.status(200).json({ 
-               data: createProfile
-            })
-        }
-    }
+        return res.status(400).json({error: getProfile.err});
     else{
         if (req.userid != req.params.userid) {
             let data = {
@@ -95,18 +85,18 @@ export async function getProfile(req, res) {
                 id_user: req.params.userid,
                 id_sender: req.userid
             }
+            const checkBlock = await userModel.checkBlock(data.id_user, data.id_sender);
+            if(checkBlock[0]){
+                return res.status(400).json({error: "You have blocked this user, you cannot check his/her profile anymore."});
+            }
             await userModel.addNotif(data);
             await userModel.addFame(1, data.id_user);
         }
         const result = await userModel.getProfileInfoById(req.params.userid);
-        if (typeof(result.err) !== 'undefined') {
-            return res.status(400).json({ error: result.err });
-        } else {
-            const interests = await userModel.getInterestsById(req.params.userid);
-            result.interests = interests;
-            const pictures = await userModel.getPictureById(req.params.userid);
-            result.pictures = pictures;
-        }
+        const interests = await userModel.getInterestsById(req.params.userid);
+        result.interests = interests;
+        const pictures = await userModel.getPictureById(req.params.userid);
+        result.pictures = pictures;
         return res.status(200).json({
             data: result
         })

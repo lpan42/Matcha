@@ -110,7 +110,7 @@ export async function getProfileInfoById(userid) {
         const result = await connection.query(
             `SELECT profiles.id_user, gender, birthday, sex_prefer, biography, location_lat, location_lon, avatar, fame, username, firstname, lastname, last_login, online
             FROM profiles 
-            INNER JOIN users on profiles.id_user = users.id_user
+            LEFT JOIN users on profiles.id_user = users.id_user
             WHERE profiles.id_user = ?`,
             userid);
         if(!result[0]){
@@ -259,19 +259,19 @@ export async function checkLike(userid, likerid){
     }
 }
 
+export async function addLike(userid, likerid){
+    try {
+        await connection.query('INSERT INTO likes (id_user, id_sender) VALUES (?, ?)', [userid, likerid]);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
 export async function checkBlock(userid, blockerid){
     try{
         const result = await connection.query("SELECT * FROM blocks WHERE id_user = ? AND id_sender = ?", [userid, blockerid]);
         return result;
     }catch (err) {
-        throw new Error(err);
-    }
-}
-
-export async function addLike(userid, likerid){
-    try {
-        await connection.query('INSERT INTO likes (id_user, id_sender) VALUES (?, ?)', [userid, likerid]);
-    } catch (err) {
         throw new Error(err);
     }
 }

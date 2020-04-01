@@ -38,16 +38,6 @@ const UploadAvatars = () => {
   const [picName, setPicName] = useState(profile.data.avatar ? profile.data.avatar : null);
   const [src, setSrc] = useState(profile.data.avatar ? `../images/${picName}` : null);
 
-  // useEffect(() => {
-  //   if(error) {
-  //     toast.error(error);
-  //   }
-  //   if(success) {
-  //       toast.success(success);
-  //   }
-  //     // eslint-disable-next-line
-  // }, [error, success]);
-
   const handleOpen = () => {
     setOpen(true);
   };
@@ -62,7 +52,7 @@ const UploadAvatars = () => {
       handleClose();
       toast.error("Only png/jpeg(jpg) is allowed");
     }
-    const size = 4000000;
+    const size = 3000000;
     if (file.size > size){
       handleClose();
       toast.error("File is too big");
