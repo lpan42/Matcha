@@ -66,9 +66,10 @@ const Header = ({ title }) => {
                 <Paper>
                     <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} >
-                        <MenuItem><a href='/account'>Account</a></MenuItem>
-                        <MenuItem><a href={`/profile/${user && user.data.id}`} >Profile</a></MenuItem>
-                        <MenuItem><a href={`/profile/${user && user.data.id}`} >Friends</a></MenuItem>
+                        <MenuItem><a href='/account'>My Account</a></MenuItem>
+                        <MenuItem><a href={`/profile/${user && user.data.id}`} >My Profile</a></MenuItem>
+                        <MenuItem><a href={`/profile/${user && user.data.id}`} >My Friends</a></MenuItem>
+                        <MenuItem><a href={`/blocklist/${user && user.data.id}`} >Blocked Users</a></MenuItem>
                     </MenuList>
                     </ClickAwayListener>
                 </Paper>

@@ -13,7 +13,7 @@ import Account from './components/user/Account';
 import Profile from './components/profile/Profile';
 import NotFound from './components/layout/NotFound';
 import notifications from './components/notification/notifications';
-
+import Blocklist from './components/profile/Blocklist';
 //state
 import UserState from './contexts/user/UserState';
 import ProfileState from './contexts/profile/ProfileState';
@@ -41,6 +41,7 @@ const App = () => {
 							<PrivateRoute exact path='/' component={Index} />
 							<PrivateRoute exact path='/account' component={Account} />
 							<PrivateRoute exact path='/profile/:userid' component={Profile} />
+							<PrivateRoute exact path='/blocklist/:userid' component={Blocklist} />
 							<PrivateRoute exact path='/notif' component={notifications} />
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />
