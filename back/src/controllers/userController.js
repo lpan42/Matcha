@@ -321,4 +321,11 @@ export async function uploadPictures(req, res){
    
     return res.status(200);
 }
+
+export async function getBlockList(req, res){
+    const result = await userModel.getBlockList(req.userid);
+    return res.status(200).json({
+        data: result
+    });
+}
 //get chatroom and message

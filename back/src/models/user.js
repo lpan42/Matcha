@@ -345,3 +345,18 @@ export async function deletePics(filename){
         throw new Error(err);
     }
 }
+
+export async function getBlockList(userid){
+    try{
+        const result = await connection.query(`
+            SELECT blocks.id_user, users.firstname, profiles.avatar
+            FROM blocks 
+            LEFT JOIN users on blocks.id_user = users.id_user
+            LEFT JOIN profiles on blocks.id_user = profiles.id_user
+            WHERE blocks.id_sender = ?`, userid);
+        return result;
+    }
+    catch (err) {
+        throw new Error(err);
+    }
+}

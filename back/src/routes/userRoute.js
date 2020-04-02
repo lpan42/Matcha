@@ -23,6 +23,7 @@ router.route('/checklike/:userid').get(auth,userController.checkLike);
 router.route('/like/:userid').post(auth, userController.likeProfile);
 router.route('/unlike/:userid').post(auth, userController.unlikeProfile);
 router.route('/block/:userid').post(auth, userController.blockUser);
+router.route('/blocklist').get(auth, userController.getBlockList);
 
 //modify
 router.route('/modify/account').post(auth, userController.modifyAccount);

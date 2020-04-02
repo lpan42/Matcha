@@ -18,6 +18,8 @@ import Blocklist from './components/profile/Blocklist';
 import UserState from './contexts/user/UserState';
 import ProfileState from './contexts/profile/ProfileState';
 import NotifState from './contexts/notification/NotifState';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 
 toast.configure({
 	position: "bottom-left",
@@ -28,12 +30,37 @@ toast.configure({
 	draggable: false,
   });
 
+  const theme = createMuiTheme({
+	palette: {
+	  primary: {
+		main: '#60A561',
+	  },
+	  secondary: {
+		main: '#F6BD60',
+	  },
+	  error: {
+		main: '#B33951',
+	  },
+	  success: {
+		main: '#60A561',
+	  },
+	  warning:  {
+		main: '#F6BD60',
+	  },
+	  info: {
+		  main: '#38618C',
+	  }
+	},
+  });
+  
 const App = () => {
+	
 	return (
 		<UserState>
 		<ProfileState>
 		<NotifState>
 			<Router>
+			<ThemeProvider theme={theme}>
 				<Fragment>
 					<Header title ="Matcha"/>
 					<div className="container">
@@ -49,6 +76,7 @@ const App = () => {
 						</Switch>
 					</div>
 				</Fragment>
+			</ThemeProvider>
 			</Router>
 		</NotifState>
 		</ProfileState>
