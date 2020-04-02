@@ -69,7 +69,7 @@ const Header = ({ title }) => {
                         <MenuItem><a href='/account'>My Account</a></MenuItem>
                         <MenuItem><a href={`/profile/${user && user.data.id}`} >My Profile</a></MenuItem>
                         <MenuItem><a href={`/profile/${user && user.data.id}`} >My Friends</a></MenuItem>
-                        <MenuItem><a href={`/blocklist/${user && user.data.id}`} >Blocked Users</a></MenuItem>
+                        <MenuItem><a href={`/blocklist`} >Blocked Users</a></MenuItem>
                     </MenuList>
                     </ClickAwayListener>
                 </Paper>

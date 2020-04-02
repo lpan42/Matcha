@@ -68,7 +68,7 @@ const App = () => {
 							<PrivateRoute exact path='/' component={Index} />
 							<PrivateRoute exact path='/account' component={Account} />
 							<PrivateRoute exact path='/profile/:userid' component={Profile} />
-							<PrivateRoute exact path='/blocklist/:userid' component={Blocklist} />
+							<PrivateRoute exact path='/blocklist' component={Blocklist} />
 							<PrivateRoute exact path='/notif' component={notifications} />
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />
