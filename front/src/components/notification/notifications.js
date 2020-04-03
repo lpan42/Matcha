@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
     },
-  }));
+}));
   
 const Notifications = () => {
     const notifContext = useContext(NotifContext);
@@ -67,9 +67,9 @@ const Notifications = () => {
     })
 
     const renderNotif = (
-            <div>
-                <Fragment>{ notif_message }</Fragment>
-            </div>
+        <div>
+            <Fragment>{ notif_message }</Fragment>
+        </div>
     )
 
     return (

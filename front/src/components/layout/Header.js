@@ -6,6 +6,7 @@ import UserContext from '../../contexts/user/userContext';
 import NotifContext from '../../contexts/notification/notifContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import NotifBadge from '../badges/NotifBadge';
+import MessageBadge from '../badges/MessageBadge';
 import ImageAvatars from '../badges/ImageAvatars';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -13,17 +14,8 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import { makeStyles } from '@material-ui/core/styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-    },
-    paper: {
-      marginRight: theme.spacing(2),
-    },
-  }));
 
 const Header = ({ title }) => {
     const userContext = useContext(UserContext);
@@ -75,6 +67,7 @@ const Header = ({ title }) => {
                 </Paper>
             </Popper>
             <a href='/notif'><NotifBadge /></a>
+            <a href='/notif'><MessageBadge /></a>
             <Button href="#!" onClick={onLogout}><ExitToAppIcon style={{ color:"white" }}/></Button>
         </Fragment>
     )

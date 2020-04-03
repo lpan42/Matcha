@@ -4,6 +4,7 @@ import setAuthToken from '../../utils/setAuthToken';
 import UserContext from '../../contexts/user/userContext';
 import Spinner from '../layout/Spinner';
 import ImageAvatars from '../badges/ImageAvatars';
+import UnblockComfirm from '../modals/UnblockComfirm';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -27,6 +28,7 @@ const Blocklist = () => {
     const [blockList, setBlockList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(null);
+    const [showUnblock, setShowUnblock] = useState(false);
 
     const classes = useStyles();
     const blocks = [];
@@ -52,19 +54,11 @@ const Blocklist = () => {
       }, [success]);
     
     if (loading) return <Spinner />;
-
-    const unblockUser = async (blockUserId) => {
-        setAuthToken(localStorage.token);
-        try{
-            const result =  await axios.post(`/user/unblock/${blockUserId}`);
-            setSuccess(result.data.success);
-            getBlockList();
-            setLoading(false);
-        }catch(err){
-            console.log(err);
-        }
+    
+    const showUnblockComfirm = () => {
+        setShowUnblock(true);
     }
-
+  
     if(blockList.length){
         blockList.map((blockUser, key) => {
             blocks.push(
@@ -74,10 +68,18 @@ const Blocklist = () => {
                     </ListItemAvatar>
                         <ListItemText primary={blockUser.firstname}/>
                     <button className="btn-sm btn-primary"
-                        onClick={()=>{unblockUser(blockUser.id_user)}}
+                        onClick={showUnblockComfirm}
                     >
                         Unblock User
-                    </button> 
+                    </button>
+                    {showUnblock ? 
+                        <UnblockComfirm 
+                            show={showUnblock} 
+                            handleClose={()=>setShowUnblock(false)} 
+                            blockUserId={ blockUser.id_user} 
+                            blockUserFirstname = {blockUser.firstname}
+                            success={(data)=>setSuccess(data)}
+                        /> : null}
                 </ListItem>
         );
         });
