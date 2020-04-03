@@ -192,7 +192,6 @@ const History = () => {
                         <p className="text-center">You did not block any user.</p>}
                 </List>
             </div>
-            
         </div>
     )
 }
