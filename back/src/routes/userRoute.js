@@ -24,7 +24,10 @@ router.route('/like/:userid').post(auth, userController.likeProfile);
 router.route('/unlike/:userid').post(auth, userController.unlikeProfile);
 router.route('/block/:userid').post(auth, userController.blockUser);
 router.route('/blocklist').get(auth, userController.getBlockList);
+router.route('/likelist').get(auth, userController.getLikeList);
+router.route('/visitlist').get(auth, userController.getVisitList);
 router.route('/unblock/:blockuserid').post(auth, userController.unBlockUser);
+
 //modify
 router.route('/modify/account').post(auth, userController.modifyAccount);
 router.route('/modify/profile').post(auth, userController.modifyProfile);

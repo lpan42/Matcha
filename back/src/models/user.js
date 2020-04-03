@@ -353,7 +353,8 @@ export async function getBlockList(userid){
             FROM blocks 
             LEFT JOIN users on blocks.id_user = users.id_user
             LEFT JOIN profiles on blocks.id_user = profiles.id_user
-            WHERE blocks.id_sender = ?`, userid);
+            WHERE blocks.id_sender = ? 
+            ORDER BY block_time DESC`, userid);
         return result;
     }
     catch (err) {
@@ -365,6 +366,36 @@ export async function unBlockUser(userid, blockerid){
     try{
         await connection.query('DELETE FROM blocks WHERE id_user = ? and id_sender = ?',
         [userid, blockerid]);
+    }
+    catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function getVisitList(userid){
+    try{
+        const result = await connection.query(`
+            SELECT notifications.id_user, notification, notif_time, users.firstname, profiles.avatar
+            FROM notifications 
+            LEFT JOIN users on notifications.id_user = users.id_user
+            LEFT JOIN profiles on notifications.id_user = profiles.id_user
+            WHERE notifications.id_sender = ? AND notifications.notification = 'visits'`, userid);
+        return result;
+    }
+    catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function getLikeList(userid){
+    try{
+        const result = await connection.query(`
+            SELECT notifications.id_user, notification, notif_time, users.firstname, profiles.avatar
+            FROM notifications 
+            LEFT JOIN users on notifications.id_user = users.id_user
+            LEFT JOIN profiles on notifications.id_user = profiles.id_user
+            WHERE notifications.id_sender = ? AND notifications.notification = 'likes'`, userid);
+        return result;
     }
     catch (err) {
         throw new Error(err);

@@ -60,15 +60,15 @@ const Header = ({ title }) => {
                     <MenuList autoFocusItem={open} >
                         <MenuItem><a href='/account'>My Account</a></MenuItem>
                         <MenuItem><a href={`/profile/${user && user.data.id}`} >My Profile</a></MenuItem>
+                        <MenuItem><a href={`/history`} >My History</a></MenuItem>
                         <MenuItem><a href={`/profile/${user && user.data.id}`} >My Friends</a></MenuItem>
-                        <MenuItem><a href={`/blocklist`} >Blocked Users</a></MenuItem>
                     </MenuList>
                     </ClickAwayListener>
                 </Paper>
             </Popper>
-            <a href='/notif'><NotifBadge /></a>
-            <a href='/notif'><MessageBadge /></a>
-            <Button href="#!" onClick={onLogout}><ExitToAppIcon style={{ color:"white" }}/></Button>
+            <Button href='/notif'><NotifBadge /></Button>
+            <Button href='/notif'><MessageBadge /></Button>
+            <Button href="#!" onClick={onLogout}><ExitToAppIcon /></Button>
         </Fragment>
     )
 

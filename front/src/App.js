@@ -13,7 +13,8 @@ import Account from './components/user/Account';
 import Profile from './components/profile/Profile';
 import NotFound from './components/layout/NotFound';
 import notifications from './components/notification/notifications';
-import Blocklist from './components/profile/Blocklist';
+import History from './components/profile/History';
+
 //state
 import UserState from './contexts/user/UserState';
 import ProfileState from './contexts/profile/ProfileState';
@@ -34,21 +35,27 @@ toast.configure({
 	palette: {
 	  primary: {
 		main: '#60A561',
+		contrastText: '#ffffff',
 	  },
 	  secondary: {
 		main: '#F6BD60',
+		contrastText: '#ffffff',
 	  },
 	  error: {
 		main: '#B33951',
+		contrastText: '#ffffff',
 	  },
 	  success: {
 		main: '#60A561',
+		contrastText: '#ffffff',
 	  },
 	  warning:  {
 		main: '#F6BD60',
+		contrastText: '#ffffff',
 	  },
 	  info: {
-		  main: '#38618C',
+		contrastText: '#ffffff',
+		main: '#38618C',
 	  }
 	},
   });
@@ -68,7 +75,7 @@ const App = () => {
 							<PrivateRoute exact path='/' component={Index} />
 							<PrivateRoute exact path='/account' component={Account} />
 							<PrivateRoute exact path='/profile/:userid' component={Profile} />
-							<PrivateRoute exact path='/blocklist' component={Blocklist} />
+							<PrivateRoute exact path='/history' component={History} />
 							<PrivateRoute exact path='/notif' component={notifications} />
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />

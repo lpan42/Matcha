@@ -328,6 +328,19 @@ export async function getBlockList(req, res){
         data: result
     });
 }
+export async function getLikeList(req, res){
+    const result = await userModel.getLikeList(req.userid);
+    return res.status(200).json({
+        data: result
+    });
+}
+
+export async function getVisitList(req, res){
+    const result = await userModel.getVisitList(req.userid);
+    return res.status(200).json({
+        data: result
+    });
+}
 
 export async function unBlockUser(req, res){
     const userid = req.params.blockuserid;
