@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
-import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotifContext from '../../contexts/notification/notifContext';
 
 const useStyles = makeStyles(theme => ({
@@ -26,7 +26,7 @@ const NotifBadge = () => {
 
     return (
         <div className={classes.root}>
-            <Badge badgeContent={nbr} max={99} color="secondary" showZero><MailIcon /></Badge>
+            <Badge badgeContent={nbr} max={99} color="secondary" showZero><NotificationsIcon /></Badge>
         </div>
     );
 }

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.background.paper,
     },
 }));
-  
+
 const Notifications = () => {
     const notifContext = useContext(NotifContext);
     const  userContext = useContext(UserContext);
