@@ -379,7 +379,8 @@ export async function getVisitList(userid){
             FROM notifications 
             LEFT JOIN users on notifications.id_user = users.id_user
             LEFT JOIN profiles on notifications.id_user = profiles.id_user
-            WHERE notifications.id_sender = ? AND notifications.notification = 'visits'`, userid);
+            WHERE notifications.id_sender = ? AND notifications.notification = 'visits'
+            ORDER BY notif_time DESC`, userid);
         return result;
     }
     catch (err) {
@@ -394,7 +395,8 @@ export async function getLikeList(userid){
             FROM notifications 
             LEFT JOIN users on notifications.id_user = users.id_user
             LEFT JOIN profiles on notifications.id_user = profiles.id_user
-            WHERE notifications.id_sender = ? AND notifications.notification = 'likes'`, userid);
+            WHERE notifications.id_sender = ? AND notifications.notification = 'likes'
+            ORDER BY notif_time DESC`, userid);
         return result;
     }
     catch (err) {
