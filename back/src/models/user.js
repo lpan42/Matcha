@@ -360,3 +360,13 @@ export async function getBlockList(userid){
         throw new Error(err);
     }
 }
+
+export async function unBlockUser(userid, blockerid){
+    try{
+        await connection.query('DELETE FROM blocks WHERE id_user = ? and id_sender = ?',
+        [userid, blockerid]);
+    }
+    catch (err) {
+        throw new Error(err);
+    }
+}

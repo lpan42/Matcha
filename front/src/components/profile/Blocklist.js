@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { makeStyles } from '@material-ui/core/styles';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,20 +19,18 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+
 const Blocklist = () => {
     const  userContext = useContext(UserContext);
     const { loadUser } = userContext;
 
     const [blockList, setBlockList] = useState([]);
     const [loading, setLoading] = useState(true);
-    const classes = useStyles();
+    const [success, setSuccess] = useState(null);
 
-    useEffect(() => {
-        loadUser();
-        getBlockList();
-        //eslint-disable-next-line
-      }, []);
-      
+    const classes = useStyles();
+    const blocks = [];
+
     const getBlockList = async () => {
         setAuthToken(localStorage.token);
         try{
@@ -42,16 +41,31 @@ const Blocklist = () => {
             console.log(err);
         }
     }
+
+    useEffect(() => {
+        loadUser();
+        getBlockList();
+        if(success) {
+            toast.success(success);
+        }
+        //eslint-disable-next-line
+      }, [success]);
+    
     if (loading) return <Spinner />;
 
-    const blocks = [];
-
-    const unblockUser = (blockUserId) => {
-        console.log("call")
+    const unblockUser = async (blockUserId) => {
+        setAuthToken(localStorage.token);
+        try{
+            const result =  await axios.post(`/user/unblock/${blockUserId}`);
+            setSuccess(result.data.success);
+            getBlockList();
+            setLoading(false);
+        }catch(err){
+            console.log(err);
+        }
     }
 
     if(blockList.length){
-        console.log(blockList)
         blockList.map((blockUser, key) => {
             blocks.push(
                 <ListItem key={key} color="primary">

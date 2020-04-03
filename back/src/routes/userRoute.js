@@ -19,12 +19,12 @@ router.route('/notif/get_notif').get(auth, userController.getNotif);
 router.route('/notif/read/:id_notif').get(auth, userController.readNotif);
 // router.route('/history/:userid').get(userController.getHistory);
 
-router.route('/checklike/:userid').get(auth,userController.checkLike);
+router.route('/checklike/:userid').get(auth, userController.checkLike);
 router.route('/like/:userid').post(auth, userController.likeProfile);
 router.route('/unlike/:userid').post(auth, userController.unlikeProfile);
 router.route('/block/:userid').post(auth, userController.blockUser);
 router.route('/blocklist').get(auth, userController.getBlockList);
-
+router.route('/unblock/:blockuserid').post(auth, userController.unBlockUser);
 //modify
 router.route('/modify/account').post(auth, userController.modifyAccount);
 router.route('/modify/profile').post(auth, userController.modifyProfile);

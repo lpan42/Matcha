@@ -328,4 +328,14 @@ export async function getBlockList(req, res){
         data: result
     });
 }
+
+export async function unBlockUser(req, res){
+    const userid = req.params.blockuserid;
+    const blockerid = req.userid;
+    await userModel.unBlockUser(userid, blockerid);
+    await userModel.addFame(50, userid);
+    return res.status(200).json({
+        success: "You have unblocked this user, you can now visit his profile"
+    });
+}
 //get chatroom and message
