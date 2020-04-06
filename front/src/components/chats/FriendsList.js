@@ -10,14 +10,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { toast } from 'react-toastify';
 import toUpperCase from '../../utils/toUpperCase';
+import ChatRoomModal from '../chats/ChatRoomModal';
 
 const FriendsList = () => {
     const  userContext = useContext(UserContext);
     const { loadUser } = userContext;
 
     const [friendsList, setFriendsList] = useState([]);
+    const [showChatroom, setShowChatroom] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [success, setSuccess] = useState(null);
+    // const [success, setSuccess] = useState(null);
     const friends = [];
 
     const getFriendsList = async () => {
@@ -34,20 +36,19 @@ const FriendsList = () => {
     useEffect(() => {
         loadUser();
         getFriendsList();
-        if(success) {
-            toast.success(success);
-        }
+        // if(success) {
+        //     toast.success(success);
+        // }
         //eslint-disable-next-line
-      }, [success]);
+      }, []);
 
     if (loading) return <Spinner />;
     
-    const getChatroom = (id_user) => {
-        console.log(id_user)
+    const showChatroomModal = () => {
+        setShowChatroom(true);
     }
 
     if(friendsList.length){
-        console.log(friendsList)
         friendsList.map((friend, key) => {
             let primary = 
                 `${toUpperCase(friend.firstname)}
@@ -58,14 +59,16 @@ const FriendsList = () => {
                     <ListItemAvatar>
                         <ImageAvatars avatarPath={friend.avatar}/>
                     </ListItemAvatar>
-                        <ListItemText
-                            primary={primary}
-                        />
-                    <button className="btn-sm btn-primary"
-                            onClick={()=>{getChatroom(friend.id_user)}}
-                        >
+                        <ListItemText primary={primary}/>
+                    <button className="btn-sm btn-primary" onClick={showChatroomModal}>
                         Send a Message
                     </button>
+                    {showChatroom ? 
+                        <ChatRoomModal 
+                            show={showChatroom} 
+                            handleClose={()=>setShowChatroom(false)} 
+                            chatroomId={friend.id_chatroom} 
+                        /> : null}
                 </ListItem>
             );
         });

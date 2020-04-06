@@ -1,4 +1,4 @@
-import React, {useContext, Fragment, useState,useEffect} from 'react'
+import React, {useContext, Fragment, useState} from 'react'
 import ProfileContext from '../../contexts/profile/profileContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -29,11 +29,11 @@ const useStyles = makeStyles(theme => ({
 const UploadAvatars = () => {
   const  profileContext = useContext(ProfileContext);
 
-  const { profile, updateAvatar, error, success } = profileContext;
+  const { profile, updateAvatar } = profileContext;
 
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [pic, setPic] = useState(null);
   const [picName, setPicName] = useState(profile.data.avatar ? profile.data.avatar : null);
   const [src, setSrc] = useState(profile.data.avatar ? `../images/${picName}` : null);
