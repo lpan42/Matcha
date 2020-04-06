@@ -36,4 +36,8 @@ router.route('/modify/pictures').post(auth, userController.modifyPictures);
 
 router.route('/upload/avatar').post(auth,userController.uploadAvatar);
 router.route('/upload/pictures').post(auth, userController.uploadPictures);
+
+// chat
+router.route('/friendslist').get(auth, userController.getFriendsList);
+
 module.exports = router;

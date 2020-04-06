@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import toUpperCase from '../../utils/toUpperCase';
 
 const BlockComfirm = ({show, handleClose}) => {
     const  profileContext = useContext(ProfileContext);
@@ -25,7 +26,7 @@ const BlockComfirm = ({show, handleClose}) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">{`Are you sure to block ${profile.data.firstname}?`}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{`Are you sure to block ${toUpperCase(profile.data.firstname)} ${toUpperCase(profile.data.lastname)}?`}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Once you block this user, you cannot get any notification about this user and also cannot search or visit this user.

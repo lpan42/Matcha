@@ -11,14 +11,8 @@ const Index = () => {
   
   useEffect(() => {
     loadUser();
-    if(error) {
-            toast.error(error);
-        }
-        if(success) {
-            toast.success(success);
-        }
     //eslint-disable-next-line
-  }, [error, success]);
+  }, []);
 
   // if (loading) return <Spinner />;
 

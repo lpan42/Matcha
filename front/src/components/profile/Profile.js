@@ -8,7 +8,7 @@ import Pictures from './Pictures';
 import Spinner from '../layout/Spinner';
 import DiscounnectComfirm from '../modals/DisconnectComfirm';
 import BlockComfirm from '../modals/BlockComfirm';
-
+import toUpperCase from '../../utils/toUpperCase';
 import ImageAvatars from '../badges/ImageAvatars';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -93,11 +93,11 @@ const Profile = ({ match }) => {
                     <p style={{color:"var(--primary-color)"}}>Online</p> : 
                     <p style={{color:"var(--danger-color)"}}>Offline, Last login time: {profile && profile.data.last_login}</p>}
                 <p>Fame: {profile && profile.data.fame}</p>
-                <p>Username: {profile && profile.data.username}</p>
-                <p>Fristname: {profile && profile.data.firstname}</p>
-                <p>Lastname: {profile && profile.data.lastname}</p>
-                <p>Gender: {profile && profile.data.gender}</p>
-                <p>Sex Orientation: {profile && profile.data.sex_prefer}</p>
+                <p>Username: {profile && toUpperCase(profile.data.username)}</p>
+                <p>Fristname: {profile && toUpperCase(profile.data.firstname)}</p>
+                <p>Lastname: {profile && toUpperCase(profile.data.lastname)}</p>
+                <p>Gender: {profile && toUpperCase(profile.data.gender)}</p>
+                <p>Sex Orientation: {profile && toUpperCase(profile.data.sex_prefer)}</p>
                 <p>Age: { calculateAge }</p>
                 {/* <p>Birthday: {profile && profile.data.birthday}</p> */}
                 <p>Biography: {profile && profile.data.biography}</p>

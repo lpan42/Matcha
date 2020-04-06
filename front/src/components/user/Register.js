@@ -52,11 +52,11 @@ const Register = (props) => {
                 lastname,
                 password
             });
-
         }
-        
     }
+    
     if (loading) return <Spinner />;
+
     return (
         <div className='form-container'>
             <h1>

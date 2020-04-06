@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 
-const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, success}) => {
+const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, blockUserLastname, success}) => {
     const unblockUser = async (blockUserId) => {
         setAuthToken(localStorage.token);
         try{
@@ -28,7 +28,7 @@ const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, suc
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">{`Are you sure to unblock ${blockUserFirstname}?`}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{`Are you sure to unblock ${blockUserFirstname} ${blockUserLastname} ?`}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Once you unblock this user, you can visit and get notification from and  this user.

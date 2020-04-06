@@ -24,10 +24,10 @@ import { ThemeProvider } from '@material-ui/styles';
 
 toast.configure({
 	position: "bottom-left",
-	autoClose: 5000,
+	autoClose: 3000,
 	hideProgressBar: true,
-	closeOnClick: false,
-	pauseOnHover: true,
+	closeOnClick: true,
+	pauseOnHover: false,
 	draggable: false,
   });
 

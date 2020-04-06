@@ -2,6 +2,8 @@ import React,{ Fragment, useState, useContext, useEffect }  from 'react';
 import UserContext from '../../contexts/user/userContext';
 import EditAccount from './EditAccount';
 import { toast } from 'react-toastify';
+import toUpperCase from '../../utils/toUpperCase';
+
 const Account = () => {
   const userContext = useContext(UserContext);
 
@@ -26,10 +28,10 @@ const Account = () => {
   const accountInfo = (
     <Fragment>
       <div className="form-group"> 
-          <p>Username:</p> <p>{user && user.data.username}</p> 
+          <p>Username:</p> <p>{user && toUpperCase(user.data.username)}</p> 
           <p>Email:</p> <p>{user && user.data.email}</p> 
-          <p>Firstname:</p> <p>{user && user.data.firstname}</p> 
-          <p>Lastname:</p> <p>{user && user.data.lastname}</p>
+          <p>Firstname:</p> <p>{user && toUpperCase(user.data.firstname)}</p> 
+          <p>Lastname:</p> <p>{user && toUpperCase(user.data.lastname)}</p>
           <button className="btn btn-primary btn-block" onClick={onClick}>Edit</button>
       </div>
     </Fragment>

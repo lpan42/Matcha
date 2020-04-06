@@ -14,6 +14,7 @@ import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 import Divider from '@material-ui/core/Divider';
+import toUpperCase from '../../utils/toUpperCase';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -96,12 +97,13 @@ const History = () => {
 
     if(blockList.length){
         blockList.map((blockUser, key) => {
+            let primary = `${toUpperCase(blockUser.firstname)} ${toUpperCase(blockUser.lastname)}`;
             blocks.push(
                 <ListItem key={key} color="primary">
                     <ListItemAvatar>
                         <ImageAvatars avatarPath={blockUser.avatar}/>
                     </ListItemAvatar>
-                        <ListItemText primary={blockUser.firstname}/>
+                        <ListItemText primary={primary} />
                     <button className="btn-sm btn-primary"
                         onClick={showUnblockComfirm}
                     >
@@ -111,8 +113,9 @@ const History = () => {
                         <UnblockComfirm 
                             show={showUnblock} 
                             handleClose={()=>setShowUnblock(false)} 
-                            blockUserId={ blockUser.id_user} 
-                            blockUserFirstname = {blockUser.firstname}
+                            blockUserId={blockUser.id_user} 
+                            blockUserFirstname = {toUpperCase(blockUser.firstname)}
+                            blockUserLastname = {toUpperCase(blockUser.lastname)}
                             success={(data)=>setSuccess(data)}
                         /> : null}
                 </ListItem>
@@ -122,7 +125,7 @@ const History = () => {
 
     if(visitList.length){
         visitList.map((visitUser, key) => {
-            let primary = `You ${visitUser.notification} ${visitUser.firstname}`;
+            let primary = `You ${visitUser.notification} ${toUpperCase(visitUser.firstname)} ${toUpperCase(visitUser.lastname)}`;
             let secondary = `on ${visitUser.notif_time}`
             visits.push(
                 <ListItem key={key} color="primary">
@@ -143,7 +146,7 @@ const History = () => {
 
     if(likeList.length){
         likeList.map((likeUser, key) => {
-            let primary = `You ${likeUser.notification} ${likeUser.firstname}`;
+            let primary = `You ${likeUser.notification} ${toUpperCase(likeUser.firstname)} ${toUpperCase(likeUser.lastname)}`;
             let secondary = `on ${likeUser.notif_time}`
             likes.push(
                 <ListItem key={key} color="primary">

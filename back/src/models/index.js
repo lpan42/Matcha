@@ -45,11 +45,42 @@ export async function getMessageByChatroomId(id_chatroom){
 }
 
 export async function getAllConnectedByUserid(id_user){
+    const result = [];
+    let i = 0;
     try{
-		const result = await connection.query('SELECT * FROM chatrooms WHERE id_user_1 = ? OR id_user_2 = ?', [id_user, id_user]);
-		return (result);
-	} 
-	catch (err) {
+        const result1 = await connection.query(`
+            SELECT chatrooms.id_user_2 AS id_user, chatrooms.id_chatroom, users.firstname, users.lastname, profiles.avatar
+            FROM chatrooms
+            LEFT JOIN users on chatrooms.id_user_2 = users.id_user
+            LEFT JOIN profiles on chatrooms.id_user_2 = profiles.id_user
+            WHERE chatrooms.id_user_1 = ?`, 
+        [id_user]);
+        if(result1[0]){
+            for(let j=0;j<result1.length;j++){
+                result[i] = result1[j];
+                i++;
+            }
+        }
+        try {
+            const result2 = await connection.query(`
+                SELECT chatrooms.id_user_1 AS id_user, chatrooms.id_chatroom, users.firstname, users.lastname, profiles.avatar
+                FROM chatrooms
+                LEFT JOIN users on chatrooms.id_user_1 = users.id_user
+                LEFT JOIN profiles on chatrooms.id_user_1 = profiles.id_user
+                WHERE chatrooms.id_user_2 = ?`, 
+            [id_user]);
+            if(result2[0]){
+                for(let j=0;j<result2.length;j++){
+                    result[i] = result2[j];
+                    i++;
+                }
+            }  
+        }catch (err) {
+            throw new Error(err);
+        }
+		return(result);
+    } 
+    catch (err) {
 		throw new Error(err);
 	}
 }

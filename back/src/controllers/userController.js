@@ -351,4 +351,12 @@ export async function unBlockUser(req, res){
         success: "You have unblocked this user, you can now visit his profile"
     });
 }
+
+export async function getFriendsList(req,res){
+    const result = await indexModel.getAllConnectedByUserid(req.userid);
+    return res.status(200).json({
+        data: result
+    });
+}
+
 //get chatroom and message

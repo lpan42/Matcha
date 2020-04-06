@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import toUpperCase from '../../utils/toUpperCase';
 
 const DisconnectComfirm = ({show, handleClose}) => {
     const  profileContext = useContext(ProfileContext);
@@ -25,7 +26,7 @@ const DisconnectComfirm = ({show, handleClose}) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">{`Are you sure to disconnect with ${profile.data.firstname}?`}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{`Are you sure to disconnect with ${toUpperCase(profile.data.firstname)} ${toUpperCase(profile.data.lastname)}?`}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Once you unlike (disconnect with) this user, all your chat messages will be deleted and you cannot get them back.

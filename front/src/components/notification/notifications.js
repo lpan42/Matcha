@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import toUpperCase from '../../utils/toUpperCase';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Notifications = () => {
     const notifContext = useContext(NotifContext);
-    const  userContext = useContext(UserContext);
-    const { notif, readNotif, success, error,loading } = notifContext;
+    const  userContext = useContext(UserContext);   
+    const { notif, readNotif, loading } = notifContext;
     const { loadUser } = userContext;
     const notif_message = [];
     const history = useHistory();
@@ -30,14 +31,8 @@ const Notifications = () => {
 
     useEffect(() => {
         loadUser();
-        if(error) {
-            toast.error(error);
-        }
-        if(success) {
-            toast.success(success);
-        }
         //eslint-disable-next-line
-      }, [error, success]);
+      }, []);
       
     if (loading) return <Spinner />;
 
@@ -47,7 +42,7 @@ const Notifications = () => {
     }   
 
     notif && notif.data.map((message,key) => {
-        let primary = `${message.firstname} ${message.notification} you`;
+        let primary = `${toUpperCase(message.firstname)} ${toUpperCase(message.lastname)} ${message.notification} you`;
         let secondary = `on ${message.notif_time}`
         notif_message.push(
             <ListItem key={key} style={message.readed ? {color:"black"} : {color:"var(--primary-color)"}}>
