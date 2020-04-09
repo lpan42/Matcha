@@ -11,40 +11,30 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { toast } from 'react-toastify';
 import toUpperCase from '../../utils/toUpperCase';
 import ChatRoomModal from '../chats/ChatRoomModal';
-
+import ChatContext from '../../contexts/chat/chatContext';
 const FriendsList = () => {
+   
     const  userContext = useContext(UserContext);
+    const chatContext = useContext(ChatContext);
+
     const { loadUser } = userContext;
-
-    const [friendsList, setFriendsList] = useState([]);
+    const { friendsList, getFriendsList,loading } = chatContext;
+    
     const [showChatroom, setShowChatroom] = useState(false);
-    const [loading, setLoading] = useState(true);
-    // const [success, setSuccess] = useState(null);
-    const friends = [];
+    const [activeChatroom, setActiveChatroom] = useState(null);
 
-    const getFriendsList = async () => {
-        setAuthToken(localStorage.token);
-        try{
-            const result =  await axios.get('/user/friendslist');
-            setFriendsList(result.data.data);
-            setLoading(false);
-        }catch(err){
-            console.log(err);
-        }
-    }
+    const friends = [];
 
     useEffect(() => {
         loadUser();
         getFriendsList();
-        // if(success) {
-        //     toast.success(success);
-        // }
         //eslint-disable-next-line
       }, []);
 
     if (loading) return <Spinner />;
     
-    const showChatroomModal = () => {
+    const showChatroomModal =(id_chatroom) => {
+        setActiveChatroom(id_chatroom);
         setShowChatroom(true);
     }
 
@@ -60,14 +50,14 @@ const FriendsList = () => {
                         <ImageAvatars avatarPath={friend.avatar}/>
                     </ListItemAvatar>
                         <ListItemText primary={primary}/>
-                    <button className="btn-sm btn-primary" onClick={showChatroomModal}>
+                    <button className="btn-sm btn-primary" onClick={()=>showChatroomModal(friend.id_chatroom)}>
                         Send a Message
                     </button>
                     {showChatroom ? 
                         <ChatRoomModal 
                             show={showChatroom} 
                             handleClose={()=>setShowChatroom(false)} 
-                            chatroomId={friend.id_chatroom} 
+                            activeChatroom={activeChatroom}
                         /> : null}
                 </ListItem>
             );

@@ -19,6 +19,7 @@ import Friendslist from './components/chats/FriendsList';
 import UserState from './contexts/user/UserState';
 import ProfileState from './contexts/profile/ProfileState';
 import NotifState from './contexts/notification/NotifState';
+import ChatState from './contexts/chat/ChatState';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
@@ -61,11 +62,12 @@ toast.configure({
   });
   
 const App = () => {
-	
+
 	return (
 		<UserState>
 		<ProfileState>
 		<NotifState>
+		<ChatState>
 			<Router>
 			<ThemeProvider theme={theme}>
 				<Fragment>
@@ -86,6 +88,7 @@ const App = () => {
 				</Fragment>
 			</ThemeProvider>
 			</Router>
+		</ChatState>
 		</NotifState>
 		</ProfileState>
 		</UserState>

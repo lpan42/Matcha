@@ -29,3 +29,7 @@ export const UPDATE_AVATAR = 'UPDATE_AVATAR';
 export const UPLOAD_PICTURES = 'UPLOAD_PICTURES';
 export const MODIFY_PICTURES = 'MODIFY_PICTURES';
 export const BLOCK_USER = 'BLOCK_USER';
+
+//chat '
+export const GET_FRIENDS_LIST = 'GET_FRIENDS_LIST';
+export const GET_CHAT_MSGS = 'GET_CHAT_MSGS';

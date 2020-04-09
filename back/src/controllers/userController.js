@@ -1,5 +1,5 @@
 const userModel = require('../models/user');
-const indexModel = require('../models/index');
+const chatModel = require('../models/chat');
 const jwtModel = require('../models/jwt');
 const crypto = require('crypto');
 
@@ -176,7 +176,7 @@ export async function likeProfile(req,res) {
             await userModel.addNotif(data);
             const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
             if(checklikeback[0]){
-                await indexModel.createChatroom(data.id_sender, data.id_user);
+                await chatModel.createChatroom(data.id_sender, data.id_user);
                 return res.status(200).json({ 
                     connected: true,
                     success: 'This user also likes you, now you can chat'});
@@ -233,8 +233,8 @@ export async function unlikeProfile(req,res) {
             await userModel.addNotif(data);
             const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
             if(checklikeback[0]){// means they are connected user
-                const chatroom = await indexModel.getChatroomId(data.id_sender, data.id_user);
-                await indexModel.unlinkChat(chatroom.id_chatroom);
+                const chatroom = await chatModel.getChatroomId(data.id_sender, data.id_user);
+                await chatModel.unlinkChat(chatroom.id_chatroom);
                 return res.status(200).json({
                     connected: false,
                     success: 'You unlike this user, you are not connected anymore, all your previous messages has been destoryed'});
@@ -349,13 +349,6 @@ export async function unBlockUser(req, res){
     await userModel.addFame(50, userid);
     return res.status(200).json({
         success: "You have unblocked this user, you can now visit his profile"
-    });
-}
-
-export async function getFriendsList(req,res){
-    const result = await indexModel.getAllConnectedByUserid(req.userid);
-    return res.status(200).json({
-        data: result
     });
 }
 

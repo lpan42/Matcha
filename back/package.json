@@ -20,7 +20,6 @@
   "homepage": "https://github.com/lpan42/Matcha#readme",
   "dependencies": {
     "bcrypt": "^3.0.8",
-    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
     "faker": "^4.1.0",
@@ -30,13 +29,13 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
     "socket.io": "^2.3.0",
-    "util": "^0.12.1"
+    "util": "^0.12.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/node": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
     "concurrently": "^5.1.0"
   },
   "babel": {
