@@ -47,7 +47,7 @@ const FriendsList = () => {
             friends.push(
                 <ListItem key={key} color="primary">
                     <ListItemAvatar>
-                        <ImageAvatars avatarPath={friend.avatar}/>
+                        <ImageAvatars userid={friend.id_user}/>
                     </ListItemAvatar>
                         <ListItemText primary={primary}/>
                     <button className="btn-sm btn-primary" onClick={()=>showChatroomModal(friend.id_chatroom)}>

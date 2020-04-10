@@ -42,7 +42,6 @@ const Header = ({ title }) => {
     const handleClose = () => {
         setOpen(false);
     };
-
     const onLogout = () => {
         clearNotif();
         clearProfile();
@@ -52,7 +51,7 @@ const Header = ({ title }) => {
     const authLinks = (
         <Fragment>
             <Button  ref={anchorRef} onClick={handleToggle}>
-                <ImageAvatars avatarPath={user && user.data.avatar[0].avatar}/>
+                <ImageAvatars userid={user && user.data.id}/>  
             </Button>
             <Popper open={open} anchorEl={anchorRef.current}>
                 <Paper>

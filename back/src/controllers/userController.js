@@ -4,7 +4,7 @@ const jwtModel = require('../models/jwt');
 const crypto = require('crypto');
 
 export async function getAccount(req, res) {
-    const result = await userModel.getUserInfoById(req.userid);
+    const result = await userModel.getUserInfoById(req.params.userid);
     if (typeof(result.err) !== 'undefined') {
         return res.status(400).json({ error: result.err });
     } else {

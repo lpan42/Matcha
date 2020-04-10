@@ -47,7 +47,7 @@ const Notifications = () => {
         notif_message.push(
             <ListItem key={key} style={message.readed ? {color:"black"} : {color:"var(--primary-color)"}}>
                 <ListItemAvatar>
-                        <ImageAvatars avatarPath={message.avatar}/>
+                    <ImageAvatars userid={message.id_sender}/>
                 </ListItemAvatar>
                     <ListItemText 
                         primary={primary}
