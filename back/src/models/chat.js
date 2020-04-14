@@ -41,7 +41,7 @@ export async function getMessageByChatroomId(id_chatroom){
             FROM messages 
             LEFT JOIN users on users.id_user = messages.id_sender 
             LEFT JOIN profiles on profiles.id_user = messages.id_sender 
-            WHERE id_chatroom = ? ORDER BY time DESC`
+            WHERE id_chatroom = ? ORDER BY time ASC`
             , id_chatroom);
 		return (result);
 	} 

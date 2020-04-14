@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const History = () => {
     const  userContext = useContext(UserContext);
-    const { loadUser } = userContext;
+    const { loadUser, clearSuccess } = userContext;
 
     const [blockList, setBlockList] = useState([]);
     const [visitList, setVisitList] = useState([]);
@@ -81,6 +81,7 @@ const History = () => {
         getLikeList();
         if(success) {
             toast.success(success);
+            clearSuccess();
         }
         //eslint-disable-next-line
       }, [success]);

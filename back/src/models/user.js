@@ -16,7 +16,6 @@ export async function getUserInfoById(userid) {
                 lastname: result[0].lastname,
                 online: result[0].online,
             };
-            console.log(user)
             const avatar = await connection.query('SELECT avatar FROM profiles WHERE id_user = ?', userid);
             user.avatar = avatar;
             return user;

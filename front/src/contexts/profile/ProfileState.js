@@ -8,6 +8,8 @@ import {
     GET_PROFILE, 
     GET_PROFILE_NO, 
     GET_INTERESTS_LIST,
+    CLEAR_SUCCESS,
+    CLEAR_ERROR,
     UPDATE_INTERESTS,
     UPDATE_PROFILE,
     CHECK_LIKE,
@@ -211,6 +213,18 @@ const ProfileState = props => {
         }
     }
 
+    const clearError = () => {
+        dispatch({
+            type: CLEAR_ERROR,
+        });
+    }
+
+    const clearSuccess = () => {
+        dispatch({
+            type: CLEAR_SUCCESS,
+        });
+    }
+    
     return (
         <ProfileContext.Provider
             value={{
@@ -233,7 +247,9 @@ const ProfileState = props => {
                 updateAvatar,
                 uploadPictures,
                 modifyPictures,
-                blockUser
+                blockUser,
+                clearError,
+                clearSuccess,
             }}
         >
         {props.children}

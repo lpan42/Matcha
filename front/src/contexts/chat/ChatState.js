@@ -9,13 +9,15 @@ import {
     GET_FRIENDS_LIST,
     GET_CHAT_MSGS,
     NORMAL_ERROR,
+    CLEAR_SUCCESS,
+    CLEAR_ERROR,
  } from '../types';
 
 let socket;
 
  const ChatState = props => {
     if(!socket){
-        socket = io(':8000');
+        socket = io.connect(':8000');
     }
 
     const initialState = {
@@ -38,22 +40,52 @@ let socket;
             console.log(err);
         }
     }
-
-    const getChatMegs = async (id_chatroom) => {
-        setAuthToken(localStorage.token);
-        try{
-            const result =  await axios.get(`/chat/chatroom/${id_chatroom}`);
+    const joinRoom = (id_chatroom) => {
+        const token = localStorage.token;
+        socket.emit('joinRoom', {token, id_chatroom},(err) => {
+            if(err) {
+                dispatch({
+                    type: NORMAL_ERROR,
+                    payload: err
+                });
+            }
+        });
+        socket.on('getMessage', result => {
             dispatch({
                 type: GET_CHAT_MSGS,
-                payload: result.data.data
+                payload: result
             });
-        }catch(err){
-            console.log(err);
-            // dispatch({
-            //     type: NORMAL_ERROR,
-            //     payload: err.response.data.error
-            // });
-        }
+        })
+    }
+
+    const addMessage = (newMessage, id_chatroom) => {
+        const token = localStorage.token;
+        socket.emit('addMessage', {id_chatroom, token, newMessage},(err) => {
+            if(err) {
+                dispatch({
+                    type: NORMAL_ERROR,
+                    payload: err
+                });
+            }
+        });
+        socket.on('getMessage', result => {
+            dispatch({
+                type: GET_CHAT_MSGS,
+                payload: result
+            });
+        })
+    }
+
+    const clearError = () => {
+        dispatch({
+            type: CLEAR_ERROR,
+        });
+    }
+
+    const clearSuccess = () => {
+        dispatch({
+            type: CLEAR_SUCCESS,
+        });
     }
 
     return (
@@ -64,7 +96,10 @@ let socket;
                 loading: state.loading,
                 error: state.error,
                 getFriendsList,
-                getChatMegs,
+                addMessage,
+                joinRoom,
+                clearError,
+                clearSuccess,
             }}
         >
         {props.children}

@@ -53,10 +53,10 @@ const Notifications = () => {
                         primary={primary}
                         secondary={secondary}
                     />
-            {message.notification === "messages" ? 
+            {/* {message.notification === "messages" ? 
                 <button className="btn-sm btn-primary" ><a href="/"> Send a message</a></button> : 
                 <button className="btn-sm btn-primary" onClick={()=>{visitProfile(message.id_sender, message.id_notif)}}>Visit Profile</button> 
-            }
+            } */}
             </ListItem>
         );
     })

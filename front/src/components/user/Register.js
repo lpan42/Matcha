@@ -16,7 +16,7 @@ const Register = (props) => {
         re_password:''
     })
 
-    const { register, error, success, token, loading } = userContext;
+    const { register, error, success, token, loading, clearSuccess, clearError } = userContext;
 
     useEffect(() => {
         if(token){
@@ -24,9 +24,11 @@ const Register = (props) => {
         }
         if(error) {
             toast.error(error);
+            clearError();
         }
         if(success) {
             toast.success(success);
+            clearSuccess();
         }
         //eslint-disable-next-line
     }, [error, token, props.history, success]);

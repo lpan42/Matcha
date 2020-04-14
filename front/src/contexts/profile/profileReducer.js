@@ -12,7 +12,9 @@ import {
     UPDATE_AVATAR,
     UPLOAD_PICTURES,
     MODIFY_PICTURES,
-    BLOCK_USER
+    BLOCK_USER,
+    CLEAR_SUCCESS,
+    CLEAR_ERROR
 } from '../types';
 
 
@@ -104,6 +106,16 @@ export default (state, action) => {
                 ...state,
                 loading: false,
                 success: action.payload.success
+            }
+        case CLEAR_SUCCESS:
+            return {
+                ...state,
+                success: null,
+            }
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                error: null,
             }
         default:
             return state;

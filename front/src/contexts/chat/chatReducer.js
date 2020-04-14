@@ -1,5 +1,5 @@
 import {
-    GET_FRIENDS_LIST, NORMAL_ERROR, GET_CHAT_MSGS
+    GET_FRIENDS_LIST, NORMAL_ERROR, GET_CHAT_MSGS,CLEAR_SUCCESS,CLEAR_ERROR
 } from '../types';
 
 
@@ -22,6 +22,16 @@ export default (state, action) => {
                 ...state,
                 loading:false,
                 chatMsgs:action.payload,
+            }
+        case CLEAR_SUCCESS:
+            return {
+                ...state,
+                success: null,
+            }
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                error: null,
             }
         default:
             return state;

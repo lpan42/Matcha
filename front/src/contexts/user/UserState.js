@@ -7,7 +7,8 @@ import setAuthToken from '../../utils/setAuthToken';
 import {
    REGISTER_SUCCESS,
    REGISTER_FAIL,
-   CLEAR_MESSAGE,
+   CLEAR_SUCCESS,
+   CLEAR_ERROR,
    LOGIN_SUCCESS,
    LOGIN_FAIL,
    LOAD_USER,
@@ -123,6 +124,18 @@ const UserState = props => {
         }
     }
 
+    const clearError = () => {
+        dispatch({
+            type: CLEAR_ERROR,
+        });
+    }
+
+    const clearSuccess = () => {
+        dispatch({
+            type: CLEAR_SUCCESS,
+        });
+    }
+
     return (
         <UserContext.Provider
             value={{
@@ -136,6 +149,8 @@ const UserState = props => {
                 loadUser,
                 logout,
                 editAccount,
+                clearError,
+                clearSuccess,
             }}
         >
         {props.children}

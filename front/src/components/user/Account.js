@@ -7,16 +7,18 @@ import toUpperCase from '../../utils/toUpperCase';
 const Account = () => {
   const userContext = useContext(UserContext);
 
-  const { user, error, success, loadUser } = userContext;
+  const { user, error, success, loadUser,clearSuccess, clearError } = userContext;
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     loadUser();
     if(error) {
         toast.error(error);
+        clearError();
     }
     if(success) {
       toast.success(success);
+      clearSuccess();
     }
       //eslint-disable-next-line
   }, [error, success]);

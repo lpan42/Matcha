@@ -34,7 +34,8 @@ const Profile = ({ match }) => {
 
     const { 
         profile, emptyProfile, like, error, success, loading, connected,
-        getProfile, checkLike, getInterestsList, unLike, addLike,
+        getProfile, checkLike, getInterestsList, unLike, addLike, 
+        clearSuccess, clearError,
     } = profileContext;
     const { loadUser, user} = userContext;
 
@@ -50,12 +51,14 @@ const Profile = ({ match }) => {
 
         if(error) {
             toast.error(error);
+            clearError();
         }
         if(emptyProfile){
             toast.warning(emptyProfile);
         }
         if(success) {
             toast.success(success);
+            clearSuccess();
         }
         // eslint-disable-next-line
     }, [error, emptyProfile, success]);

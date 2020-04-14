@@ -8,7 +8,9 @@ import {
     LOGOUT,
     EDIT_ACCOUNT_FAIL,
     EDIT_ACCOUNT_SUCCESS,
-    NORMAL_ERROR
+    NORMAL_ERROR,
+    CLEAR_SUCCESS,
+    CLEAR_ERROR
 } from '../types';
 
 
@@ -72,6 +74,16 @@ export default (state, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        case CLEAR_SUCCESS:
+            return {
+                ...state,
+                success: null,
+            }
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                error: null,
             }
         default:
             return state;
