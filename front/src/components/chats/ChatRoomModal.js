@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import UserState from '../../contexts/user/UserState';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import ReactEmoji from 'react-emoji';
 // import ChatroomTitle from './ChatroomTitle';
 // import ChatroomMessages from'./ChatroomMessages';
 // import MessageForm from'./MessageForm';
@@ -113,14 +114,14 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 								<Box display="flex" flexDirection="row-reverse" alignItems="center" key={key}>
 									<ImageAvatars userid={chat.id_sender}/>
 									<div style={{display:"flex", flexDirection:"column"}}>
-										<Chip label={chat.message} color="primary"></Chip>
+										<Chip label={ReactEmoji.emojify(chat.message)} color="primary"></Chip>
 										<Typography variant="caption" style={{color:'grey',textAlign:'right'}}>{processDate(chat.time)}</Typography>
 									</div>
 								</Box> :
 									<Box display="flex" flexDirection="row" alignItems="center" key={key}>
 									<ImageAvatars userid={chat.id_sender}/>
 									<div style={{display:"flex", flexDirection:"column"}}>
-										<Chip label={chat.message} color="primary"></Chip>
+										<Chip label={ReactEmoji.emojify(chat.message)} color="primary"></Chip>
 										<Typography variant="caption" style={{color:'grey',textAlign:'left'}}>{processDate(chat.time)}</Typography>
 									</div>
 								</Box> 
