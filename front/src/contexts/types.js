@@ -18,6 +18,7 @@ export const UN_LIKE = 'UN_LIKE';
 export const GET_NOTIF = 'GET_NOTIF';
 export const READ_NOTIF = 'READ_NOTIF';
 export const CLEAR_NOTIF = 'CLEAR_NOTIF';
+export const SET_ALL_READED = 'SET_ALL_READED';
 
 //profile
 export const GET_PROFILE = 'GET_PROFILE';

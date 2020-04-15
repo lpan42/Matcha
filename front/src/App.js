@@ -62,7 +62,6 @@ toast.configure({
   });
   
 const App = () => {
-
 	return (
 		<UserState>
 		<ProfileState>

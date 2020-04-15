@@ -8,6 +8,7 @@ import {
     GET_NOTIF,
     READ_NOTIF,
     CLEAR_NOTIF,
+    SET_ALL_READED,
  } from '../types';
  
  const NotifState = props => {
@@ -51,6 +52,19 @@ import {
         })
     }
  
+    const setAllReaded = async() =>{
+        setAuthToken(localStorage.token);
+        try{
+            const result = await axios.get('/user/notif/allreaded');
+            dispatch({
+                type: SET_ALL_READED,
+                payload: result.data
+            });
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     return (
         <NotifContext.Provider
             value={{
@@ -61,6 +75,7 @@ import {
                 getNotif,
                 readNotif,
                 clearNotif,
+                setAllReaded,
             }}
         >
         {props.children}

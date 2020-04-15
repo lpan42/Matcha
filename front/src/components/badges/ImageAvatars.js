@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect }from 'react'
+import React, { useState, useEffect }from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
@@ -41,18 +41,14 @@ const ImageAvatars = ({ userid }) => {
   }))(Badge);
   
   return (
-    <StyledBadge
-      overlap="circle"
-      anchorOrigin={{
+    <StyledBadge overlap="circle" variant="dot" anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'right',
       }}
-      variant="dot"
-    >
-      {
-        avatar
-        ? <Avatar alt={username} src={`../images/${avatar}`}/>
-        :<Avatar>{username}</Avatar>
+      >
+      { avatar ? 
+        <Avatar alt={username} src={`../images/${avatar}`}/> :
+        <Avatar>{username}</Avatar>
       }
     </StyledBadge>
   );

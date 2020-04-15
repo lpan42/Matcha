@@ -17,8 +17,7 @@ router.route('/interests_list').get(userController.getInterestsList);
 //notification
 router.route('/notif/get_notif').get(auth, userController.getNotif);
 router.route('/notif/read/:id_notif').get(auth, userController.readNotif);
-// router.route('/history/:userid').get(userController.getHistory);
-
+router.route('/notif/allreaded').get(auth,userController.setAllReaded);
 router.route('/checklike/:userid').get(auth, userController.checkLike);
 router.route('/like/:userid').post(auth, userController.likeProfile);
 router.route('/unlike/:userid').post(auth, userController.unlikeProfile);

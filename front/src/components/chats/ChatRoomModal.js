@@ -118,7 +118,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 										<Typography variant="caption" style={{color:'grey',textAlign:'right'}}>{processDate(chat.time)}</Typography>
 									</div>
 								</Box> :
-									<Box display="flex" flexDirection="row" alignItems="center" key={key}>
+								<Box display="flex" flexDirection="row" alignItems="center" key={key}>
 									<ImageAvatars userid={chat.id_sender}/>
 									<div style={{display:"flex", flexDirection:"column"}}>
 										<Chip label={ReactEmoji.emojify(chat.message)} color="primary"></Chip>
@@ -139,7 +139,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 						onChange={e=>setNewMessage(e.target.value)}
 					/>
 					<Button 
-						variant="contained" 
+						variant="contained"
 						color="primary"
 						onClick={()=>sendNewMessage()}>
 						Send

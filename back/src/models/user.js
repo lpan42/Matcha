@@ -181,14 +181,23 @@ export async function getNotif(userid) {
         FROM notifications 
         LEFT JOIN users on notifications.id_sender = users.id_user
         LEFT JOIN profiles on notifications.id_sender = profiles.id_user
-        WHERE notifications.id_user = ? 
+        WHERE NOT notifications.notification = ?
+        AND notifications.id_user = ? 
         ORDER BY notif_time DESC`
-        , userid);
+        , ["messages",userid]);
         return (result);
     } catch (err) {
         throw new Error(err);
     }
 }
+export async function setAllReaded(userid){
+    try{
+        await connection.query('UPDATE notifications SET readed = 1 WHERE id_user = ?', userid);
+    }catch (err) {
+        throw new Error(err);
+    }
+}
+
 export async function readNotif(id_notif){
     try{
         await connection.query('UPDATE notifications SET readed = 1 WHERE id_notif = ?', id_notif);

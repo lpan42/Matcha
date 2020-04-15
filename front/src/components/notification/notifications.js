@@ -11,6 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import toUpperCase from '../../utils/toUpperCase';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const Notifications = () => {
     const notifContext = useContext(NotifContext);
     const  userContext = useContext(UserContext);   
-    const { notif, readNotif, loading } = notifContext;
+    const { notif, readNotif, setAllReaded, loading } = notifContext;
     const { loadUser } = userContext;
     const notif_message = [];
     const history = useHistory();
@@ -40,6 +41,10 @@ const Notifications = () => {
         history.push(`/profile/${id_sender}`);
         readNotif(id_notif);
     }   
+    
+    // const setAllReaded = () => {
+
+    // }
 
     notif && notif.data.map((message,key) => {
         let primary = `${toUpperCase(message.firstname)} ${toUpperCase(message.lastname)} ${message.notification} you`;
@@ -53,10 +58,8 @@ const Notifications = () => {
                         primary={primary}
                         secondary={secondary}
                     />
-            {/* {message.notification === "messages" ? 
-                <button className="btn-sm btn-primary" ><a href="/"> Send a message</a></button> : 
+                {/* <button className="btn-sm btn-primary" ><a href="/"> Send a message</a></button> :  */}
                 <button className="btn-sm btn-primary" onClick={()=>{visitProfile(message.id_sender, message.id_notif)}}>Visit Profile</button> 
-            } */}
             </ListItem>
         );
     })
@@ -68,9 +71,15 @@ const Notifications = () => {
     )
 
     return (
-        <List className={classes.root}>
-            {notif && notif.data.length ? renderNotif : <p className="text-center">You dont have any new notification</p>}
-        </List>
+        <Fragment>
+            <Button size="small" color="primary"
+                onClick={()=>setAllReaded()}
+                // style={{float:"right"}} 
+            >Mark All As Readed</Button>
+            <List className={classes.root}>
+                {notif && notif.data.length ? renderNotif : <p className="text-center">You dont have any new notification</p>}
+            </List>
+        </Fragment>
     )
 }
 

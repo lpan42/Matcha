@@ -125,6 +125,14 @@ export async function getNotif(req, res) {
     });
 }
 
+export async function setAllReaded(req,res){
+    await userModel.setAllReaded(req.userid);
+    const result = await userModel.getNotif(req.userid);
+    return res.status(200).json({
+        data: result
+    });
+}
+
 export async function readNotif(req, res) {
     await userModel.readNotif(req.params.id_notif);
     const result = await userModel.getNotif(req.userid);
