@@ -3,7 +3,6 @@ import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import UserState from '../../contexts/user/UserState';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import ReactEmoji from 'react-emoji';
 // import ChatroomTitle from './ChatroomTitle';

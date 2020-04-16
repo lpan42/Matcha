@@ -8,9 +8,11 @@ import io from 'socket.io-client';
 import {
     GET_FRIENDS_LIST,
     GET_CHAT_MSGS,
+    GET_CHAT_NOTIF,
     NORMAL_ERROR,
     CLEAR_SUCCESS,
     CLEAR_ERROR,
+    CLEAR_CHAT_NOTIF,
  } from '../types';
 
 let socket;
@@ -22,12 +24,38 @@ let socket;
 
     const initialState = {
         friendsList: null,
+        chatNotif: null,
         chatMsgs: null,
         loading: true,
         error: null,
     }
     const [state, dispatch] = useReducer(ChatReducer, initialState);
  
+    const getChatNotif = async () => {
+        setAuthToken(localStorage.token);
+        try{
+            const result =  await axios.get('/chat/getunread');
+            dispatch({
+                type: GET_CHAT_NOTIF,
+                payload: result.data.data
+            });
+        }catch(err){
+            console.log(err);
+        }
+    }
+    const readChatNotif = async (id_chatroom) => {
+        setAuthToken(localStorage.token);
+        try{
+            const result =  await axios.post(`/chat/read/${id_chatroom}`);
+            // dispatch({
+            //     type: GET_CHAT_NOTIF,
+            //     payload: result.data.data
+            // });
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     const getFriendsList = async () => {
         setAuthToken(localStorage.token);
         try{
@@ -75,7 +103,12 @@ let socket;
             });
         })
     }
-
+    const clearChatNotif = () => {
+        dispatch({
+            type: CLEAR_CHAT_NOTIF
+        })
+    }
+ 
     const clearError = () => {
         dispatch({
             type: CLEAR_ERROR,
@@ -93,13 +126,17 @@ let socket;
             value={{
                 friendsList: state.friendsList,
                 chatMsgs: state.chatMsgs,
+                chatNotif: state.chatNotif,
                 loading: state.loading,
                 error: state.error,
                 getFriendsList,
+                getChatNotif,
+                readChatNotif,
                 addMessage,
                 joinRoom,
                 clearError,
                 clearSuccess,
+                clearChatNotif,
             }}
         >
         {props.children}

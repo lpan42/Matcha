@@ -36,3 +36,5 @@ export const BLOCK_USER = 'BLOCK_USER';
 //chat '
 export const GET_FRIENDS_LIST = 'GET_FRIENDS_LIST';
 export const GET_CHAT_MSGS = 'GET_CHAT_MSGS';
+export const GET_CHAT_NOTIF = 'GET_CHAT_NOTIF';
+export const CLEAR_CHAT_NOTIF = 'CLEAR_CHAT_NOTIF';

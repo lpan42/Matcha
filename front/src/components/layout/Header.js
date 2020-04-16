@@ -15,20 +15,23 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
+import ChatContext from '../../contexts/chat/chatContext';
 
 const Header = ({ title }) => {
     const userContext = useContext(UserContext);
     const notifContext = useContext(NotifContext);
     const profileContext = useContext(ProfileContext);
-
+    const chatContext = useContext(ChatContext);
+    
     const { token, logout, user } = userContext;
     const { clearProfile } = profileContext;
     const { getNotif, clearNotif } = notifContext;
+    const { getChatNotif, clearChatNotif } = chatContext;
 
     useEffect(() => {
         if(token){
             getNotif();
+            getChatNotif();
         }
         //eslint-disable-next-line
     }, [token]);
@@ -45,6 +48,7 @@ const Header = ({ title }) => {
     const onLogout = () => {
         clearNotif();
         clearProfile();
+        clearChatNotif();
         logout();
     }
 
@@ -66,7 +70,7 @@ const Header = ({ title }) => {
                 </Paper>
             </Popper>
             <Button href='/notif'><NotifBadge /></Button>
-            <Button href='/notif'><MessageBadge /></Button>
+            <Button href='/chat'><MessageBadge /></Button>
             <Button href="#!" onClick={onLogout}><ExitToAppIcon /></Button>
         </Fragment>
     )

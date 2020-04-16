@@ -4,7 +4,7 @@ const chatController = require('../controllers/chatController');
 const auth = require('../middleware/auth');
 
 router.route('/friendslist').get(auth, chatController.getFriendsList);
-// router.route('/chatroom/:chatroomid').get(auth, chatController.getMessages);
-// router.route('/newmessage/:chatroomid').post(chatController.addMessage);
+router.route('/getunread').get(auth, chatController.getUnread);
+router.route('/read/:id_chatroom').post(auth, chatController.setMessageReaded);
 
 module.exports = router;

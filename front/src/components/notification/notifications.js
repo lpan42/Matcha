@@ -16,7 +16,9 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
-      maxWidth: 360,
+      maxWidth: '100vw',
+      overflow: 'auto', 
+      maxHeight:'75vh',
       backgroundColor: theme.palette.background.paper,
     },
 }));
@@ -41,10 +43,6 @@ const Notifications = () => {
         history.push(`/profile/${id_sender}`);
         readNotif(id_notif);
     }   
-    
-    // const setAllReaded = () => {
-
-    // }
 
     notif && notif.data.map((message,key) => {
         let primary = `${toUpperCase(message.firstname)} ${toUpperCase(message.lastname)} ${message.notification} you`;

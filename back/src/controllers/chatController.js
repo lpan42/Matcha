@@ -1,3 +1,5 @@
+import e from 'express';
+
 const userModel = require('../models/user');
 const chatModel = require('../models/chat');
 
@@ -14,6 +16,21 @@ export async function checkUserByChatroomId(id_chatroom, id_user){
     }
 }
 
+export async function getUnread(req,res){
+    const result = await chatModel.getUnread(req.userid);
+    return res.status(200).json({
+        data: result
+    });
+}
+
+export async function setMessageReaded(req, res){
+    const result = await chatModel.setMessageReaded(req.userid, req.params.id_chatroom);
+    return res.status(200)
+    // .json({
+    //     data: result
+    // });
+}
+
 export async function getMessages(id_chatroom){
     const result = await chatModel.getMessageByChatroomId(id_chatroom);
     return result;
@@ -27,24 +44,18 @@ export async function getFriendsList(req,res){
 }
 
 export async function addMessage(id_chatroom, id_sender, newMessage){
-    let data = {
-        id_chatroom:id_chatroom, 
-        id_sender: id_sender,
-        message: newMessage
-    } 
     const checkUser = await chatModel.getUserByChatroomId(id_chatroom);
-    const id_message = await chatModel.addMessage(data);
     let id_user;
     if(id_sender != checkUser[0].id_user_1)
         id_user = checkUser[0].id_user_1;
     else
         id_user = checkUser[0].id_user_2;
-    let notifData = {
-        notification: 'messages',
-        id_user: id_user,
+    let data = {
+        id_chatroom:id_chatroom,
         id_sender: id_sender,
-        id_link: id_message
-    }
-    await userModel.addNotif(notifData);
+        id_user: id_user,
+        message: newMessage
+    } 
+    const id_message = await chatModel.addMessage(data);
     return {id_message};
 }

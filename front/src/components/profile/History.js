@@ -18,8 +18,7 @@ import toUpperCase from '../../utils/toUpperCase';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      width: '100%',
-      maxWidth: 360,
+      Width: '100vw',
       backgroundColor: theme.palette.background.paper,
     },
   }));
@@ -169,10 +168,10 @@ const History = () => {
     return (
         <div className={classes.root}>
             <p className="large">History</p>
-            <div>
+            <div >
                 <Chip label="Visits" color="primary"/>
                 <Divider />
-                <List>
+                <List style={{overflow: 'auto', maxHeight:"300px"}}>
                     {visitList.length ? 
                         visits : 
                         <p className="text-center">You did not visit any user before.</p>}
@@ -181,7 +180,7 @@ const History = () => {
             <div>
                 <Chip width="500" label="Likes" color="primary"/>
                 <Divider />
-                <List>
+                <List style={{overflow: 'auto', maxHeight:"300px"}}>
                     {likeList.length ? 
                         likes : 
                         <p className="text-center">You did not like any user before.</p>}
@@ -190,7 +189,7 @@ const History = () => {
             <div>
                 <Chip width="500" label="Blocks" color="primary"/>
                 <Divider />
-                <List>
+                <List style={{overflow: 'auto', maxHeight:"300px"}}>
                     {blockList.length ? 
                         blocks : 
                         <p className="text-center">You did not block any user.</p>}

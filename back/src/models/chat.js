@@ -16,6 +16,7 @@ export async function getChatroomId(userid1, userid2){
         throw new Error(err);
     }
 }
+
 export async function getUserByChatroomId(id_chatroom){
     try{
         const result = await connection.query('SELECT id_user_1, id_user_2 FROM chatrooms WHERE id_chatroom = ?', id_chatroom);
@@ -46,6 +47,34 @@ export async function getMessageByChatroomId(id_chatroom){
 		return (result);
 	} 
 	catch (err) {
+		throw new Error(err);
+	}
+}
+
+export async function getUnread(id_user){
+    try{
+        const result = await connection.query(`
+            SELECT id_chatroom, id_message, id_sender, users.firstname, users.lastname, profiles.avatar, time
+            FROM messages 
+            LEFT JOIN users on users.id_user = messages.id_sender 
+            LEFT JOIN profiles on profiles.id_user = messages.id_sender 
+            WHERE messages.id_user = ? AND messages.readed = 0
+            ORDER BY time DESC`
+            , id_user);
+		return (result);
+	} 
+	catch (err) {
+		throw new Error(err);
+	}
+}
+export async function setMessageReaded(id_user, id_chatroom){
+    try{
+        await connection.query(`
+            UPDATE messages SET readed = 1 WHERE id_user = ? AND id_chatroom = ?`
+        , [id_user, id_chatroom]);
+        // const result = getUnread(id_user);
+        // return result;
+    }catch (err) {
 		throw new Error(err);
 	}
 }

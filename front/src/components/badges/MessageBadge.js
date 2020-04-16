@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
-import NotifContext from '../../contexts/notification/notifContext';
+import ChatContext from '../../contexts/chat/chatContext';
 import SmsIcon from '@material-ui/icons/Sms';
 
 const useStyles = makeStyles(theme => ({
@@ -13,17 +13,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NotifBadge = () => {
-    const notifContext = useContext(NotifContext);
-    const { notif } = notifContext;
+    const chatContext = useContext(ChatContext);
+    const { chatNotif } = chatContext;
 
     const classes = useStyles();
    
     let nbr = 0; 
-    notif && notif.data.map((message) => {
+    chatNotif && chatNotif.map((message) => {
     if(!message.readed)
         nbr++;
     });
-
+    
     return (
         <div className={classes.root}>
             <Badge badgeContent={nbr} max={99} color="secondary" showZero><SmsIcon /></Badge>

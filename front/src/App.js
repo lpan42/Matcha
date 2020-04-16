@@ -15,6 +15,7 @@ import NotFound from './components/layout/NotFound';
 import notifications from './components/notification/notifications';
 import History from './components/profile/History';
 import Friendslist from './components/chats/FriendsList';
+import ChatNotif from './components/chats/ChatNotif';
 //state
 import UserState from './contexts/user/UserState';
 import ProfileState from './contexts/profile/ProfileState';
@@ -79,6 +80,7 @@ const App = () => {
 							<PrivateRoute exact path='/history' component={History} />
 							<PrivateRoute exact path='/friendslist' component={Friendslist} />
 							<PrivateRoute exact path='/notif' component={notifications} />
+							<PrivateRoute exact path='/chat' component={ChatNotif} />
 							<Route exact path='/register' component={Register} />
 							<Route exact path='/login' component={Login} />
 							<Route component={NotFound} />
