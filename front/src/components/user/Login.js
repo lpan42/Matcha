@@ -4,18 +4,23 @@ import UserContext from '../../contexts/user/userContext';
 import NotifContext from '../../contexts/notification/notifContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import { toast } from 'react-toastify';
+import ChatContext from '../../contexts/chat/chatContext';
 
 const Login = (props) => {
     const userContext = useContext(UserContext);
     const notifContext = useContext(NotifContext);
     const  profileContext = useContext(ProfileContext);
+    const chatContext = useContext(ChatContext);
 
     const { login, error, token, user, success, clearError, clearSuccess} = userContext;
     const { getProfile} = profileContext;
     const { getNotif } = notifContext;
+    const { getChatNotif } = chatContext;
+    
     useEffect(() => {
         if(token && user){
             getNotif();
+            getChatNotif(user && user.data.id);
             getProfile(user && user.data.id);
             props.history.push('/');
         }

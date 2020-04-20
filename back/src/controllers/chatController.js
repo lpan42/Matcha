@@ -1,5 +1,3 @@
-import e from 'express';
-
 const userModel = require('../models/user');
 const chatModel = require('../models/chat');
 
@@ -16,12 +14,15 @@ export async function checkUserByChatroomId(id_chatroom, id_user){
     }
 }
 
-export async function getUnread(req,res){
-    const result = await chatModel.getUnread(req.userid);
-    return res.status(200).json({
-        data: result
-    });
+export async function getUnread(userid){
+    const result = await chatModel.getUnread(userid);
+    return result;
 }
+
+// export async function addChatNotif(id_message){
+//     const chatNotif = await chatModel.addChatNotif(id_message);
+//     return chatNotif;
+// }
 
 export async function setMessageReaded(req, res){
     const result = await chatModel.setMessageReaded(req.userid, req.params.id_chatroom);
@@ -56,6 +57,6 @@ export async function addMessage(id_chatroom, id_sender, newMessage){
         id_user: id_user,
         message: newMessage
     } 
-    const id_message = await chatModel.addMessage(data);
-    return {id_message};
+    await chatModel.addMessage(data);
+    return data.id_user;
 }

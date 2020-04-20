@@ -29,12 +29,12 @@ const Header = ({ title }) => {
     const { getChatNotif, clearChatNotif } = chatContext;
 
     useEffect(() => {
-        if(token){
+        if(token && user){
             getNotif();
-            getChatNotif();
+            getChatNotif(user && user.data.id);
         }
         //eslint-disable-next-line
-    }, [token]);
+    }, [token, user]);
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 

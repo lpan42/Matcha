@@ -1,9 +1,7 @@
 import React, { Fragment, useContext,useEffect,useState} from 'react'
 import Spinner from '../layout/Spinner';
-import setAuthToken from '../../utils/setAuthToken';
 import UserContext from '../../contexts/user/userContext';
 import ChatContext from '../../contexts/chat/chatContext';
-import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import toUpperCase from '../../utils/toUpperCase';
@@ -27,7 +25,7 @@ const ChatNotif = () => {
     const  userContext = useContext(UserContext);
     const chatContext = useContext(ChatContext);
 
-    const { loadUser } = userContext;
+    const { loadUser, user } = userContext;
     const { getFriendsList, getChatNotif, readChatNotif, chatNotif, loading, } = chatContext;
 
     const notif_message = [];
@@ -36,19 +34,18 @@ const ChatNotif = () => {
 
     const classes = useStyles();
 
-
     useEffect(() => {
         loadUser();
         getFriendsList();
-        getChatNotif();
+        getChatNotif(user && user.data.id);
         //eslint-disable-next-line
-      }, []);
+      }, [user]);
 
     if (loading) return <Spinner />;
 
     const showChatroomModal =(id_chatroom) => {
         setActiveChatroom(id_chatroom);
-        readChatNotif(id_chatroom);
+        // readChatNotif(id_chatroom);
         setShowChatroom(true);
     }
 

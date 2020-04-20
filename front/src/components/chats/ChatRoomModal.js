@@ -5,22 +5,20 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import ReactEmoji from 'react-emoji';
-// import ChatroomTitle from './ChatroomTitle';
-// import ChatroomMessages from'./ChatroomMessages';
-// import MessageForm from'./MessageForm';
-import { Typography, ClickAwayListener } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import ImageAvatars from '../badges/ImageAvatars';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import ListItemText from '@material-ui/core/ListItemText';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import TextField from '@material-ui/core/TextField';
 import ChatContext from '../../contexts/chat/chatContext';
 import UserContext from '../../contexts/user/userContext';
 import toUpperCase from '../../utils/toUpperCase';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -34,6 +32,9 @@ const useStyles = makeStyles(theme => ({
 		height:'500px',
 	},
 	header:{
+		display:'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
 		paddingTop: '5px',
 		backgroundColor: theme.palette.primary.main,
         textAlign:'center',
@@ -67,7 +68,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 	const { user } = userContext;
 
 	const choosedfriend = friendsList.find(friend => {
-		return friend.id_chatroom == activeChatroom;
+		return friend.id_chatroom === activeChatroom;
 	});
     const classes = useStyles();
     const [newMessage, setNewMessage] = useState('');
@@ -92,17 +93,27 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 		}
 		return time;
 	}
-	const sendNewMessage =() => {
+	const sendNewMessage =(e) => {
+		e.preventDefault();
 		addMessage(newMessage, activeChatroom);
 		setNewMessage('');
 	}
     return (
         <div className="classes.root">
-			<Modal className={classes.modal} open={show} onClose={handleClose}>
+			<Modal className={classes.modal} open={show}>
 			<div className={classes.paper}>
 				<div className={classes.header}>
-					<ImageAvatars userid={choosedfriend.id_user} />
-					<Typography variant="h6" component="h6">{toUpperCase(choosedfriend.firstname)}</Typography>
+					<ListItem>
+						<ListItemAvatar>
+							<ImageAvatars userid={choosedfriend.id_user} />	
+						</ListItemAvatar>
+							<ListItemText 
+								primary={toUpperCase(choosedfriend.firstname)}
+							/>
+					</ListItem>
+					{/* <ImageAvatars userid={choosedfriend.id_user} />
+					<Typography variant="h6" component="h6">{toUpperCase(choosedfriend.firstname)}</Typography> */}
+					<CloseIcon color="#ffffff" onClick={handleClose} />
 				</div>
 				<ScrollToBottom className={classes.chatMsgs}>
 					{chatMsgs ? 
@@ -136,11 +147,12 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 						variant="outlined" 
 						value={newMessage} 
 						onChange={e=>setNewMessage(e.target.value)}
+						// onKeyPress={e=>sendNewMessage(e)}
 					/>
 					<Button 
 						variant="contained"
 						color="primary"
-						onClick={()=>sendNewMessage()}>
+						onClick={(e)=>sendNewMessage(e)}>
 						Send
 					</Button>
 				</div>

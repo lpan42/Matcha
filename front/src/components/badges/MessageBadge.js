@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const NotifBadge = () => {
+const MessageBadge = () => {
     const chatContext = useContext(ChatContext);
     const { chatNotif } = chatContext;
 
@@ -31,4 +31,4 @@ const NotifBadge = () => {
     );
 }
 
-export default NotifBadge;
+export default MessageBadge;

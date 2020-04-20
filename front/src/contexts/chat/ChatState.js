@@ -31,17 +31,23 @@ let socket;
     }
     const [state, dispatch] = useReducer(ChatReducer, initialState);
  
-    const getChatNotif = async () => {
-        setAuthToken(localStorage.token);
-        try{
-            const result =  await axios.get('/chat/getunread');
+    const getChatNotif = async (userid) => {
+        const token = localStorage.token;
+        socket.emit('requestChatNotif', token, (err) => {
+            if(err) {
+                dispatch({
+                    type: NORMAL_ERROR,
+                    payload: err
+                });
+            }
+        });
+        socket.on('getChatNotif', result => {
+            if(result.id_receiver == userid)
             dispatch({
                 type: GET_CHAT_NOTIF,
-                payload: result.data.data
+                payload: result.data
             });
-        }catch(err){
-            console.log(err);
-        }
+        })
     }
     const readChatNotif = async (id_chatroom) => {
         setAuthToken(localStorage.token);
@@ -103,6 +109,7 @@ let socket;
             });
         })
     }
+    
     const clearChatNotif = () => {
         dispatch({
             type: CLEAR_CHAT_NOTIF
