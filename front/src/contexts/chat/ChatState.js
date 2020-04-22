@@ -12,7 +12,8 @@ import {
     NORMAL_ERROR,
     CLEAR_SUCCESS,
     CLEAR_ERROR,
-    CLEAR_CHAT_NOTIF,
+    CLEAR_CHAT,
+    CLEAR_CHAT_MSGS,
  } from '../types';
 
 let socket;
@@ -49,17 +50,17 @@ let socket;
             });
         })
     }
+
     const readChatNotif = async (id_chatroom) => {
-        setAuthToken(localStorage.token);
-        try{
-            const result =  await axios.post(`/chat/read/${id_chatroom}`);
-            // dispatch({
-            //     type: GET_CHAT_NOTIF,
-            //     payload: result.data.data
-            // });
-        }catch(err){
-            console.log(err);
-        }
+        const token = localStorage.token;
+        socket.emit('readChatNotif', {token,id_chatroom}, (err) => {
+            if(err) {
+                dispatch({
+                    type: NORMAL_ERROR,
+                    payload: err
+                });
+            }
+        });
     }
 
     const getFriendsList = async () => {
@@ -84,6 +85,8 @@ let socket;
                 });
             }
         });
+    }
+    const getMessage = () => {
         socket.on('getMessage', result => {
             dispatch({
                 type: GET_CHAT_MSGS,
@@ -91,7 +94,7 @@ let socket;
             });
         })
     }
-
+  
     const addMessage = (newMessage, id_chatroom) => {
         const token = localStorage.token;
         socket.emit('addMessage', {id_chatroom, token, newMessage},(err) => {
@@ -110,12 +113,16 @@ let socket;
         })
     }
     
-    const clearChatNotif = () => {
+    const clearChat = () => {
         dispatch({
-            type: CLEAR_CHAT_NOTIF
+            type: CLEAR_CHAT
         })
     }
- 
+    const clearChatMsgs = () => {
+        dispatch({
+            type: CLEAR_CHAT_MSGS
+        })
+    }
     const clearError = () => {
         dispatch({
             type: CLEAR_ERROR,
@@ -138,12 +145,14 @@ let socket;
                 error: state.error,
                 getFriendsList,
                 getChatNotif,
+                getMessage,
                 readChatNotif,
                 addMessage,
                 joinRoom,
                 clearError,
                 clearSuccess,
-                clearChatNotif,
+                clearChat,
+                clearChatMsgs,
             }}
         >
         {props.children}

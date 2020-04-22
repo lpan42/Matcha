@@ -213,10 +213,13 @@ export async function blockUser(req,res) {
         }
         else{
             await userModel.addBlock(data.id_user, data.id_sender);
+            await userModel.unlike(data.id_user, data.id_sender);
+            const chatroom = await chatModel.getChatroomId(data.id_sender, data.id_user);
+            await chatModel.unlinkChat(chatroom.id_chatroom);
             await userModel.addFame(-50, data.id_user);
             await userModel.addNotif(data);
             return res.status(200).json({ 
-                success: 'You have blocked this user, You cannot get any information from this user'});
+                success: 'You have blocked this user, all your history about this user has been deleted, and you cannot get any information from this user'});
         }
     }
     else{

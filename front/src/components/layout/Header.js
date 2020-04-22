@@ -26,7 +26,7 @@ const Header = ({ title }) => {
     const { token, logout, user } = userContext;
     const { clearProfile } = profileContext;
     const { getNotif, clearNotif } = notifContext;
-    const { getChatNotif, clearChatNotif } = chatContext;
+    const { getChatNotif, clearChat } = chatContext;
 
     useEffect(() => {
         if(token && user){
@@ -48,14 +48,17 @@ const Header = ({ title }) => {
     const onLogout = () => {
         clearNotif();
         clearProfile();
-        clearChatNotif();
+        clearChat();
         logout();
     }
 
     const authLinks = (
         <Fragment>
             <Button  ref={anchorRef} onClick={handleToggle}>
-                <ImageAvatars userid={user && user.data.id}/>  
+                <ImageAvatars 
+                    username={user&&user.data.username}
+                    avatar={user&&user.data.avatar[0].avatar} 
+                    online={user&&user.data.online}/>  
             </Button>
             <Popper open={open} anchorEl={anchorRef.current}>
                 <Paper>

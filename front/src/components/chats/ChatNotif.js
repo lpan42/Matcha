@@ -25,37 +25,42 @@ const ChatNotif = () => {
     const  userContext = useContext(UserContext);
     const chatContext = useContext(ChatContext);
 
-    const { loadUser, user } = userContext;
-    const { getFriendsList, getChatNotif, readChatNotif, chatNotif, loading, } = chatContext;
+    const { loadUser } = userContext;
+    const { getFriendsList, chatNotif, loading, clearChatMsgs } = chatContext;
 
-    const notif_message = [];
     const [activeChatroom, setActiveChatroom] = useState(null);
     const [showChatroom, setShowChatroom] = useState(false);
 
+    const notif_message = [];
     const classes = useStyles();
 
     useEffect(() => {
         loadUser();
         getFriendsList();
-        getChatNotif(user && user.data.id);
         //eslint-disable-next-line
-      }, [user]);
+      },[]);
 
     if (loading) return <Spinner />;
 
     const showChatroomModal =(id_chatroom) => {
         setActiveChatroom(id_chatroom);
-        // readChatNotif(id_chatroom);
         setShowChatroom(true);
+    }
+    const closeChatroomModal = () => {
+        clearChatMsgs();
+        setShowChatroom(false);
     }
 
     chatNotif && chatNotif.map((message, key) => {
         let primary = `${toUpperCase(message.firstname)} ${toUpperCase(message.lastname)} sent you a message`;
         let secondary = `on ${message.time}`
         notif_message.push(
-            <ListItem key={key} style={{color:"var(--primary-color)"}}>
+            <ListItem key={key}  style={message.readed ? {color:"black"} : {color:"var(--primary-color)"}}>
                 <ListItemAvatar>
-                    <ImageAvatars userid={message.id_sender}/>
+                    <ImageAvatars 
+                        username={message.username}
+                        avatar={message.avatar} 
+                        online={message.online}/>  	
                 </ListItemAvatar>
                     <ListItemText 
                         primary={primary}
@@ -67,7 +72,7 @@ const ChatNotif = () => {
                 {showChatroom ? 
                     <ChatRoomModal 
                         show={showChatroom} 
-                        handleClose={()=>setShowChatroom(false)} 
+                        handleClose={()=>closeChatroomModal()} 
                         activeChatroom={activeChatroom}
                     /> : null}
             </ListItem>
@@ -77,8 +82,9 @@ const ChatNotif = () => {
     return (
         <Fragment>
             <List className={classes.root}>
-                { chatNotif && chatNotif.length ? notif_message : 
-                <p className="text-center">You dont have any new message</p>}
+                { chatNotif && chatNotif.length ? 
+                    notif_message : 
+                    <p className="text-center">You dont have any new message</p>}
             </List>
         </Fragment>
     )

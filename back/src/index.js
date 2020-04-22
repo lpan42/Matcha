@@ -64,6 +64,16 @@ io.on('connection', (socket) => {
         });
         socket.broadcast.to(id_chatroom).emit('getMessage', result);
     });
+    socket.on('readChatNotif', async ({token, id_chatroom}, callback) => {
+        const {userid, error} = await authSocket.authSocket(token);
+        if(error) return callback(error);
+        await chatController.setMessageReaded(id_chatroom, userid);
+        const chatNotif = await chatController.getUnread(userid);
+        socket.emit('getChatNotif', {
+            id_receiver: userid,
+            data: chatNotif
+        });
+    })
 });
 
 // routing

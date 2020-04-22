@@ -28,7 +28,10 @@ export async function getUserByChatroomId(id_chatroom){
 
 export async function unlinkChat(id_chatroom){
     try{
-         await connection.query('DELETE FROM chatrooms WHERE id_chatroom = ?; DELETE FROM messages WHERE id_chatroom = ?', [id_chatroom, id_chatroom]);
+        await connection.query(`
+        DELETE FROM chatrooms WHERE id_chatroom = ?; 
+        DELETE FROM messages WHERE id_chatroom = ?
+        `, [id_chatroom, id_chatroom]);
     }
     catch (err) {
         throw new Error(err);
@@ -38,7 +41,7 @@ export async function unlinkChat(id_chatroom){
 export async function getMessageByChatroomId(id_chatroom){
 	try{
         const result = await connection.query(`
-            SELECT id_message, id_sender, users.firstname, profiles.avatar, time, message, readed
+            SELECT id_message, id_sender, users.online, users.username, users.firstname, profiles.avatar, time, message, readed
             FROM messages 
             LEFT JOIN users on users.id_user = messages.id_sender 
             LEFT JOIN profiles on profiles.id_user = messages.id_sender 
@@ -54,11 +57,11 @@ export async function getMessageByChatroomId(id_chatroom){
 export async function getUnread(id_user){
     try{
         const result = await connection.query(`
-            SELECT id_chatroom, id_message, id_sender, users.firstname, users.lastname, profiles.avatar, time
+            SELECT id_chatroom, id_message, id_sender, users.online, users.username, users.firstname, users.lastname, profiles.avatar, readed, time
             FROM messages 
             LEFT JOIN users on users.id_user = messages.id_sender 
             LEFT JOIN profiles on profiles.id_user = messages.id_sender 
-            WHERE messages.id_user = ? AND messages.readed = 0
+            WHERE messages.id_user = ?
             ORDER BY time DESC`
             , id_user);
 		return (result);
@@ -84,7 +87,7 @@ export async function getAllConnectedByUserid(id_user){
     let i = 0;
     try{
         const result1 = await connection.query(`
-            SELECT chatrooms.id_user_2 AS id_user, chatrooms.id_chatroom, users.firstname, users.lastname, profiles.avatar
+            SELECT chatrooms.id_user_2 AS id_user, chatrooms.id_chatroom, users.online, users.username, users.firstname, users.lastname, profiles.avatar
             FROM chatrooms
             LEFT JOIN users on chatrooms.id_user_2 = users.id_user
             LEFT JOIN profiles on chatrooms.id_user_2 = profiles.id_user
@@ -98,7 +101,7 @@ export async function getAllConnectedByUserid(id_user){
         }
         try {
             const result2 = await connection.query(`
-                SELECT chatrooms.id_user_1 AS id_user, chatrooms.id_chatroom, users.firstname, users.lastname, profiles.avatar
+                SELECT chatrooms.id_user_1 AS id_user, chatrooms.id_chatroom, users.online, users.username, users.firstname, users.lastname, profiles.avatar
                 FROM chatrooms
                 LEFT JOIN users on chatrooms.id_user_1 = users.id_user
                 LEFT JOIN profiles on chatrooms.id_user_1 = profiles.id_user

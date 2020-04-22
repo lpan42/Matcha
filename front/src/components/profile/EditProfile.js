@@ -52,7 +52,11 @@ const EditProfile = () => {
     
     return (
         <Fragment>
-            <ImageAvatars avatarPath={profile && profile.data.avatar}/> <UploadAvatars />
+            <ImageAvatars 
+                username={profile&&profile.data.username}
+                avatar={profile&&profile.data.avatar} 
+                online={profile&&profile.data.online}/>
+            <UploadAvatars />
             <p>Username: {user && user.data.username}</p>
             <p>Firstname: {user && user.data.firstname}</p> 
             <p>Lastname: {user && user.data.lastname}</p>

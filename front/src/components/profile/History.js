@@ -101,7 +101,10 @@ const History = () => {
             blocks.push(
                 <ListItem key={key} color="primary">
                     <ListItemAvatar>
-                        <ImageAvatars userid={blockUser.id_user}/>
+                    <ImageAvatars 
+                        username={blockUser.username}
+                        avatar={blockUser.avatar} 
+                        online={blockUser.online}/>  
                     </ListItemAvatar>
                         <ListItemText primary={primary} />
                     <button className="btn-sm btn-primary"
@@ -130,7 +133,10 @@ const History = () => {
             visits.push(
                 <ListItem key={key} color="primary">
                     <ListItemAvatar>
-                        <ImageAvatars userid={visitUser.id_user}/>
+                    <ImageAvatars 
+                        username={visitUser.username}
+                        avatar={visitUser.avatar} 
+                        online={visitUser.online}/>  
                     </ListItemAvatar>
                         <ListItemText 
                             primary={primary}
@@ -151,7 +157,10 @@ const History = () => {
             likes.push(
                 <ListItem key={key} color="primary">
                     <ListItemAvatar>
-                        <ImageAvatars userid={likeUser.id_user}/>
+                    <ImageAvatars 
+                        username={likeUser.username}
+                        avatar={likeUser.avatar} 
+                        online={likeUser.online}/>  
                     </ListItemAvatar>
                         <ListItemText 
                             primary={primary}

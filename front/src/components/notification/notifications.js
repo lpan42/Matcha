@@ -50,13 +50,15 @@ const Notifications = () => {
         notif_message.push(
             <ListItem key={key} style={message.readed ? {color:"black"} : {color:"var(--primary-color)"}}>
                 <ListItemAvatar>
-                    <ImageAvatars userid={message.id_sender}/>
+                <ImageAvatars 
+                    username={message.username}
+                    avatar={message.avatar} 
+                    online={message.online}/>  
                 </ListItemAvatar>
                     <ListItemText 
                         primary={primary}
                         secondary={secondary}
                     />
-                {/* <button className="btn-sm btn-primary" ><a href="/"> Send a message</a></button> :  */}
                 <button className="btn-sm btn-primary" onClick={()=>{visitProfile(message.id_sender, message.id_notif)}}>Visit Profile</button> 
             </ListItem>
         );
@@ -70,9 +72,7 @@ const Notifications = () => {
 
     return (
         <Fragment>
-            <Button size="small" color="primary"
-                onClick={()=>setAllReaded()}
-                // style={{float:"right"}} 
+            <Button size="small" color="primary" onClick={()=>setAllReaded()}
             >Mark All As Readed</Button>
             <List className={classes.root}>
                 {notif && notif.data.length ? renderNotif : <p className="text-center">You dont have any new notification</p>}

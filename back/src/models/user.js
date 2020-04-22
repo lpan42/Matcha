@@ -177,7 +177,7 @@ export async function addNotif(data) {
 export async function getNotif(userid) {
     try {
         const result = await connection.query(`
-        SELECT id_notif, id_sender, users.firstname, users.lastname, profiles.avatar, notification, notif_time, readed
+        SELECT id_notif, id_sender, users.firstname, users.lastname, users.online, profiles.avatar, notification, notif_time, readed
         FROM notifications 
         LEFT JOIN users on notifications.id_sender = users.id_user
         LEFT JOIN profiles on notifications.id_sender = profiles.id_user
@@ -289,6 +289,7 @@ export async function checkBlock(userid, blockerid){
 export async function addBlock(userid, blockerid){
     try {
         await connection.query('INSERT INTO blocks (id_user, id_sender) VALUES (?, ?)', [userid, blockerid]);
+        
     } catch (err) {
         throw new Error(err);
     }
@@ -359,7 +360,7 @@ export async function deletePics(filename){
 export async function getBlockList(userid){
     try{
         const result = await connection.query(`
-            SELECT blocks.id_user, users.firstname, users.lastname, profiles.avatar
+            SELECT blocks.id_user, users.firstname, users.lastname,  users.username, users.online, profiles.avatar
             FROM blocks 
             LEFT JOIN users on blocks.id_user = users.id_user
             LEFT JOIN profiles on blocks.id_user = profiles.id_user
@@ -385,7 +386,7 @@ export async function unBlockUser(userid, blockerid){
 export async function getVisitList(userid){
     try{
         const result = await connection.query(`
-            SELECT notifications.id_user, notification, notif_time, users.firstname, users.lastname, profiles.avatar
+            SELECT notifications.id_user, notification, notif_time,  users.online, users.username, users.firstname, users.lastname, profiles.avatar
             FROM notifications 
             LEFT JOIN users on notifications.id_user = users.id_user
             LEFT JOIN profiles on notifications.id_user = profiles.id_user
@@ -401,7 +402,7 @@ export async function getVisitList(userid){
 export async function getLikeList(userid){
     try{
         const result = await connection.query(`
-            SELECT notifications.id_user, notification, notif_time, users.firstname, users.lastname, profiles.avatar
+            SELECT notifications.id_user, notification, notif_time,  users.online, users.username, users.firstname, users.lastname, profiles.avatar
             FROM notifications 
             LEFT JOIN users on notifications.id_user = users.id_user
             LEFT JOIN profiles on notifications.id_user = profiles.id_user

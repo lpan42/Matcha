@@ -64,7 +64,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
     const chatContext = useContext(ChatContext);
 	const userContext = useContext(UserContext);
 
-	const { friendsList, joinRoom, addMessage, chatMsgs, error, clearError } = chatContext;
+	const { friendsList, joinRoom, addMessage, getMessage, readChatNotif, chatMsgs, error, clearError } = chatContext;
 	const { user } = userContext;
 
 	const choosedfriend = friendsList.find(friend => {
@@ -75,6 +75,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 	
 	useEffect(() => {
 		joinRoom(activeChatroom);
+		getMessage();
 		if(error) {
 			toast.error(error); 
 			clearError();
@@ -93,27 +94,32 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 		}
 		return time;
 	}
+
 	const sendNewMessage =(e) => {
 		e.preventDefault();
-		addMessage(newMessage, activeChatroom);
-		setNewMessage('');
+		if(newMessage){
+			addMessage(newMessage, activeChatroom);
+			readChatNotif(activeChatroom);
+			setNewMessage('');
+		}
 	}
     return (
-        <div className="classes.root">
+        <div className={classes.root}>
 			<Modal className={classes.modal} open={show}>
 			<div className={classes.paper}>
 				<div className={classes.header}>
 					<ListItem>
 						<ListItemAvatar>
-							<ImageAvatars userid={choosedfriend.id_user} />	
+						<ImageAvatars 
+							username={choosedfriend.username}
+							avatar={choosedfriend.avatar} 
+							online={choosedfriend.online}/>  	
 						</ListItemAvatar>
-							<ListItemText 
-								primary={toUpperCase(choosedfriend.firstname)}
+							<ListItemText
+								primary={toUpperCase(choosedfriend.firstname) + " " + toUpperCase(choosedfriend.lastname)}
 							/>
 					</ListItem>
-					{/* <ImageAvatars userid={choosedfriend.id_user} />
-					<Typography variant="h6" component="h6">{toUpperCase(choosedfriend.firstname)}</Typography> */}
-					<CloseIcon color="#ffffff" onClick={handleClose} />
+					<CloseIcon onClick={handleClose} />
 				</div>
 				<ScrollToBottom className={classes.chatMsgs}>
 					{chatMsgs ? 
@@ -122,14 +128,20 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 							chatMsgs.map((chat, key) => (
 								(chat.id_sender == user.data.id) ?
 								<Box display="flex" flexDirection="row-reverse" alignItems="center" key={key}>
-									<ImageAvatars userid={chat.id_sender}/>
+									<ImageAvatars 
+										username={chat.username}
+										avatar={chat.avatar} 
+										online={chat.online}/>  
 									<div style={{display:"flex", flexDirection:"column"}}>
 										<Chip label={ReactEmoji.emojify(chat.message)} color="primary"></Chip>
 										<Typography variant="caption" style={{color:'grey',textAlign:'right'}}>{processDate(chat.time)}</Typography>
 									</div>
 								</Box> :
 								<Box display="flex" flexDirection="row" alignItems="center" key={key}>
-									<ImageAvatars userid={chat.id_sender}/>
+									<ImageAvatars 
+										username={chat.username}
+										avatar={chat.avatar} 
+										online={chat.online}/>
 									<div style={{display:"flex", flexDirection:"column"}}>
 										<Chip label={ReactEmoji.emojify(chat.message)} color="primary"></Chip>
 										<Typography variant="caption" style={{color:'grey',textAlign:'left'}}>{processDate(chat.time)}</Typography>
@@ -147,7 +159,6 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 						variant="outlined" 
 						value={newMessage} 
 						onChange={e=>setNewMessage(e.target.value)}
-						// onKeyPress={e=>sendNewMessage(e)}
 					/>
 					<Button 
 						variant="contained"

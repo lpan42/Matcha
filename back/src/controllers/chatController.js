@@ -13,23 +13,20 @@ export async function checkUserByChatroomId(id_chatroom, id_user){
         return { error: null };
     }
 }
+export async function getChatroomByUserid(req,res){
+    const chatroomId = await chatModel.getChatroomId(req.userid, req.params.userid);
+    return res.status(200).json({
+        data: chatroomId
+    });
+}
 
 export async function getUnread(userid){
     const result = await chatModel.getUnread(userid);
     return result;
 }
 
-// export async function addChatNotif(id_message){
-//     const chatNotif = await chatModel.addChatNotif(id_message);
-//     return chatNotif;
-// }
-
-export async function setMessageReaded(req, res){
-    const result = await chatModel.setMessageReaded(req.userid, req.params.id_chatroom);
-    return res.status(200)
-    // .json({
-    //     data: result
-    // });
+export async function setMessageReaded(id_chatroom, userid){
+    await chatModel.setMessageReaded(userid, id_chatroom);
 }
 
 export async function getMessages(id_chatroom){

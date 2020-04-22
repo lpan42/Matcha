@@ -5,7 +5,8 @@ import {
     GET_CHAT_MSGS,
     CLEAR_SUCCESS,
     CLEAR_ERROR,
-    CLEAR_NOTIF,
+    CLEAR_CHAT,
+    CLEAR_CHAT_MSGS,
 } from '../types';
 
 
@@ -45,7 +46,7 @@ export default (state, action) => {
                 ...state,
                 error: null,
             }
-        case CLEAR_NOTIF:
+        case CLEAR_CHAT:
             return {
                 ...state,
                 friendsList: null,
@@ -53,6 +54,11 @@ export default (state, action) => {
                 chatMsgs: null,
                 loading: true,
                 error: null,
+            }
+        case CLEAR_CHAT_MSGS:
+            return {
+                ...state,
+                chatMsgs: null,
             }
         default:
             return state;

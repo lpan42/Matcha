@@ -5,29 +5,29 @@ import setAuthToken from '../../utils/setAuthToken';
 import Badge from '@material-ui/core/Badge';
 import {withStyles } from '@material-ui/core/styles';
 
-const ImageAvatars = ({ userid }) => {
+const ImageAvatars = ({ username, avatar, online }) => {
   
-  const[username, setUsername] = useState(null);
-  const[avatar, setAvatar] = useState(null);
-  const[online, setOnline] = useState(false);
+  // const[username, setUsername] = useState(null);
+  // const[avatar, setAvatar] = useState(null);
+  // const[online, setOnline] = useState(false);
   
-  const getAccount = async () => {
-    setAuthToken(localStorage.token);
-    try{
-        const result =  await axios.get(`/user/account/${userid}`);
-        setUsername(result.data.data.username);
-        setAvatar(result.data.data.avatar[0].avatar);
-        setOnline(result.data.data.online);
-    }catch(err){
-        console.log(err);
-    }
-  }
+  // const getAccount = async () => {
+  //   setAuthToken(localStorage.token);
+  //   try{
+  //       const result =  await axios.get(`/user/account/${userid}`);
+  //       setUsername(result.data.data.username);
+  //       setAvatar(result.data.data.avatar[0].avatar);
+  //       setOnline(result.data.data.online);
+  //   }catch(err){
+  //       console.log(err);
+  //   }
+  // }
 
-  useEffect(() => {
-    if(userid)
-      getAccount();
-    //eslint-disable-next-line
-  }, [userid]);
+  // useEffect(() => {
+  //   if(userid)
+  //     getAccount();
+  //   //eslint-disable-next-line
+  // }, [userid]);
 
   const StyledBadge = withStyles((theme) => ({
     badge: {
