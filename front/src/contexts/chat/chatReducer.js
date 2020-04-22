@@ -52,12 +52,13 @@ export default (state, action) => {
                 friendsList: null,
                 chatNotif: null,
                 chatMsgs: null,
-                loading: true,
+                loading: false,
                 error: null,
             }
         case CLEAR_CHAT_MSGS:
             return {
                 ...state,
+                loading: false,
                 chatMsgs: null,
             }
         default:

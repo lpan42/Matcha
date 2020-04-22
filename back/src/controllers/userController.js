@@ -81,7 +81,7 @@ export async function getProfile(req, res) {
     else{
         if (req.userid != req.params.userid) {
             let data = {
-                notification: 'visits',
+                // notification: 'visits',
                 id_user: req.params.userid,
                 id_sender: req.userid
             }
@@ -89,7 +89,7 @@ export async function getProfile(req, res) {
             if(checkBlock[0]){
                 return res.status(400).json({error: "You have blocked this user, you cannot check his/her profile anymore."});
             }
-            await userModel.addNotif(data);
+            // await userModel.addNotif(data);
             await userModel.addFame(1, data.id_user);
         }
         const result = await userModel.getProfileInfoById(req.params.userid);
@@ -118,12 +118,12 @@ export async function modifyInterests(req, res) {
     res.status(200).json({ success: 'Profile has been successfully updated' });
 }
 
-export async function getNotif(req, res) {
-    const result = await userModel.getNotif(req.userid);
-    return res.status(200).json({
-        data: result
-    });
-}
+// export async function getNotif(req, res) {
+//     const result = await userModel.getNotif(req.userid);
+//     return res.status(200).json({
+//         data: result
+//     });
+// }
 
 export async function setAllReaded(req,res){
     await userModel.setAllReaded(req.userid);
@@ -168,7 +168,7 @@ export async function checkLike(req,res){
 export async function likeProfile(req,res) {
     if (req.userid != req.params.userid) {
         let data = {
-            notification: 'likes',
+            // notification: 'likes',
             id_user: req.params.userid,
             id_sender: req.userid
         }
@@ -181,7 +181,7 @@ export async function likeProfile(req,res) {
         else{
             await userModel.addLike(data.id_user, data.id_sender);
             await userModel.addFame(5, data.id_user);
-            await userModel.addNotif(data);
+            // await userModel.addNotif(data);
             const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
             if(checklikeback[0]){
                 await chatModel.createChatroom(data.id_sender, data.id_user);
@@ -202,7 +202,7 @@ export async function likeProfile(req,res) {
 export async function blockUser(req,res) {
     if (req.userid != req.params.userid) {
         let data = {
-            notification: 'blocks',
+            // notification: 'blocks',
             id_user: req.params.userid,
             id_sender: req.userid
         }
@@ -217,7 +217,7 @@ export async function blockUser(req,res) {
             const chatroom = await chatModel.getChatroomId(data.id_sender, data.id_user);
             await chatModel.unlinkChat(chatroom.id_chatroom);
             await userModel.addFame(-50, data.id_user);
-            await userModel.addNotif(data);
+            // await userModel.addNotif(data);
             return res.status(200).json({ 
                 success: 'You have blocked this user, all your history about this user has been deleted, and you cannot get any information from this user'});
         }
@@ -230,7 +230,7 @@ export async function blockUser(req,res) {
 export async function unlikeProfile(req,res) {
     if (req.userid != req.params.userid) {
         let data = {
-            notification: 'unlikes',
+            // notification: 'unlikes',
             id_user: req.params.userid,
             id_sender: req.userid
         }
@@ -241,7 +241,7 @@ export async function unlikeProfile(req,res) {
         else{
             await userModel.unlike(data.id_user, data.id_sender);
             await userModel.addFame(-5, data.id_user);
-            await userModel.addNotif(data);
+            // await userModel.addNotif(data);
             const checklikeback = await userModel.checkLike(data.id_sender, data.id_user);
             if(checklikeback[0]){// means they are connected user
                 const chatroom = await chatModel.getChatroomId(data.id_sender, data.id_user);

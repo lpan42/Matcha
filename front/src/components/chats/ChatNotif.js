@@ -40,8 +40,6 @@ const ChatNotif = () => {
         //eslint-disable-next-line
       },[]);
 
-    if (loading) return <Spinner />;
-
     const showChatroomModal =(id_chatroom) => {
         setActiveChatroom(id_chatroom);
         setShowChatroom(true);
@@ -79,6 +77,8 @@ const ChatNotif = () => {
         );
     });
     
+    if (loading) return <Spinner />;
+
     return (
         <Fragment>
             <List className={classes.root}>

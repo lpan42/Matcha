@@ -3,8 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const authSocket = require('./middleware/authSocket');
-// const chatModel = require('./models/chat');
 const chatController = require('./controllers/chatController');
+const userModel = require('./models/user');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -56,7 +56,7 @@ io.on('connection', (socket) => {
         if(error) return callback(error);
         const id_receiver = await chatController.addMessage(id_chatroom, userid, newMessage);
         const result = await chatController.getMessages(id_chatroom);
-        const chatNotif = await chatController.getUnread(userid);
+        const chatNotif = await chatController.getUnread(id_receiver);
         socket.emit('getMessage', result);
         socket.broadcast.emit('getChatNotif', {
             id_receiver: id_receiver,
@@ -73,6 +73,26 @@ io.on('connection', (socket) => {
             id_receiver: userid,
             data: chatNotif
         });
+    })
+    socket.on('requestNotif', async(token, callback) => {
+        const {userid, error} = await authSocket.authSocket(token);
+        if(error) return callback(error);
+        const notif = await userModel.getNotif(userid);
+        socket.emit('getNotif', {
+            id_receiver: userid,
+            data: notif
+        });
+    })
+    socket.on('addNotif', async (data) => {
+        const checkBlock = await userModel.checkBlock(data.id_user, data.id_sender);
+        if(!checkBlock[0]){
+            await userModel.addNotif(data);
+            const notif = await userModel.getNotif(data.id_user);
+            socket.broadcast.emit('getNotif', {
+                id_receiver: data.id_user,
+                data: notif
+            })
+        }
     })
 });
 

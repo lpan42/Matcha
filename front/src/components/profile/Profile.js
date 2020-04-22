@@ -35,7 +35,7 @@ const MyTooltip = withStyles((theme) => ({
 const Profile = ({ match }) => {
     const  profileContext = useContext(ProfileContext);
     const  userContext = useContext(UserContext);
-    const chatContext = useContext(ChatContext);
+    const  chatContext = useContext(ChatContext);
 
     const { 
         profile, emptyProfile, like, error, success, loading, connected,

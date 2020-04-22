@@ -26,7 +26,9 @@ const MessageBadge = () => {
     
     return (
         <div className={classes.root}>
-            <Badge badgeContent={nbr} max={99} color="secondary" showZero><SmsIcon /></Badge>
+            <Badge badgeContent={nbr} max={99} color="secondary" showZero>
+                <SmsIcon />
+            </Badge>
         </div>
     );
 }

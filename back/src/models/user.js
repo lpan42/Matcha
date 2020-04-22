@@ -181,10 +181,9 @@ export async function getNotif(userid) {
         FROM notifications 
         LEFT JOIN users on notifications.id_sender = users.id_user
         LEFT JOIN profiles on notifications.id_sender = profiles.id_user
-        WHERE NOT notifications.notification = ?
-        AND notifications.id_user = ? 
+        WHERE notifications.id_user = ? 
         ORDER BY notif_time DESC`
-        , ["messages",userid]);
+        , [userid]);
         return (result);
     } catch (err) {
         throw new Error(err);

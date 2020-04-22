@@ -44,7 +44,7 @@ const Notifications = () => {
         readNotif(id_notif);
     }   
 
-    notif && notif.data.map((message,key) => {
+    notif && notif.map((message,key) => {
         let primary = `${toUpperCase(message.firstname)} ${toUpperCase(message.lastname)} ${message.notification} you`;
         let secondary = `on ${message.notif_time}`
         notif_message.push(
@@ -75,7 +75,7 @@ const Notifications = () => {
             <Button size="small" color="primary" onClick={()=>setAllReaded()}
             >Mark All As Readed</Button>
             <List className={classes.root}>
-                {notif && notif.data.length ? renderNotif : <p className="text-center">You dont have any new notification</p>}
+                {notif && notif.length ? renderNotif : <p className="text-center">You dont have any new notification</p>}
             </List>
         </Fragment>
     )

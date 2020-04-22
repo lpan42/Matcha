@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -19,14 +19,16 @@ const NotifBadge = () => {
     const classes = useStyles();
    
     let nbr = 0; 
-    notif && notif.data.map((message) => {
+    notif && notif.map((message) => {
     if(!message.readed)
         nbr++;
     });
 
     return (
         <div className={classes.root}>
-            <Badge badgeContent={nbr} max={99} color="secondary" showZero><NotificationsIcon /></Badge>
+            <Badge badgeContent={nbr} max={99} color="secondary" showZero>
+                <NotificationsIcon />
+            </Badge>
         </div>
     );
 }
