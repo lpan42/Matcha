@@ -4,5 +4,7 @@ const indexController = require('../controllers/indexController');
 const auth = require('../middleware/auth');
 
 router.route('/getsuggestions').get(auth, indexController.getSuggestions);
+router.route('/search/:searchUserInput').get(auth, indexController.searchUser);
+
 
 module.exports = router;

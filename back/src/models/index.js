@@ -23,7 +23,7 @@ export async function getSuggestions(gender, sexPrefer, minLat, maxLat, minLong,
     }
 }
 
-export async function getSuggestionsIfBi(minLat, maxLat, minLong, MaxLong, userid) {
+export async function getSuggestionsIfBi(minLat, maxLat, minLong, MaxLong, userid){
     try {
         const result = await connection.query(`
             SELECT users.id_user, username, firstname, lastname, online,
@@ -43,12 +43,25 @@ export async function getSuggestionsIfBi(minLat, maxLat, minLong, MaxLong, useri
         throw new Error(err);
     }
 }
-// sql:
-//   "SELECT id, username, firstname, lastname, gender, online, pop_score, sexual_orientation, city, profile_picture_url, bio, birthdate, geo_lat, geo_long, last_connexion, pop_max, tags 
-//   FROM users WHERE 
-//   (gender = ?)AND (sexual_orientation = ?)  
-//   AND ((SELECT YEAR(birthdate)) BETWEEN ? AND ?) 
-//   AND (geo_lat BETWEEN ? AND ?) AND (geo_long BETWEEN ? AND ?) 
-//   AND (pop_score BETWEEN ? AND ?) 
-//   AND `id` NOT IN (SELECT user_id FROM block WHERE blocking_id = ?) 
-//   AND `id` != ?;",
+
+export async function searchUser(userid, keyword){
+    try {
+        const result = await connection.query(`
+            SELECT users.id_user, username, firstname, lastname, online,
+                gender, birthday, sex_prefer, avatar, biography, 
+                location_lat, location_lon, fame
+                FROM users
+                LEFT JOIN profiles on users.id_user = profiles.id_user
+                WHERE (
+                    username LIKE '%${keyword}%'
+                    OR firstname LIKE '%${keyword}%'
+                    OR lastname LIKE '%${keyword}%'
+                    OR biography LIKE '%${keyword}%'
+                )
+                AND users.id_user != ?
+                ORDER BY fame DESC`,[userid]);
+        return result;
+    } catch (err) {
+        throw new Error(err);
+    }
+}

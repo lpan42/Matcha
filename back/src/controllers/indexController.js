@@ -47,6 +47,13 @@ export async function getSuggestions(req, res) {
         data: suggestions
     });
 }
-
+// getBoundsOfDistance return:
 // [0]southwestern：min{latitude: -0.04491576420597608, longitude: -0.04491576420597608},
 // [1]northeastern: max{latitude: 0.04491576420597608, longitude: 0.04491576420597608}
+
+export async function searchUser(req, res){
+    const result = await indexModel.searchUser(req.userid,req.params.searchUserInput);
+    return res.status(200).json({
+        data: result
+    });
+}

@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import TextField from '@material-ui/core/TextField';
@@ -19,7 +18,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CakeIcon from '@material-ui/icons/Cake';
-import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import WcIcon from '@material-ui/icons/Wc';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,10 +36,9 @@ const Index = () => {
   const {loadUser} = userContext;
   
   const classes = useStyles();
-
   const suggestUser = [];
 
-  const [searchUser, setSearchUser] = useState('');
+  const [searchUserInput, setSearchUserInput] = useState('');
   const [loading, setLoading] = useState(true);
   const [suggestions, setSuggestions] = useState([]);
 
@@ -50,6 +47,18 @@ const Index = () => {
     try{
         const result =  await axios.get('/index/getsuggestions');
         // console.log(result.data.data);
+        setSuggestions(result.data.data);
+        setLoading(false);
+    }catch(err){
+        console.log(err);
+    }
+  }
+
+  const searchUser = async () => {
+    setAuthToken(localStorage.token);
+    try{
+        const result =  await axios.get(`/index/search/${searchUserInput}`);
+        console.log(result.data.data);
         setSuggestions(result.data.data);
         setLoading(false);
     }catch(err){
@@ -67,7 +76,10 @@ const Index = () => {
 
   const OnClick = (e) => {
     e.preventDefault();
-    console.log(searchUser);
+    if(searchUserInput)
+      searchUser();
+    else
+      getSuggestions();
   }
 
   if(suggestions.length){
@@ -106,7 +118,7 @@ const Index = () => {
     <div>
       <form style={{display:"flex", float:"right", margin:"10px"}}>
         <TextField placeholder='Search Users'
-          value={searchUser} onChange={e=>setSearchUser(e.target.value)}
+          value={searchUserInput} onChange={e=>setSearchUserInput(e.target.value)}
         />
         <IconButton type='submit' size="small" color="primary" onClick={(e)=>OnClick(e)}>
           <SearchIcon fontSize="small"/>
