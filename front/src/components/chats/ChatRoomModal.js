@@ -19,6 +19,8 @@ import ChatContext from '../../contexts/chat/chatContext';
 import UserContext from '../../contexts/user/userContext';
 import toUpperCase from '../../utils/toUpperCase';
 import CloseIcon from '@material-ui/icons/Close';
+import SendIcon from '@material-ui/icons/Send';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -152,21 +154,19 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 						</List> : null
 					}
 				</ScrollToBottom>
-				<div className={classes.chatBox}>
-					<TextField
-						placeholder="Send a Message"
-						className={classes.textForm}
-						variant="outlined" 
-						value={newMessage} 
-						onChange={e=>setNewMessage(e.target.value)}
-					/>
-					<Button 
-						variant="contained"
-						color="primary"
-						onClick={(e)=>sendNewMessage(e)}>
-						Send
-					</Button>
-				</div>
+				{/* <div className={classes.chatBox}> */}
+					<form className={classes.chatBox}>
+						<TextField placeholder="Send a Message"
+							className={classes.textForm}
+							value={newMessage} 
+							onChange={e=>setNewMessage(e.target.value)}
+						/>
+						<IconButton type='submit' color="primary"
+							onClick={(e)=>sendNewMessage(e)}>
+							<SendIcon />
+						</IconButton>
+					</form>
+				{/* </div> */}
 			</div>
 			</Modal>
         </div>

@@ -328,7 +328,7 @@ input {
   margin-top: 0.3rem;
   color: #888;
 }
-
+/* 
 input[type='text'],
 input[type='email'],
 input[type='password'],
@@ -345,7 +345,7 @@ textarea {
 input[type='submit'],
 button {
   font: inherit;
-}
+} */
 
 .form-group {
   margin: 1.2rem 0;

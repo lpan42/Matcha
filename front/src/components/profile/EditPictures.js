@@ -4,6 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
+import IconButton from '@material-ui/core/IconButton';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -109,9 +112,9 @@ const EditPictures = () => {
             {pictures.length < 4 ?
             <Fragment>
                 <input accept=".jpg,.png" className={classes.input} id="contained-button-file" type="file" onChange={OnChange}/>
-                <label htmlFor="contained-button-file"><Button className={classes.buttons} variant="contained" color="primary" component="span">+</Button></label>
+                <label htmlFor="contained-button-file"><IconButton variant="contained" color="primary" component="span"><AddCircleIcon /></IconButton></label>
             </Fragment> : null}
-            { pictures.length === 0 ? null : <Button className={classes.buttons} variant="contained" color="primary" component="span" onClick={showDeleteBtn}>-</Button> }
+            { pictures.length === 0 ? null : <IconButton  variant="contained" color="primary" component="span" onClick={showDeleteBtn}><RemoveCircleIcon /></IconButton> }
         </Fragment>
     )
 }

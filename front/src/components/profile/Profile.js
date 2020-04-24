@@ -1,5 +1,4 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import moment from 'moment';
 import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import ChatContext from '../../contexts/chat/chatContext';
@@ -22,6 +21,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ChatRoomModal from '../chats/ChatRoomModal';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
+import calculateAge from '../../utils/calculateAge';
 
 const MyTooltip = withStyles((theme) => ({
     tooltip: {
@@ -109,7 +109,6 @@ const Profile = ({ match }) => {
     const openChatroom =() =>{
         setShowChatroom(true);
     }
-    const calculateAge = moment().diff(profile && profile.data.birthday,'years');
     const RenderProfile = (
         <div>
             <div>
@@ -160,7 +159,7 @@ const Profile = ({ match }) => {
                 <p>Lastname: {profile && toUpperCase(profile.data.lastname)}</p>
                 <p>Gender: {profile && toUpperCase(profile.data.gender)}</p>
                 <p>Sex Orientation: {profile && toUpperCase(profile.data.sex_prefer)}</p>
-                <p>Age: { calculateAge }</p>
+                <p>Age: { calculateAge(profile && profile.data.birthday) }</p>
                 <p>Biography: {profile && profile.data.biography}</p>
                 <div>pictures: 
                         <Pictures />

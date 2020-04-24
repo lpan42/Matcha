@@ -59,7 +59,9 @@ const Notifications = () => {
                         primary={primary}
                         secondary={secondary}
                     />
-                <button className="btn-sm btn-primary" onClick={()=>{visitProfile(message.id_sender, message.id_notif)}}>Visit Profile</button> 
+                <Button size="small" color="primary"
+                    onClick={()=>{visitProfile(message.id_sender, message.id_notif)}}>
+                    Visit Profile</Button> 
             </ListItem>
         );
     })

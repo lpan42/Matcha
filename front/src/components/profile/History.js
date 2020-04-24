@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 import Divider from '@material-ui/core/Divider';
 import toUpperCase from '../../utils/toUpperCase';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -90,10 +91,6 @@ const History = () => {
     const showUnblockComfirm = () => {
         setShowUnblock(true);
     }
-  
-    const visitProfile = (id_user) => {
-        history.push(`/profile/${id_user}`);
-    }
 
     if(blockList.length){
         blockList.map((blockUser, key) => {
@@ -107,11 +104,9 @@ const History = () => {
                         online={blockUser.online}/>  
                     </ListItemAvatar>
                         <ListItemText primary={primary} />
-                    <button className="btn-sm btn-primary"
-                        onClick={showUnblockComfirm}
-                    >
+                    <Button size="small" color="primary" onClick={showUnblockComfirm}>
                         Unblock User
-                    </button>
+                    </Button>
                     {showUnblock ? 
                         <UnblockComfirm 
                             show={showUnblock} 
@@ -141,10 +136,9 @@ const History = () => {
                         <ListItemText 
                             primary={primary}
                             secondary={secondary} />
-                    <button className="btn-sm btn-primary"
-                        onClick={()=>{visitProfile(visitUser.id_user)}}>
+                    <Button size="small" color="primary" href={`/profile/${visitUser.id_user}`}>
                         visit Profile
-                    </button>
+                    </Button>
                 </ListItem>
             );
         });
@@ -165,10 +159,9 @@ const History = () => {
                         <ListItemText 
                             primary={primary}
                             secondary={secondary} />
-                    <button className="btn-sm btn-primary"
-                        onClick={()=>{visitProfile(likeUser.id_user)}}>
+                    <Button size="small" color="primary" href={`/profile/${likeUser.id_user}`}>
                         visit Profile
-                    </button>
+                    </Button>
                 </ListItem>
             );
         });

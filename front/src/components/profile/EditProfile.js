@@ -5,6 +5,7 @@ import EditInterests from './EditInterests';
 import UploadAvatars from '../modals/UploadAvatars';
 import ImageAvatars from '../badges/ImageAvatars';
 import EditPictures from './EditPictures';
+import Button from '@material-ui/core/Button';
 
 const EditProfile = () => {
     const  profileContext = useContext(ProfileContext);
