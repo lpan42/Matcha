@@ -154,19 +154,17 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 						</List> : null
 					}
 				</ScrollToBottom>
-				{/* <div className={classes.chatBox}> */}
-					<form className={classes.chatBox}>
-						<TextField placeholder="Send a Message"
-							className={classes.textForm}
-							value={newMessage} 
-							onChange={e=>setNewMessage(e.target.value)}
-						/>
-						<IconButton type='submit' color="primary"
-							onClick={(e)=>sendNewMessage(e)}>
-							<SendIcon />
-						</IconButton>
-					</form>
-				{/* </div> */}
+				<form className={classes.chatBox}>
+					<TextField placeholder="Send a Message"
+						className={classes.textForm}
+						value={newMessage} 
+						onChange={e=>setNewMessage(e.target.value)}
+					/>
+					<IconButton type='submit' color="primary"
+						onClick={(e)=>sendNewMessage(e)}>
+						<SendIcon />
+					</IconButton>
+				</form>
 			</div>
 			</Modal>
         </div>

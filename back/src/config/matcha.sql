@@ -30,20 +30,20 @@ CREATE TABLE `interests` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `interests` (`id_interest`, `interest`) VALUES
-(1, 'travel'),
-(2, 'sports'),
-(3, 'arts'),
-(4, 'films'),
-(5, 'music'),
-(6, 'animals'),
-(7, 'dance'),
-(8, 'outdoors'),
-(9, 'food'),
-(10, 'books'),
-(11, 'programming'),
-(12, 'creative'),
-(13, 'languages'),
-(14, 'stargazing');
+(1, 'Travel'),
+(2, 'Sports'),
+(3, 'Arts'),
+(4, 'Films'),
+(5, 'Music'),
+(6, 'Animals'),
+(7, 'Dance'),
+(8, 'Outdoors'),
+(9, 'Food'),
+(10, 'Books'),
+(11, 'Programming'),
+(12, 'Creative'),
+(13, 'Languages'),
+(14, 'Stargazing');
 
 CREATE TABLE `likes` (
   `id_likes` int(11) NOT NULL,
@@ -56,6 +56,7 @@ CREATE TABLE `messages` (
   `id_chatroom` int(11) NOT NULL,
   `id_message` int(11) NOT NULL,
   `id_sender` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `message` varchar(1000) NOT NULL,
   `readed` tinyint(1) DEFAULT '0'
@@ -65,7 +66,6 @@ CREATE TABLE `notifications` (
   `id_notif` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_sender` int(11) NOT NULL,
-  `id_link` int(11) DEFAULT NULL,
   `notification` varchar(25) NOT NULL,
   `notif_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `readed` tinyint(1) DEFAULT '0'
@@ -80,8 +80,9 @@ CREATE TABLE `pics` (
 INSERT INTO `pics` (`id_pic`, `id_user`, `path`) VALUES
 (14, 1, '12a96eaf93b'),
 (16, 1, '1d6b02a97d7'),
-(17, 1, '11cafac2011'),
-(18, 7, '72d8834d61d');
+(20, 1, '1781e6a4037'),
+(21, 7, '7fabbea5876'),
+(22, 7, '7dc3eeb7d0e');
 
 CREATE TABLE `profiles` (
   `id_profile` int(11) NOT NULL,
@@ -97,10 +98,10 @@ CREATE TABLE `profiles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `profiles` (`id_profile`, `id_user`, `gender`, `birthday`, `sex_prefer`, `biography`, `location_lat`, `location_lon`, `avatar`, `fame`) VALUES
-(1, 1, 'female', '1987-09-30', 'straight', 'This is ashley', 0, 0, '1c849c68e98', 1520),
-(2, 7, 'female', '2000-03-19', 'straight', 'Hi, i am le Pan. ', 0, 0, '7c464b6568c', 4670),
-(6, 14, 'female', '2020-03-04', 'gay', '4r4r4', 0, 0, '14_0', 26),
-(7, 16, NULL, NULL, 'bi', NULL, 0, 0, NULL, 0);
+(1, 1, 'female', '1987-09-30', 'straight', 'This is ashley', 0, 0, '1e153d6e615', 1614),
+(2, 7, 'male', '1987-08-31', 'straight', 'Hi, i am le Pan. ', 0, 0, '7c464b6568c', 5021),
+(6, 14, 'male', '2005-03-04', 'straight', '4r4r4', 0, 0, '14_0', 342),
+(7, 16, 'male', NULL, 'straight', NULL, 0, 0, NULL, 52);
 
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
@@ -118,9 +119,9 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` (`id_user`, `email`, `username`, `password`, `firstname`, `lastname`, `active`, `active_link`, `ini_pwd_link`, `online`, `last_login`, `creation_date`) VALUES
-(1, 'adrien.vardon1@yahoo.fr', 'admin', '$2b$10$czclxBLC5TnCBp6llJ8qDOMqSJ/M6U0BC3H.v/lF7XEuskJLBBUAm', 'le', 'pan', 1, '8464296e9277a72c3b88', NULL, 1, '2020-04-01 11:29:30', '2020-02-05 12:27:23'),
-(7, 'ashley1@gmail.com', 'admin1', '$2b$10$yp0ci/ZM6iVOyldoCvYzTertVDjlPHwRRHakxuisax1P.ov9hvjCy', 'Ashley', 'vardon', 1, 'ac4f94e120f1160586d2', NULL, 1, '2020-03-31 19:20:00', '2020-02-19 16:53:56'),
-(14, 'adrien.vardon@yahoo.fr', 'test', '$2b$10$y54mGTEqaiDlKzPwHwpeZOTq23j0ZPxNhjldr.K5stN1dEeY22m0a', 'adrien', 'vardon', 1, '8075501784a54b838625', NULL, 0, '2020-03-25 11:34:48', '2020-02-21 18:25:49'),
+(1, 'adrien.vardon1@yahoo.fr', 'admin', '$2b$10$czclxBLC5TnCBp6llJ8qDOMqSJ/M6U0BC3H.v/lF7XEuskJLBBUAm', 'le', 'pan', 1, '8464296e9277a72c3b88', NULL, 1, '2020-04-24 12:49:38', '2020-02-05 12:27:23'),
+(7, 'ashley1@gmail.com', 'admin1', '$2b$10$yp0ci/ZM6iVOyldoCvYzTertVDjlPHwRRHakxuisax1P.ov9hvjCy', 'ashley', 'pan', 1, 'ac4f94e120f1160586d2', NULL, 1, '2020-04-22 18:29:28', '2020-02-19 16:53:56'),
+(14, 'adrien.vardon@yahoo.fr', 'test', '$2b$10$y54mGTEqaiDlKzPwHwpeZOTq23j0ZPxNhjldr.K5stN1dEeY22m0a', 'adrien', 'vardon', 1, '8075501784a54b838625', NULL, 0, '2020-04-22 17:53:54', '2020-02-21 18:25:49'),
 (16, 'cchi@gmail.com', 'test1', '$2b$10$ROO9n5lo.S3eQHth/8FhKud/IBGwpSTSZUNp3oEdpqZ9FJdsUe1Xe', 'c', 'chi', 1, 'abe6099967d2f9c27fea', NULL, 0, '2020-03-27 16:23:32', '2020-03-27 15:07:17');
 
 CREATE TABLE `users_interests` (
@@ -133,19 +134,19 @@ INSERT INTO `users_interests` (`id`, `id_user`, `id_interest`) VALUES
 (218, 14, 4),
 (219, 14, 12),
 (220, 14, 10),
-(1378, 1, 9),
-(1379, 1, 1),
-(1380, 1, 13),
-(1381, 1, 6),
-(1382, 1, 12),
-(1383, 1, 11),
-(1384, 1, 4),
-(1397, 7, 6),
-(1398, 7, 1),
-(1399, 7, 9),
-(1400, 7, 12),
-(1401, 7, 13),
-(1402, 7, 4);
+(1519, 7, 1),
+(1520, 7, 12),
+(1521, 7, 9),
+(1522, 7, 6),
+(1523, 7, 4),
+(1524, 7, 13),
+(1532, 1, 4),
+(1533, 1, 9),
+(1534, 1, 13),
+(1535, 1, 11),
+(1536, 1, 1),
+(1537, 1, 6),
+(1538, 1, 12);
 
 
 ALTER TABLE `blocks`
@@ -191,7 +192,7 @@ ALTER TABLE `chatrooms`
   MODIFY `id_chatroom` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `interests`
-  MODIFY `id_interest` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_interest` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `likes`
   MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT;
@@ -203,16 +204,16 @@ ALTER TABLE `notifications`
   MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `pics`
-  MODIFY `id_pic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_pic` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `profiles`
-  MODIFY `id_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_profile` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `users_interests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1403;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
