@@ -46,7 +46,6 @@ const Index = () => {
     setAuthToken(localStorage.token);
     try{
         const result =  await axios.get('/index/getsuggestions');
-        // console.log(result.data.data);
         setSuggestions(result.data.data);
         setLoading(false);
     }catch(err){
@@ -58,7 +57,6 @@ const Index = () => {
     setAuthToken(localStorage.token);
     try{
         const result =  await axios.get(`/index/search/${searchUserInput}`);
-        console.log(result.data.data);
         setSuggestions(result.data.data);
         setLoading(false);
     }catch(err){

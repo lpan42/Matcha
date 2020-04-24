@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from "./components/layout/Header";
 import Register from './components/user/Register';
 import Login from './components/user/Login';
-import Index from './components/layout/index';
+import Index from './components/index/index';
 import Account from './components/user/Account';
 import Profile from './components/profile/Profile';
 import NotFound from './components/layout/NotFound';

@@ -104,7 +104,7 @@ const History = () => {
                         online={blockUser.online}/>  
                     </ListItemAvatar>
                         <ListItemText primary={primary} />
-                    <Button size="small" color="primary" onClick={showUnblockComfirm}>
+                    <Button size="small" color="primary" variant="contained" onClick={showUnblockComfirm}>
                         Unblock User
                     </Button>
                     {showUnblock ? 
@@ -136,7 +136,7 @@ const History = () => {
                         <ListItemText 
                             primary={primary}
                             secondary={secondary} />
-                    <Button size="small" color="primary" href={`/profile/${visitUser.id_user}`}>
+                    <Button size="small" color="primary" variant="contained" href={`/profile/${visitUser.id_user}`}>
                         visit Profile
                     </Button>
                 </ListItem>
@@ -159,7 +159,7 @@ const History = () => {
                         <ListItemText 
                             primary={primary}
                             secondary={secondary} />
-                    <Button size="small" color="primary" href={`/profile/${likeUser.id_user}`}>
+                    <Button size="small" color="primary" variant="contained" href={`/profile/${likeUser.id_user}`}>
                         visit Profile
                     </Button>
                 </ListItem>

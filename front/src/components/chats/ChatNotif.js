@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ImageAvatars from '../badges/ImageAvatars';
 import ChatRoomModal from '../chats/ChatRoomModal';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,9 +65,11 @@ const ChatNotif = () => {
                         primary={primary}
                         secondary={secondary}
                     />
-                <button className="btn-sm btn-primary" onClick={()=>showChatroomModal(message.id_chatroom)}>
+                <Button color="primary" variant="contained" size="small" 
+                    style={{margin:"4px"}}
+                    onClick={()=>showChatroomModal(message.id_chatroom)}>
                     Send a Message
-                </button> 
+                </Button>
                 {showChatroom ? 
                     <ChatRoomModal 
                         show={showChatroom} 

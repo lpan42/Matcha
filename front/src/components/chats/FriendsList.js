@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import toUpperCase from '../../utils/toUpperCase';
 import ChatRoomModal from '../chats/ChatRoomModal';
+import Button from '@material-ui/core/Button';
 
 const FriendsList = () => {
    
@@ -60,12 +61,16 @@ const FriendsList = () => {
                         online={friend.online}/>  
                 </ListItemAvatar>
                     <ListItemText primary={primary}/>
-                <button className="btn-sm btn-primary" onClick={()=>{visitProfile(friend.id_user)}}>
+                <Button color="primary" variant="contained" size="small" 
+                    style={{margin:"4px"}}
+                    onClick={()=>{visitProfile(friend.id_user)}}>
                     Visit Profile
-                </button>
-                <button className="btn-sm btn-primary" onClick={()=>showChatroomModal(friend.id_chatroom)}>
+                </Button>
+                <Button color="primary" variant="contained" size="small" 
+                    style={{margin:"4px"}}
+                    onClick={()=>showChatroomModal(friend.id_chatroom)}>
                     Send a Message
-                </button>
+                </Button>
                 {showChatroom ? 
                     <ChatRoomModal 
                         show={showChatroom} 
