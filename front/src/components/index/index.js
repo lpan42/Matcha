@@ -38,10 +38,10 @@ const useStyles = makeStyles((theme) => ({
     height: 180,
   },
   paper: {
-    height: 200,
-    width: 200,
+    minHeight: 200,
+    minWidth: 200,
     border: '1px solid #60A561',
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -214,6 +214,7 @@ const Index = () => {
                   value={distance}
                   onChange={(e,newDis)=>{setDistance(newDis);}}
                 />
+                <Button color="primary" style={{float:"right"}}>Comfirm</Button>
               </div>
             </Fade>
           )}
