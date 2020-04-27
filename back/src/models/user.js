@@ -6,7 +6,12 @@ const fs = require('fs');
 
 export async function getUserInfoById(userid) {
     try {
-        const result = await connection.query('SELECT * FROM users WHERE id_user = ?', userid);
+        const result = await connection.query(`
+        SELECT users.id_user,username,firstname,lastname,email,online,avatar,location_lat,location_lon
+        FROM users 
+        LEFT JOIN profiles ON profiles.id_user = users.id_user
+        WHERE users.id_user = ?
+        `, userid);
         if (result[0]) {
             const user = {
                 id: result[0].id_user,
@@ -14,10 +19,11 @@ export async function getUserInfoById(userid) {
                 email: result[0].email,
                 firstname: result[0].firstname,
                 lastname: result[0].lastname,
+                lon: result[0].location_lon,
+                lat: result[0].location_lat,
+                avatar: result[0].avatar,
                 online: result[0].online,
             };
-            const avatar = await connection.query('SELECT avatar FROM profiles WHERE id_user = ?', userid);
-            user.avatar = avatar;
             return user;
         } else {
             return { err: "This user does not exist" };

@@ -57,7 +57,7 @@ const Header = ({ title }) => {
             <Button  ref={anchorRef} onClick={handleToggle}>
                 <ImageAvatars 
                     username={user&&user.data.username}
-                    avatar={user&&user.data.avatar[0].avatar} 
+                    avatar={user&&user.data.avatar} 
                     online={user&&user.data.online}/>  
             </Button>
             <Popper open={open} anchorEl={anchorRef.current}>

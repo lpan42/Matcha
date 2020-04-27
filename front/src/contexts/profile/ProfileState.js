@@ -54,7 +54,7 @@ const ProfileState = props => {
                 type: GET_PROFILE,
                 payload: result.data
             });
-            if(loginUser != userid){
+            if(loginUser !== userid){
                 let data = {
                     notification: 'visits',
                     id_user: userid,
@@ -164,7 +164,7 @@ const ProfileState = props => {
                 type: ADD_LIKE,
                 payload: result.data
             });
-            if(loginUser != userid){
+            if(loginUser !== userid){
                 let data = {
                     notification: 'likes',
                     id_user: userid,
@@ -189,7 +189,7 @@ const ProfileState = props => {
                 type: UN_LIKE,
                 payload: result.data
             });
-            if(loginUser != userid){
+            if(loginUser !== userid){
                 let data = {
                     notification: 'unlikes',
                     id_user: userid,
@@ -209,7 +209,7 @@ const ProfileState = props => {
         setAuthToken(localStorage.token);
         const loginUser = validateToken(localStorage.token);
         try{
-            if(loginUser != userid){
+            if(loginUser !== userid){
                 let data = {
                     notification: 'blocks',
                     id_user: userid,

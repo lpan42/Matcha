@@ -135,7 +135,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 										avatar={chat.avatar} 
 										online={chat.online}/>  
 									<div style={{display:"flex", flexDirection:"column"}}>
-										<Chip label={ReactEmoji.emojify(chat.message)} color="primary"></Chip>
+										<Chip label={ReactEmoji.emojify(chat.message)} color="secondary"></Chip>
 										<Typography variant="caption" style={{color:'grey',textAlign:'right'}}>{processDate(chat.time)}</Typography>
 									</div>
 								</Box> :
