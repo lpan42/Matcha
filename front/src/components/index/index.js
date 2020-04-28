@@ -2,6 +2,7 @@
 import React, { Fragment, useContext, useEffect, useState, } from 'react'
 import UserContext from '../../contexts/user/userContext';
 import Spinner from '../layout/Spinner';
+import Filter from './Filter';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import calculateAge from '../../utils/calculateAge';
@@ -19,11 +20,6 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Paper from '@material-ui/core/Paper';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Fade from '@material-ui/core/Fade';
-import Popper from '@material-ui/core/Popper';
-import Slider from '@material-ui/core/Slider';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CakeIcon from '@material-ui/icons/Cake';
 import WcIcon from '@material-ui/icons/Wc';
@@ -36,13 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 180,
-  },
-  paper: {
-    minHeight: 200,
-    minWidth: 200,
-    border: '1px solid #60A561',
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.background.paper,
   },
 }));
 
@@ -58,18 +47,6 @@ const Index = () => {
   const [loading, setLoading] = useState(true);
   const [suggestions, setSuggestions] = useState([]);
   const [sort, setSort] = useState(null);
-  const [age, setAge] = React.useState([18, 37]);
-  const [distance, setDistance] = React.useState(5);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-  const open = Boolean(anchorEl);
-
-  // const handleChange = (e, newAge) => {
-  //   setAge(newAge);
-  // };
 
   const getSuggestions = async () => {
     setAuthToken(localStorage.token);
@@ -197,29 +174,7 @@ const Index = () => {
   return (
     <Fragment>
       <div style={{display:"flex",padding:"10px",justifyContent:"space-between"}}>
-        <Button color="primary" onClick={handleClick}>
-          Filter<ExpandMoreIcon /></Button>
-        <Popper open={open} anchorEl={anchorEl} transition placement="bottom-start">
-          {({ TransitionProps }) => (
-            <Fade {...TransitionProps} timeout={350}>
-              <div className={classes.paper}>
-                <Typography variant="caption">Age: {age[0]}-{age[1]}</Typography>
-                <Slider
-                  min={18}
-                  value={age}
-                  onChange={(e,newAge)=>{setAge(newAge);}}
-                />
-                <Typography variant="caption">Max Distance: {distance}km</Typography>
-                <Slider
-                  value={distance}
-                  onChange={(e,newDis)=>{setDistance(newDis);}}
-                />
-                <Button color="primary" style={{float:"right"}}>Comfirm</Button>
-              </div>
-            </Fade>
-          )}
-        </Popper>
-       
+        <Filter />
         <form>
           <TextField placeholder='Search Users'
             value={searchUserInput} onChange={e=>setSearchUserInput(e.target.value)}
