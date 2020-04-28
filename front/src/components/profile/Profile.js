@@ -22,6 +22,8 @@ import ChatRoomModal from '../chats/ChatRoomModal';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import calculateAge from '../../utils/calculateAge';
+import EditLocation from './EditLocation';
+import profileReducer from '../../contexts/profile/profileReducer';
 
 const MyTooltip = withStyles((theme) => ({
     tooltip: {
@@ -159,6 +161,7 @@ const Profile = ({ match }) => {
                 <p>Lastname: {profile && toUpperCase(profile.data.lastname)}</p>
                 <p>Gender: {profile && toUpperCase(profile.data.gender)}</p>
                 <p>Sex Orientation: {profile && toUpperCase(profile.data.sex_prefer)}</p>
+                <div><EditLocation position={profile && profile.data.location_lat && profile.data.location_lon}/></div>
                 <p>Age: { calculateAge(profile && profile.data.birthday) }</p>
                 <p>Biography: {profile && profile.data.biography}</p>
                 <div>pictures: 
