@@ -2,6 +2,7 @@ const userModel = require('../models/user');
 const indexModel = require('../models/index');
 const jwtModel = require('../models/jwt');
 const geolib = require('geolib');
+const moment = require('moment');
 
 export async function getSuggestions(req, res) {
     const profile = await userModel.getProfileInfoById(req.userid);
@@ -56,4 +57,26 @@ export async function searchUser(req, res){
     return res.status(200).json({
         data: result
     });
+}
+
+const ageToBirthYear = (age) => {
+    const year = moment().format("YYYY");
+    const birthYear = moment().set("year", year - age).format("YYYY");
+    return birthYear;
+}
+
+export async function filterUser(req,res){
+    const profile = await userModel.getProfileInfoById(req.userid);
+    const range = geolib.getBoundsOfDistance(
+        { latitude: profile.location_lat, longitude: profile.location_lon },
+        req.body.distance*1000
+    );
+    const ageMin = ageToBirthYear(req.body.age[1]);
+    const ageMax = ageToBirthYear(req.body.age[0]);
+    const gender = req.body.gender;
+    const sexPrefer = req.body.sexPrefer;
+    const tags = req.body.selectedInterests;
+    const result = await indexModel.filterUser(ageMin,ageMax,gender,sexPrefer,
+        range[0].latitude,range[1].latitude,range[0].longitude,range[1].longitude,req.userid);
+    console.log(result)
 }

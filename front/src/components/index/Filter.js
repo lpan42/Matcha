@@ -1,4 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState} from 'react';
+import ProfileContext from '../../contexts/profile/profileContext';
+import axios from 'axios';
+import setAuthToken from '../../utils/setAuthToken';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Fade from '@material-ui/core/Fade';
 import Popper from '@material-ui/core/Popper';
@@ -7,8 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import ProfileContext from '../../contexts/profile/profileContext';
-import toUpperCase from '../../utils/toUpperCase';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -48,6 +49,28 @@ const Filter = () => {
     
     const open = Boolean(anchorEl);
 
+    const filterUser = async () => {
+        setAuthToken(localStorage.token);
+        const config = {
+            headers: {'Content-Type': 'application/json'}
+        }
+        const data = {
+            age:age,
+            distance:distance,
+            gender:gender,
+            sexPrefer:sexPrefer,
+            selectedInterests:selectedInterests
+        }
+        try{
+            const result =  await axios.post('/index/filteruser', data,config);
+            // setSuggestions(result.data.data);
+            // setSort("fameDesc");
+            // setLoading(false);
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     const expendFilter = e => {
         setAnchorEl(anchorEl ? null : e.currentTarget);
     };
@@ -58,11 +81,7 @@ const Filter = () => {
         setSexPrefer(newSf);
     };
     const comfirmFilter = () => {
-        console.log(age);
-        console.log(distance);
-        console.log(gender);
-        console.log(sexPrefer);
-        console.log(selectedInterests);
+        filterUser();
     }
 
     let interests = [];
@@ -74,7 +93,6 @@ const Filter = () => {
         );
     }
     const addInterests = (e) => {
-       
         if(!selectedInterests){
             setSelectedInterests({interest: e.currentTarget.value});
         }else{
