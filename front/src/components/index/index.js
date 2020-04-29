@@ -138,7 +138,9 @@ const Index = () => {
       })
       break;
   }
-
+const updateSuggestions = (input)=> {
+ setSuggestions(input);
+}
   if(suggestions.length){
     suggestions.map((suggestion, key) => {
       suggestUser.push(
@@ -174,7 +176,7 @@ const Index = () => {
   return (
     <Fragment>
       <div style={{display:"flex",padding:"10px",justifyContent:"space-between"}}>
-        <Filter />
+        <Filter update={updateSuggestions}/>
         <form>
           <TextField placeholder='Search Users'
             value={searchUserInput} onChange={e=>setSearchUserInput(e.target.value)}
