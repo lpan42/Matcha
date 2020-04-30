@@ -54,7 +54,7 @@ const ProfileState = props => {
                 type: GET_PROFILE,
                 payload: result.data
             });
-            if(loginUser !== userid){
+            if(+loginUser !== +userid){
                 let data = {
                     notification: 'visits',
                     id_user: userid,
