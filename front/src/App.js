@@ -16,6 +16,9 @@ import notifications from './components/notification/notifications';
 import History from './components/profile/History';
 import Friendslist from './components/chats/FriendsList';
 import ChatNotif from './components/chats/ChatNotif';
+import RequestResetPwd from './components/user/RequestResetPwd';
+import ActiveAccount from "./components/user/ActiveAccount";
+import ResetPwd from "./components/user/ResetPwd";
 //state
 import UserState from './contexts/user/UserState';
 import ProfileState from './contexts/profile/ProfileState';
@@ -82,6 +85,9 @@ const App = () => {
 							<PrivateRoute exact path='/notif' component={notifications} />
 							<PrivateRoute exact path='/chat' component={ChatNotif} />
 							<Route exact path='/register' component={Register} />
+							<Route exact path="/register/:active_link" component={ActiveAccount} />
+							<Route exact path="/resetpwd_request" component={RequestResetPwd} />
+							<Route exact path="/resetpwd/:resetpwd_link" component={ResetPwd} />
 							<Route exact path='/login' component={Login} />
 							<Route component={NotFound} />
 						</Switch>

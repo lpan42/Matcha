@@ -1,6 +1,7 @@
 const userModel = require('../models/user');
 const chatModel = require('../models/chat');
 const jwtModel = require('../models/jwt');
+const emailSender = require('../models/emailSender');
 const crypto = require('crypto');
 
 export async function getAccount(req, res) {
@@ -25,10 +26,57 @@ export async function register(req, res) {
         } else {
             await userModel.createNewUser(req.body);
             return res.status(200).json({ 
-                success: 'Successfully register, you may log in',
+                success: 'Successfully register. A email has been sended to your email, please active your account before login',
             });
         }
     }
+}
+
+export async function active(req, res){
+    const verifyLink = await userModel.verifyLink(req.params.active_link);
+    if (verifyLink)
+        return res.status(200).json({ success: "you account has been actived, you may login now." });
+    else return res.status(400).json({ error: "active failed" });
+}
+
+export async function resetpwd(req,res){
+    let email = null;
+    let username = null;
+    const checkUsername = await userModel.checkUsername(req.params.input);
+    if(!checkUsername[0]){
+        const checkEmail = await userModel.checkEmail(req.params.input);
+        if(!checkEmail[0]){
+            return res.status(400).json({ error: "Username/Email does not exist" });
+        }
+        email = checkEmail[0].email;
+        username = checkEmail[0].username;
+    }
+    else{
+        email = checkUsername[0].email;
+        username = checkUsername[0].username;
+    }
+    const resetpwd_link = crypto.randomBytes(10).toString('hex');
+    await userModel.updateResetpwdLink(username, resetpwd_link);
+    await emailSender.resetpwd(email, username,resetpwd_link);
+    return res.status(200).json({ success: "An email has been sent to your email, please check to reset your password" });
+}
+
+export async function verifyPwdLink(req,res){
+    const username = await userModel.verifyPwdLink(req.params.resetpwd_link);
+    if(!username){
+        return res.status(400).json({ error: "Link is not valid, you can make a new request" });
+    }
+    return res.status(200).json({ 
+        success: "Link validate, you can reset your password",
+        data: username
+    });
+}
+
+export async function updatepwd(req,res){
+    await userModel.updatepwd(req.body.username, req.body.password);
+    return res.status(200).json({ 
+        success: "Password updated, you may login now"
+    });
 }
 
 export async function login(req, res) {
@@ -44,6 +92,7 @@ export async function login(req, res) {
         });
     }
 }
+
 export async function authUser(req, res){
     const result = await userModel.getUserInfoById(req.userid);
     if (typeof(result.err) !== 'undefined') {
@@ -61,8 +110,8 @@ export async function logout(req, res) {
 }
 
 export async function modifyAccount(req,res){
-    
     let data = {
+        username:req.body.data.username,
         email: req.body.data.email,
         firstname: req.body.data.firstname,
         lastname: req.body.data.lastname,

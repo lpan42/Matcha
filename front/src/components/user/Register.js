@@ -16,7 +16,7 @@ const Register = (props) => {
         re_password:''
     })
 
-    const { register, error, success, token, loading, clearSuccess, clearError } = userContext;
+    const { register, error, success, token, clearSuccess, clearError } = userContext;
 
     useEffect(() => {
         if(token){
@@ -57,8 +57,6 @@ const Register = (props) => {
         }
     }
     
-    if (loading) return <Spinner />;
-
     return (
         <div className='form-container'>
             <h1>

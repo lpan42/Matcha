@@ -14,6 +14,12 @@ const EditAccount = () => {
         <Fragment>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
+                    <label htmlFor="username">Username: </label>
+                    <input type='text' name='username' 
+                    placeholder={user && user.data.username} 
+                    onChange={e => user.data.username = e.target.value.toLowerCase()} />
+                </div>
+                <div className="form-group">
                     <label htmlFor="email">Email: </label>
                     <input type='email' name='email' 
                     placeholder={user && user.data.email} 

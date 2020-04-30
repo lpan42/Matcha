@@ -131,19 +131,3 @@ export async function addMessage(data){
 		throw new Error(err);
 	}
 }
-
-// export async function addChatNotif(id_message){
-//     try{
-//         const result = await connection.query(`
-//         SELECT messages.id_sender, messages.time, users.firstname, users.lastname, profiles.avatar
-//         FROM messages
-//         LEFT JOIN users on messages.id_sender = users.id_user
-//         LEFT JOIN profiles on messages.id_sender = profiles.id_user
-//         WHERE messages.id_message = ? AND messages.readed = 0
-//         `, id_message);
-//         return result;
-// 	} 
-// 	catch (err) {
-// 		throw new Error(err);
-// 	}
-// }

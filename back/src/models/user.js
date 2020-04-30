@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const moment = require('moment');
 const fs = require('fs');
+const emailSender = require('./emailSender');
 
 export async function getUserInfoById(userid) {
     try {
@@ -43,12 +44,47 @@ export async function verifyExistEmail(email, userid) {
     }
 }
 
-export async function verifyExistUsername(username) {
+export async function verifyExistUsername(username, userid) {
     try {
-        const result = await connection.query('SELECT username FROM users WHERE username = ?', username.toLowerCase());
-        if (result[0]) {
+        const result = await connection.query('SELECT username,id_user FROM users WHERE username = ?', username.toLowerCase());
+        if (result[0] && result[0].id_user != userid) {
             return { err: 'This username has been taken' };
         }
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function checkUsername(username){
+    try {
+        const result = await connection.query('SELECT email,username FROM users WHERE username = ?', username.toLowerCase());
+        return result;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function checkEmail(email){
+    try {
+        const result = await connection.query('SELECT email,username FROM users WHERE email = ?', email.toLowerCase());
+        return result;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function updateResetpwdLink(username, resetpwd_link){
+    try {
+        await connection.query('UPDATE users set ini_pwd_link = ? where username = ?',[resetpwd_link,username]);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function updatepwd(username, password){
+    const hash = bcrypt.hashSync(password, 10);
+    try {
+        await connection.query('UPDATE users set password = ? where username = ?',[hash, username.toLowerCase()]);
     } catch (err) {
         throw new Error(err);
     }
@@ -72,7 +108,29 @@ export async function createNewUser(body) {
         }catch (err) {
             throw new Error(err);
         }
+        await emailSender.activeAccount(data.email, data.username, active_link);
     } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function verifyLink(active_link){
+    try{
+        const result = await connection.query('UPDATE users set active = 1, active_link = NULL where active_link = ?', active_link);
+        return result.affectedRows;
+    }catch (err) {
+        throw new Error(err);
+    }
+}
+
+
+export async function verifyPwdLink(resetpwd_link){
+    try{
+        const result = await connection.query('SELECT username FROM users where ini_pwd_link = ?', resetpwd_link);
+        if(result[0]){
+            return result[0].username;
+        }
+    }catch (err) {
         throw new Error(err);
     }
 }
@@ -212,9 +270,13 @@ export async function readNotif(id_notif){
 }
 
 export async function modifyAccount(data, userid) {
-    const result = await verifyExistEmail(data.email, userid);
-    if(typeof(result) !== 'undefined'){
+    const email = await verifyExistEmail(data.email, userid);
+    if(typeof(email) !== 'undefined'){
         return { err: 'This email has been used by another user' };
+    }
+    const username = await verifyExistUsername(data.username, userid);
+    if(typeof(username) !== 'undefined'){
+        return { err: 'Username has been taken.' };
     }
     try {
         await connection.query('UPDATE users SET ? WHERE id_user = ?', [data, userid]);

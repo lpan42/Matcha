@@ -3,7 +3,6 @@ import ProfileContext from '../../contexts/profile/profileContext';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Fade from '@material-ui/core/Fade';
 import Popover from '@material-ui/core/Popover';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';

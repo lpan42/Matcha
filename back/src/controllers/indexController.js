@@ -34,7 +34,7 @@ export async function getSuggestions(req, res) {
             );
             break;
         case 'bi':
-            suggestions = indexModel.getSuggestionsIfBi(
+            suggestions = await indexModel.getSuggestionsIfBi(
                 range[0].latitude,
                 range[1].latitude,
                 range[0].longitude,

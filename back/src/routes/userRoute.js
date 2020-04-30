@@ -5,8 +5,12 @@ const auth = require('../middleware/auth');
 
 //connect 
 router.route('/register').post(userController.register);
+router.route('/active/:active_link').post(userController.active);
 router.route('/login').post(userController.login);
 router.route('/auth').get(auth, userController.authUser);
+router.route('/resetpwd/:input').get(userController.resetpwd);
+router.route('/verifypwdlink/:resetpwd_link').get(userController.verifyPwdLink);
+router.route('/updatepwd').post(userController.updatepwd);
 router.route('/logout').get(auth, userController.logout);
 
 //getInfo
@@ -15,7 +19,6 @@ router.route('/profile/:userid').get(auth, userController.getProfile);
 router.route('/interests_list').get(userController.getInterestsList);
 
 //notification
-// router.route('/notif/get_notif').get(auth, userController.getNotif);
 router.route('/notif/read/:id_notif').get(auth, userController.readNotif);
 router.route('/notif/allreaded').get(auth,userController.setAllReaded);
 router.route('/checklike/:userid').get(auth, userController.checkLike);

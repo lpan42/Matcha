@@ -63,10 +63,11 @@ const ProfileState = props => {
                 socket.emit('addNotif', data);
             }
         }catch(err){
-            dispatch({
-                type: GET_PROFILE_NO,
-                payload: err.response.data.error
-            });
+            console.log(err)
+            // dispatch({
+            //     type: GET_PROFILE_NO,
+            //     payload: err.response.data.error
+            // });
         }
     }
 

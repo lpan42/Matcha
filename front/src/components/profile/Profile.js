@@ -157,9 +157,9 @@ const Profile = ({ match }) => {
                 <p>Username: {profile && toUpperCase(profile.data.username)}</p>
                 <p>Fristname: {profile && toUpperCase(profile.data.firstname)}</p>
                 <p>Lastname: {profile && toUpperCase(profile.data.lastname)}</p>
-                <p>Gender: {profile && toUpperCase(profile.data.gender)}</p>
+                <p>Gender: {(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : NaN}</p>
                 <p>Sex Orientation: {profile && toUpperCase(profile.data.sex_prefer)}</p>
-                <p>Age: { calculateAge(profile && profile.data.birthday) }</p>
+                <p>Age: { (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : NaN }</p>
                 <p>Biography: {profile && profile.data.biography}</p>
                 <div>pictures: 
                         <Pictures />

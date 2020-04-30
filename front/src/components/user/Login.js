@@ -74,7 +74,7 @@ const Login = (props) => {
                 <input type="submit" value="Login" className="btn btn-primary btn-block" />
             </form>
             <p>Don't have an account? <Link to='Register'> Register</Link></p>
-            <p>Forget your password? <Link to='#'> Reset Password</Link></p>
+            <p>Forget your password? <Link to='resetpwd_request'> Reset Password</Link></p>
         </div>
     )
 }
