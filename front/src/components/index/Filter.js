@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const Filter = ({update}) => {
     const  profileContext = useContext(ProfileContext);
     const { getInterestsList, interests_list } = profileContext;
-   
+
     useEffect(() => {
         getInterestsList();
          // eslint-disable-next-line
@@ -42,7 +42,7 @@ const Filter = ({update}) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [age, setAge] = useState([18, 100]);
-    const [distance, setDistance] = useState(5);
+    const [distance, setDistance] = useState(10);
     const [gender, setGender] = useState(null);
     const [sexPrefer, setSexPrefer] = useState(null);
     const [selectedInterests, setSelectedInterests] = useState([]);
@@ -146,9 +146,9 @@ const Filter = ({update}) => {
             <div className={classes.paper}>
                 <div>
                     <Typography variant="body2">Age: {age[0]}-{age[1]}</Typography>
-                    <Slider className={classes.slider} min={18} value={age} onChange={(e,newAge)=>{setAge(newAge);}}/>
+                    <Slider className={classes.slider} min={18} max={100} value={age} onChange={(e,newAge)=>{setAge(newAge);}}/>
                     <Typography variant="body2">Max Distance: {distance}km</Typography>
-                    <Slider className={classes.slider} value={distance} onChange={(e,newDis)=>{setDistance(newDis);}}/>
+                    <Slider className={classes.slider} value={distance} step={10} min={5} max={500} onChange={(e,newDis)=>{setDistance(newDis);}}/>
                     <Typography variant="body2" component="p">Gender: {gender}</Typography>
                     <ButtonGroup size="small" className={classes.buttonGroup}>
                         <Button onClick={()=>handleGender("male")}

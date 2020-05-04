@@ -36,7 +36,7 @@ const UploadAvatars = () => {
   const [open, setOpen] = useState(false);
   const [pic, setPic] = useState(null);
   const [picName, setPicName] = useState(profile.data.avatar ? profile.data.avatar : null);
-  const [src, setSrc] = useState(profile.data.avatar ? `../images/${picName}` : null);
+  const [src, setSrc] = useState(profile.data.avatar ? `${picName}` : null);
 
   const handleOpen = () => {
     setOpen(true);

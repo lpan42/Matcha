@@ -12,7 +12,7 @@ const Pictures = () => {
     if(profilePictures){
         profilePictures.map((picture,key) => {
             pictures.push(
-                <img key={key} src={`../images/${picture.path}`} style={{height:"200px", width:"180px"}}></img>
+                <img key={key} src={`${picture.path}`} style={{height:"200px", width:"180px"}}></img>
             );
         })
     }
@@ -20,7 +20,7 @@ const Pictures = () => {
     return (
         <div>
             {(profile && profile.data.avatar) ? 
-            <img src={`../images/${profile && profile.data.avatar}`} style={{height:"200px", width:"180px"}}></img> :
+            <img src={`${profile && profile.data.avatar}`} style={{height:"200px", width:"180px"}}></img> :
             null}
             <Fragment>{ pictures }</Fragment>
         </div>

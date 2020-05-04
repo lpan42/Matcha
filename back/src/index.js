@@ -1,10 +1,12 @@
-const express = require('express');
-const app = express();
+const app = require("express")();
+var http = require("http").Server(app);
+
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const authSocket = require('./middleware/authSocket');
 const chatController = require('./controllers/chatController');
 const userModel = require('./models/user');
+const generateUser = require('./config/generateUsers');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -15,15 +17,25 @@ app.use((req, res, next) => {
     next();
   });
 
-  // include router
+// include router
 const userRoute = require('./routes/userRoute');
 const indexRoute = require('./routes/indexRoute');
 const chatRoute = require('./routes/chatRoute');
 
+// routing
+app.use('/user/', userRoute);
+app.use('/index/', indexRoute);
+app.use('/chat/', chatRoute);
+  
+app.get("/generate", (req, res) => {
+    generateUser.generateUser();
+    res.send({ message: "1000 Users generated" });
+  });
+
 const PORT = 8000;
 
 // starting server
-const server = app.listen(PORT,() => {
+const  server = http.listen(PORT,() => {
     console.log(`Node server running on port: ${PORT}`);
 });
 
@@ -95,9 +107,4 @@ io.on('connection', (socket) => {
         }
     })
 });
-
-// routing
-app.use('/user/', userRoute);
-app.use('/index/', indexRoute);
-app.use('/chat/', chatRoute);
 

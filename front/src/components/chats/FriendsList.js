@@ -13,7 +13,6 @@ import ChatRoomModal from '../chats/ChatRoomModal';
 import Button from '@material-ui/core/Button';
 
 const FriendsList = () => {
-   
     const  userContext = useContext(UserContext);
     const chatContext = useContext(ChatContext);
     const history = useHistory();

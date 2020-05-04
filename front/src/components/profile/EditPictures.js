@@ -88,7 +88,7 @@ const EditPictures = () => {
         if(picture.path){
             pictures.push(
                 <div className={classes.imageContainer} key={index}>
-                    <img className={classes.image} src={`../images/${picture.path}`}></img>
+                    <img className={classes.image} src={`${picture.path}`}></img>
                     {showDelete ? <DeleteIcon className={classes.deleteBtn} id={index} color="primary" onClick={deletePic}/>: null}
                 </div>
             );

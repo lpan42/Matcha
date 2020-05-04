@@ -25,7 +25,7 @@ const ImageAvatars = ({ username, avatar, online }) => {
       }}
       >
       { avatar ? 
-        <Avatar alt={username} src={`../images/${avatar}`}/> :
+        <Avatar alt={username} src={`${avatar}`}/> :
         <Avatar>{username}</Avatar>
       }
     </StyledBadge>

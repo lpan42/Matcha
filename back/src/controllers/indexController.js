@@ -7,7 +7,7 @@ export async function getSuggestions(req, res) {
     const profile = await userModel.getProfileInfoById(req.userid);
     const range = geolib.getBoundsOfDistance(
         { latitude: profile.location_lat, longitude: profile.location_lon },
-        10000
+        50000
     );
     let suggestions = [];
     switch (profile.sex_prefer){

@@ -23,12 +23,16 @@ import Select from '@material-ui/core/Select';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CakeIcon from '@material-ui/icons/Cake';
 import WcIcon from '@material-ui/icons/Wc';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { getDistance } from 'geolib';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
     // padding: theme.spacing(1),
-    maxWidth: 300,
+    width: 250,
+    // minWidth: 200,
+    height: 380,
   },
   media: {
     height: 180,
@@ -38,8 +42,9 @@ const useStyles = makeStyles((theme) => ({
 const Index = () => {
   const userContext = useContext(UserContext);
 
-  const {loadUser, user} = userContext;
-  
+  const {loadUser, user,token} = userContext;
+  const history = useHistory();
+
   const classes = useStyles();
   const suggestUser = [];
 
@@ -74,6 +79,9 @@ const Index = () => {
 
   useEffect(() => {
     loadUser();
+    if(!token && !user){
+       history.push(`/login`);
+    }
     getSuggestions();
     //eslint-disable-next-line
   }, []);
@@ -82,10 +90,14 @@ const Index = () => {
 
   const OnClick = (e) => {
     e.preventDefault();
-    if(searchUserInput)
+    if(searchUserInput){
+      setLoading(true);
       searchUser();
-    else
+    }
+    else{
+      setLoading(true);
       getSuggestions();
+    }
   }
 
   const sortingDesc = (obj1, obj2, key) => {
@@ -138,8 +150,9 @@ const Index = () => {
       })
       break;
   }
-const updateSuggestions = (input)=> {
- setSuggestions(input);
+const updateSuggestions = (input) => {
+  // setLoading(true);
+  setSuggestions(input);
 }
   if(suggestions.length){
     suggestions.map((suggestion, key) => {
@@ -148,11 +161,17 @@ const updateSuggestions = (input)=> {
           <Card className={classes.card}>
             <CardMedia
               className={classes.media}
-              image={suggestion.avatar? `../images/${suggestion.avatar}`: '../images/default_avatar'}
+              image={suggestion.avatar? `${suggestion.avatar}`: '../images/default_avatar'}
             />
             <CardContent>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <Typography variant="overline" component="p">{suggestion.username}</Typography>
+                <Typography variant="overline" component="p" style={{display:"flex",alignItems:"center"}}>
+                  {suggestion.online?
+                    <FiberManualRecordIcon color="primary" fontSize="small"/>:
+                    <FiberManualRecordIcon color="error" fontSize="small"/>
+                  }
+                  {suggestion.username} 
+                </Typography>
                 <Typography variant="caption" component="p"><i className="fas fa-star" style={{color:"var(--primary-color)"}}></i>{suggestion.fame}</Typography>
               </div>
               <Typography variant="subtitle2" component="span">

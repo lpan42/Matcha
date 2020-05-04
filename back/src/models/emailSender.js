@@ -1,15 +1,15 @@
 const nodemailer = require("nodemailer");
-
+const transporter = nodemailer.createTransport({
+  host: 'smtp.ethereal.email',
+  port: 587,
+  secure: false,
+  auth: {
+      user: 'armando.towne@ethereal.email',
+      pass: 'JfCrTrZsXVVeG88nbZ'
+  }
+});
 
 export async function activeAccount(email, username, active_link){
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-           user: 'ashley.lepan@gmail.com',
-           pass: 'Ashley0930'
-       }
-  });
-  
     const message = `
     <html>
       <head>
@@ -26,26 +26,30 @@ export async function activeAccount(email, username, active_link){
     `;
 
     await transporter.sendMail({
-        from: "noreply@matcha.42.fr",
+        from: "matcha.42.fr",
         to: email,
         subject: "Welcome to Matcha",
         html: message,
         contentType: "text/html"
-    },(err) => {
+    },(err,info) => {
         if(err)
             console.log(err)
+        console.log('Message sent: %s', info.messageId);
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     }
     );
 }
 
 export async function resetpwd(email, username, resetpwd_link){
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-           user: 'ashley.lepan@gmail.com',
-           pass: 'Ashley0930'
-       }
-  });
+//   const transporter = nodemailer.createTransport({
+//     host: 'smtp.ethereal.email',
+//     port: 587,
+//     secure: false,
+//     auth: {
+//         user: 'armando.towne@ethereal.email',
+//         pass: 'JfCrTrZsXVVeG88nbZ'
+//     }
+// });
   
   const message = `
   <html>

@@ -4,7 +4,7 @@
   "description": "2nd web project in 42Paris",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon --exec npx babel-node src",
+    "server": "nodemon --exec npx babel-node src/index.js",
     "front": "cd ../front && npm start",
     "start": "concurrently --kill-others \"npm run server\" \"npm run front\""
   },
@@ -29,6 +29,10 @@
     "mysql": "^2.18.1",
     "nodemailer": "^6.4.6",
     "nodemon": "^2.0.2",
+    "random-float": "^2.0.0",
+    "random-int": "^2.0.1",
+    "random-item": "^3.0.0",
+    "request": "^2.88.2",
     "socket.io": "^2.3.0",
     "util": "^0.12.2"
   },

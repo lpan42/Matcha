@@ -326,7 +326,7 @@ export async function uploadAvatar(req,res) {
             return res.status(500).send(err);
         }
     });
-    await userModel.uploadAvatar(req.userid, filename);
+    await userModel.uploadAvatar(req.userid, "http://localhost:3000/images/"+filename);
     return res.status(200).json({
         success: "You avatar has been updated successfully"
     });
@@ -338,7 +338,7 @@ export async function modifyPictures(req, res){
         for(let i = 0; i < getCurrent.length; i++) {
             let check = false;
             for(let ii = 0; ii < req.body.length; ii++){
-                if(getCurrent[i].path === req.body[ii].path)
+                if(getCurrent[i].path === "http://localhost:3000/images/" + req.body[ii].path)
                 {
                     check = true;
                     break ;
@@ -366,7 +366,7 @@ export async function uploadPictures(req, res){
                     return res.status(500).send(err);
                 }
             });
-            await userModel.uploadPics(req.userid, filename);
+            await userModel.uploadPics(req.userid, "http://localhost:3000/images/"+filename);
         }
     }else{
         const filename = req.userid + crypto.randomBytes(5).toString('hex');
@@ -376,7 +376,7 @@ export async function uploadPictures(req, res){
                     return res.status(500).send(err);
                 }
             });
-            await userModel.uploadPics(req.userid, filename);
+            await userModel.uploadPics(req.userid, "http://localhost:3000/images/"+filename);
     }
    
     return res.status(200);
