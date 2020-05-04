@@ -406,6 +406,13 @@ export async function modifyPictures(req, res){
     return res.status(200);
 }
 
+export async function modifyLocation(req, res){
+    let data = req.body;
+    data.id_user = req.userid;
+    await userModel.modify_location(data);
+    return res.status(200).json({ success: 'Location has been successfully updated' });
+}
+
 export async function uploadPictures(req, res){
     if(req.files == null){
         return res.status(200);

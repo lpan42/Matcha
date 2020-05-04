@@ -36,6 +36,7 @@ router.route('/modify/account').post(auth, userController.modifyAccount);
 router.route('/modify/profile').post(auth, userController.modifyProfile);
 router.route('/modify/interests').post(auth, userController.modifyInterests);
 router.route('/modify/pictures').post(auth, userController.modifyPictures);
+router.route('/modify/location').post(auth, userController.modifyLocation);
 
 router.route('/upload/avatar').post(auth,userController.uploadAvatar);
 router.route('/upload/pictures').post(auth, userController.uploadPictures);
