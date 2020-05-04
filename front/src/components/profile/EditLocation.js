@@ -63,8 +63,8 @@ const EditLocation = ({position}) => {
                     zoom: 14,
                     isMarkerShown: true,
                 });
-                profile.data.lat = latitude;
-                profile.data.lon = longitude;
+                profile.data.location_lat = latitude;
+                profile.data.location_lon = longitude;
                 modify_location(profile);
 			},
 			error => (error.message),
@@ -95,8 +95,9 @@ const EditLocation = ({position}) => {
             ...location,
             position: { lat: latitude, lng: longitude },
         });
-        profile.data.lat = latitude;
-        profile.data.lon = longitude;
+        profile.data.location_lat = latitude;
+        profile.data.location_lon = longitude;
+        console.log(profile);
         modify_location(profile);
     };
 

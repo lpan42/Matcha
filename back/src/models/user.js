@@ -308,7 +308,9 @@ export async function modify_profile(data) {
 
 export async function modify_location(data) {
     try{
-        await connection.query('UPDATE profiles set location_lat = ?, location_lon = ? WHERE id_user = ?', [data.lat, data.lon, data.id_user]);
+        let lat = data.data.location_lat;
+        let lon = data.data.location_lon;
+        await connection.query('UPDATE profiles set location_lat = ?, location_lon = ? WHERE id_user = ?', [lat, lon, data.id_user]);
     }catch(err){
         throw new Error(err);
     }
