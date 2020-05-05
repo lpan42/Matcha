@@ -14,6 +14,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import BlockIcon from '@material-ui/icons/Block';
 import { toast } from 'react-toastify';
 import SmsIcon from '@material-ui/icons/Sms';
+import Divider from '@material-ui/core/Divider';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
@@ -55,8 +56,8 @@ const useStyles = makeStyles(theme => ({
         padding:"15px",
     },
     largeAvatar: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
+        width: theme.spacing(15),
+        height: theme.spacing(15),
       },
   }));
 
@@ -150,8 +151,10 @@ const Profile = ({ match }) => {
     const RenderProfile = (
         <Card className={classes.card}>
             <div className={classes.context}>
-                <Typography variant="h4" color="primary">Profile</Typography>
-                <div style={{display:"flex", alignItems:"center", justifyContent:"flex-end"}}>
+                <div style={{
+                    display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px"
+                }}>
+                    <Typography variant="h4" color="primary">Profile</Typography>
                     {+match.params.userid === (user && user.data.id) ? 
                         <div >
                             <MyTooltip title="Edit My Profile">
@@ -178,8 +181,14 @@ const Profile = ({ match }) => {
                             }
                         </div>
                     }
-                    {showBlock ? <BlockComfirm show={showBlock} handleClose={()=>setShowBlock(false)}/> : null}
-                    {showUnlike ? <DiscounnectComfirm show={showUnlike} handleClose={()=>setShowUnlike(false)}/> : null} 
+                    {showBlock ? <BlockComfirm 
+                        show={showBlock} 
+                        handleClose={()=>setShowBlock(false)}
+                    /> : null}
+                    {showUnlike ? <DiscounnectComfirm 
+                        show={showUnlike} 
+                        handleClose={()=>setShowUnlike(false)}
+                    /> : null} 
                     {showChatroom ? <ChatRoomModal 
                         show={showChatroom} 
                         handleClose={()=>setShowChatroom(false)} 
@@ -193,14 +202,16 @@ const Profile = ({ match }) => {
                         className={classes.largeAvatar}
                     />
                     <div style={{paddingLeft:"15px",textAlign:"left"}}>
-                        {profile && profile.data.online ?   
-                            <p style={{color:"var(--success-color)"}}>Online</p> : <p style={{color:"var(--danger-color)"}}>Last login: {profile && profile.data.last_login}</p>}
-                        <Typography variant="caption" component="p"><i className="fas fa-star" style={{color:"var(--primary-color)"}}></i>{profile && profile.data.fame}</Typography>
-                        <p>Username: {profile && toUpperCase(profile.data.username)}</p>
-                        <p>Fristname: {profile && toUpperCase(profile.data.firstname)}</p>
-                        <p>Lastname: {profile && toUpperCase(profile.data.lastname)}</p>
+                        <Typography variant="h5" component="span" className={classes.text}>{profile && toUpperCase(profile.data.username)}</Typography>
+                        {profile && profile.data.online ?  
+                            <Typography variant="subtitle2" color="primary">Online</Typography> :
+                            <Typography variant="subtitle2" color="error">Last login: {profile && profile.data.last_login}</Typography> 
+                        }
+                        <Typography variant="body2" component="p"><i className="fas fa-star" style={{color:"var(--primary-color)", paddingRight:"5px"}}></i>{profile && profile.data.fame}</Typography>
                     </div>
                 </div>
+                <Divider variant="middle" style={{color:"primary", margin:"10px 0"}}/>
+                <Typography variant="subtitle1" component="span">{profile && toUpperCase(profile.data.firstname)} {profile && toUpperCase(profile.data.lastname)}</Typography>
                 <p>Gender: {(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : NaN}</p>
                 <p>Sex Orientation: {profile && toUpperCase(profile.data.sex_prefer)}</p>
                 <p>Age: { (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : NaN }</p>
