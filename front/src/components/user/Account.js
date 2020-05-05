@@ -1,15 +1,12 @@
-import React,{ Fragment, useState, useContext, useEffect }  from 'react';
+import React,{ useState, useContext, useEffect }  from 'react';
 import UserContext from '../../contexts/user/userContext';
 import EditAccount from './EditAccount';
 import { toast } from 'react-toastify';
 import toUpperCase from '../../utils/toUpperCase';
 import { makeStyles } from '@material-ui/core/styles';
 import bgImage from './bg_image_account.jpg';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import FaceIcon from '@material-ui/icons/Face';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles(theme => ({
