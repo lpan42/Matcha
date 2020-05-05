@@ -16,6 +16,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ChatContext from '../../contexts/chat/chatContext';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    logo: {
+        display:"flex",
+        flexDirection: "column",
+        justifyContent:"flex-start",
+        alignContent:"left",
+    },
+}));
 
 const Header = ({ title }) => {
     const userContext = useContext(UserContext);
@@ -27,6 +38,7 @@ const Header = ({ title }) => {
     const { clearProfile } = profileContext;
     const { getNotif, clearNotif } = notifContext;
     const { getChatNotif, clearChat } = chatContext;
+    const classes = useStyles();
 
     useEffect(() => {
         if(token && user){
@@ -80,7 +92,11 @@ const Header = ({ title }) => {
 
     return (
         <nav className='navbar bg-primary'>
-            <h1><Link to='/'>{title}</Link></h1>
+            <div className={classes.logo}>
+                <Typography variant="h4"><Link to='/'>{title}</Link></Typography>
+                <Typography variant="caption">At here, Love will find you</Typography>
+            </div>
+            
             <ul>{ token && authLinks }</ul>
         </nav>
     )

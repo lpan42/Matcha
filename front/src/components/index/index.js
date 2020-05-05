@@ -80,7 +80,7 @@ const Index = () => {
   useEffect(() => {
     loadUser();
     if(!token && !user){
-       history.push(`/login`);
+       history.push(`/register`);
     }
     getSuggestions();
     //eslint-disable-next-line
@@ -193,7 +193,7 @@ const updateSuggestions = (input) => {
   }
 
   return (
-    <Fragment>
+    <div className="container">
       <div style={{display:"flex",padding:"10px",justifyContent:"space-between"}}>
         <Filter update={updateSuggestions}/>
         <form>
@@ -219,7 +219,7 @@ const updateSuggestions = (input) => {
           {suggestions.length ? suggestUser : null}
         </Grid>
       </div>
-    </Fragment>
+    </div>
   )
 }
 

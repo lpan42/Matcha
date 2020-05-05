@@ -55,7 +55,7 @@ const Notifications = () => {
                     avatar={message.avatar} 
                     online={message.online}/>  
                 </ListItemAvatar>
-                    <ListItemText 
+                    <ListItemText
                         primary={primary}
                         secondary={secondary}
                     />
@@ -73,13 +73,13 @@ const Notifications = () => {
     )
 
     return (
-        <Fragment>
+        <div className="container">
             <Button size="small" color="primary" onClick={()=>setAllReaded()}
             >Mark All As Readed</Button>
             <List className={classes.root}>
                 {notif && notif.length ? renderNotif : <p className="text-center">You dont have any new notification</p>}
             </List>
-        </Fragment>
+        </div>
     )
 }
 

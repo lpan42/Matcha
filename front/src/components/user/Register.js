@@ -3,6 +3,45 @@ import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/user/userContext';
 import { toast } from 'react-toastify';
 import Spinner from '../layout/Spinner';
+import bgImage from './bg_image.jpg';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import FaceIcon from '@material-ui/icons/Face';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+
+const useStyles = makeStyles(theme => ({
+    bg: {
+        height:"90%",
+        backgroundImage: `url(${bgImage})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        display:"flex",
+        flexDirection: "row",
+        justifyContent:"center",
+        alignContent:"center",
+    },
+    card: {
+        marginTop: "3%",
+        textAlign:"center",
+        backgroundColor: fade("#FFFFFF", 0.6),
+        maxHeight:450,
+        minWidth: 275,
+        maxWidth:350,
+    },
+    form: {
+        "& .MuiTextField-root": {
+            margin: theme.spacing(1),
+            width: "25ch"
+          }
+    },
+  }));
 
 const Register = (props) => {
     const userContext = useContext(UserContext);
@@ -17,6 +56,7 @@ const Register = (props) => {
     })
 
     const { register, error, success, token, clearSuccess, clearError } = userContext;
+    const classes = useStyles();
 
     useEffect(() => {
         if(token){
@@ -36,7 +76,7 @@ const Register = (props) => {
     const { username, email, firstname, lastname, password, re_password } = user;
 
     const onChange = e => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setUser({ ...user, [e.target.id]: e.target.value });
     }
 
     const onSubmit = e => {
@@ -58,38 +98,76 @@ const Register = (props) => {
     }
     
     return (
-        <div className='form-container'>
-            <h1>
-               <span className='text-primary'> Register </span>
-            </h1>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Username: </label>
-                    <input type='text' name='username' value={username} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email: </label>
-                    <input type='email' name='email' value={email} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="firstname">Firstname: </label>
-                    <input type='text' name='firstname' value={firstname} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="lastname">Lastname: </label>
-                    <input type='text' name='lastname' value={lastname} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password: </label>
-                    <input type='password' name='password' value={password} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="re_password">Comfirm password: </label>
-                    <input type='password' name='re_password' value={re_password} onChange={onChange} />
-                </div>
-                <input type="submit" value="Register" className="btn btn-primary btn-block" />
-            </form>
-            Have an account? <Link to='Login'>Login</Link>
+        <div className={classes.bg}>
+            <Card className={classes.card}>
+                <CardContent>   
+                    <form className={classes.form} onSubmit={onSubmit}>
+                        <TextField required id="firstname" label="firstname" style = {{width: 110}}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <FaceIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="text" size="small" value={firstname} onChange={onChange}
+                        />
+                        <TextField required id="lastname" label="lastname" style = {{width: 110}}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <FaceIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="text" size="small" value={lastname} onChange={onChange}
+                        />
+                        <TextField required id="username" label="username" style = {{width: 240}}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <FaceIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="text" size="small" value={username} onChange={onChange}
+                        />
+                        <TextField required id="email" label="email" style = {{width: 240}}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <MailOutlineIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="email" size="small"  value={email} onChange={onChange}
+                        />
+                        <TextField required id="password" label="password" style = {{width: 240}}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <VpnKeyIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="password" size="small" value={password} onChange={onChange}
+                        />
+                        <TextField required id="re_password" label="comfirm password" style = {{width: 240}}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <VpnKeyIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="password" size="small" value={re_password} onChange={onChange}
+                        />
+                        <br></br>
+                        <Button type="submit" color="primary" variant="contained" style={{margin:"8px"}}>Register</Button>
+                    </form>
+                    Have an account? <Link to='Login'>Login</Link>
+                </CardContent>
+            </Card>
         </div>
     )
 }

@@ -7,6 +7,11 @@
   --danger-color: #B33951;
   --success-color: #60A561;
 }
+
+body > #root > div {
+  height: 100vh;
+}
+
 .Toastify__toast--success {
   background-color: var(--primary-color) !important;
 }
@@ -27,7 +32,7 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat';
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
@@ -53,10 +58,11 @@ img {
 
 /* Utilities */
 .container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: hidden;
-  padding: 0 2rem;
+  /* max-width: 1100px; */
+  height: 85vh;
+  margin: 0;
+  overflow: auto;
+  padding: 1rem 2rem;
 }
 
 /* Text Styles*/
@@ -357,9 +363,9 @@ button {
 
 .form-container {
   max-width: 500px;
-  margin: 2rem auto;
+  /* margin: 2rem auto; */
   overflow: hidden;
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
 }
 
 .form-container h1,
@@ -380,14 +386,15 @@ table th {
 
 /* Navbar */
 .navbar {
+  height: 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem 2rem;
-  z-index: 1;
+  padding: 0.7rem;
+  /* z-index: 1; */
   width: 100%;
   opacity: 0.9;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 .navbar ul {

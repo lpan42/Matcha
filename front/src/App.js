@@ -61,8 +61,12 @@ toast.configure({
 	  info: {
 		contrastText: '#ffffff',
 		main: '#38618C',
-	  }
+	  },
 	},
+	typography: {
+		fontFamily: "'Montserrat', sans-serif",
+		textTransform: "none",
+	  }
   });
   
 const App = () => {
@@ -75,7 +79,7 @@ const App = () => {
 			<ThemeProvider theme={theme}>
 				<Fragment>
 					<Header title ="Matcha"/>
-					<div className="container">
+					{/* <div className="container"> */}
 						<Switch>
 							<PrivateRoute exact path='/' component={Index} />
 							<PrivateRoute exact path='/account' component={Account} />
@@ -91,7 +95,7 @@ const App = () => {
 							<Route exact path='/login' component={Login} />
 							<Route component={NotFound} />
 						</Switch>
-					</div>
+					{/* </div> */}
 				</Fragment>
 			</ThemeProvider>
 			</Router>
