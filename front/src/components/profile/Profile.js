@@ -22,6 +22,39 @@ import ChatRoomModal from '../chats/ChatRoomModal';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import calculateAge from '../../utils/calculateAge';
+import Card from '@material-ui/core/Card';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+
+const useStyles = makeStyles(theme => ({
+    container: {
+        height: "90vh",
+        margin: "0",
+        padding: "1rem 2rem",
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        display:"flex",
+        flexDirection: "row",
+        justifyContent:"center",
+        alignContent:"center",
+    },
+    card: {
+        marginTop: "2%",
+        textAlign:"center",
+        overflow: "auto",
+        maxHeight:1000,
+        minWidth: 300,
+        maxWidth:600,
+    },
+    context: {
+        padding:"15px",
+    },
+    largeAvatar: {
+        width: theme.spacing(20),
+        height: theme.spacing(20),
+      },
+  }));
 
 const MyTooltip = withStyles((theme) => ({
     tooltip: {
@@ -29,13 +62,14 @@ const MyTooltip = withStyles((theme) => ({
       color: theme.palette.primary.main,
       boxShadow: theme.shadows[1],
       fontSize: 10,
-    },
+    }, 
   }))(Tooltip);
 
 const Profile = ({ match }) => {
     const  profileContext = useContext(ProfileContext);
     const  userContext = useContext(UserContext);
     const  chatContext = useContext(ChatContext);
+    const classes = useStyles();
 
     const { 
         profile, emptyProfile, like, error, success, loading, connected,
@@ -110,13 +144,9 @@ const Profile = ({ match }) => {
         setShowChatroom(true);
     }
     const RenderProfile = (
-        <div>
-            <div>
-                <div style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
-                    <ImageAvatars 
-                        username={profile&&profile.data.username}
-                        avatar={profile&&profile.data.avatar} 
-                        online={profile&&profile.data.online}/>
+        <Card className={classes.card}>
+            <div className={classes.context}>
+                <div style={{display:"flex", alignItems:"center", justifyContent:"flex-end"}}>
                     {+match.params.userid === (user && user.data.id) ? 
                         <div >
                             <MyTooltip title="Edit My Profile">
@@ -151,22 +181,31 @@ const Profile = ({ match }) => {
                         activeChatroom={activeChatroom}
                     /> : null}   
                 </div>
-                {profile && profile.data.online ? 
-                    null : <p style={{color:"var(--danger-color)"}}>Last login: {profile && profile.data.last_login}</p>}
-                <p>Fame: {profile && profile.data.fame}</p>
-                <p>Username: {profile && toUpperCase(profile.data.username)}</p>
-                <p>Fristname: {profile && toUpperCase(profile.data.firstname)}</p>
-                <p>Lastname: {profile && toUpperCase(profile.data.lastname)}</p>
+                <div style={{display:"flex", alignItems:"flex-end", justifyContent:"flex-between"}}>
+                    <Avatar 
+                        alt={profile&&profile.data.username}
+                        src={profile&&profile.data.avatar} 
+                        className={classes.largeAvatar}
+                    />
+                    <div style={{paddingLeft:"15px",textAlign:"left"}}>
+                        {profile && profile.data.online ?   
+                            <p style={{color:"var(--success-color)"}}>Online</p> : <p style={{color:"var(--danger-color)"}}>Last login: {profile && profile.data.last_login}</p>}
+                        <p>Fame: {profile && profile.data.fame}</p>
+                        <p>Username: {profile && toUpperCase(profile.data.username)}</p>
+                        <p>Fristname: {profile && toUpperCase(profile.data.firstname)}</p>
+                        <p>Lastname: {profile && toUpperCase(profile.data.lastname)}</p>
+                    </div>
+                </div>
                 <p>Gender: {(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : NaN}</p>
                 <p>Sex Orientation: {profile && toUpperCase(profile.data.sex_prefer)}</p>
                 <p>Age: { (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : NaN }</p>
                 <p>Biography: {profile && profile.data.biography}</p>
+                <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
                 <div>pictures: 
                         <Pictures />
                 </div>
-                <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
             </div>
-        </div>
+        </Card>
     )
     
     const NoProfile = (
@@ -178,7 +217,7 @@ const Profile = ({ match }) => {
     )
 
     return (
-        <div>
+        <div className={classes.container}>
            { (!emptyProfile && !edit) ? RenderProfile: NoProfile }
            { edit && <EditProfile /> }
         </div>

@@ -22,8 +22,8 @@ const useStyles = makeStyles(theme => ({
     },
     form: {
         "& .MuiTextField-root": {
-            margin: theme.spacing(1),
-            width: "20ch"
+            margin: theme.spacing(0.8),
+            width: "20ch",
           }
     },
   }));
