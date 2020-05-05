@@ -1,5 +1,6 @@
 import React, { Fragment, useContext }from 'react'
 import ProfileContext from '../../contexts/profile/profileContext';
+import ImageGallery from 'react-image-gallery';
 
 const Pictures = () => {
     const  profileContext = useContext(ProfileContext);
@@ -8,21 +9,35 @@ const Pictures = () => {
 
     const profilePictures = profile && profile.data.pictures;
     const pictures = [];
-    
+    if(profile && profile.data.avatar){
+        pictures.push(
+            {
+                original: `${profile && profile.data.avatar}`,
+            }
+        )
+    }
+
     if(profilePictures){
         profilePictures.map((picture,key) => {
             pictures.push(
-                <img key={key} src={`${picture.path}`} style={{height:"200px", width:"180px"}}></img>
+                {
+                    original: `${picture.path}`,
+                }
             );
         })
     }
    
     return (
         <div>
-            {(profile && profile.data.avatar) ? 
-            <img src={`${profile && profile.data.avatar}`} style={{height:"200px", width:"180px"}}></img> :
-            null}
-            <Fragment>{ pictures }</Fragment>
+            {pictures.length ? 
+            <ImageGallery items={pictures} 
+                showThumbnails={false}
+                showFullscreenButton={false}
+                showPlayButton={false}
+                showBullets={true}
+            />
+            :null}
+            
         </div>
     )
 }

@@ -177,7 +177,7 @@ const updateSuggestions = (input) => {
               <Typography variant="subtitle2" component="span">
                 {toUpperCase(suggestion.firstname)+" "+toUpperCase(suggestion.lastname)}
               </Typography>
-              {suggestion.gender ? 
+              {suggestion.gender==="male" ? 
                 <i className="fas fa-male" style={{color:"var(--primary-color)",paddingLeft:"5px"}}></i> : 
                 <i className="fas fa-female" style={{color:"var(--primary-color)",paddingLeft:"5px"}}></i>}
               <Typography variant="caption" component="p"></Typography>

@@ -1,4 +1,4 @@
-
+@import "~react-image-gallery/styles/css/image-gallery.css";
 /* Global Styles */
 :root {
   --primary-color: #60A561;
@@ -23,6 +23,12 @@ body > #root > div {
 }
 .Toastify__toast--warning {
   background-color: var(--light-color) !important;
+}
+
+.image-gallery-slide img {
+  width: 640px;
+  height:480px;
+  object-fit: contain !important; 
 }
 
 * {

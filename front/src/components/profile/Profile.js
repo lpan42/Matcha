@@ -46,19 +46,29 @@ const useStyles = makeStyles(theme => ({
         alignContent:"center",
     },
     card: {
-        marginTop: "2%",
+        // marginTop: "0%",
         textAlign:"left",
         overflow: "auto",
         maxHeight:1000,
         minWidth: 300,
-        maxWidth: 680,
+        maxWidth: 600,
     },
     context: {
         padding:"15px",
     },
     largeAvatar: {
-        width: theme.spacing(15),
-        height: theme.spacing(15),
+        [theme.breakpoints.down('sm')]: {
+            width: theme.spacing(10),
+            height: theme.spacing(10),
+          },
+        [theme.breakpoints.up('md')]: {
+            width: theme.spacing(10),
+            height: theme.spacing(10),
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: theme.spacing(15),
+            height: theme.spacing(15),
+        },
       },
   }));
 
@@ -155,7 +165,7 @@ const Profile = ({ match }) => {
                 <div style={{
                     display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px"
                 }}>
-                    <Typography variant="h4" color="primary">Profile</Typography>
+                    <Typography variant="h5" color="primary">Profile</Typography>
                     {+match.params.userid === (user && user.data.id) ? 
                         <div >
                             <MyTooltip title="Edit My Profile">
@@ -203,7 +213,7 @@ const Profile = ({ match }) => {
                         className={classes.largeAvatar}
                     />
                     <div style={{paddingLeft:"15px",textAlign:"left"}}>
-                        <Typography variant="h5" component="span" className={classes.text}>{profile && toUpperCase(profile.data.username)}</Typography>
+                        <Typography variant="h6" component="span" className={classes.text}>{profile && toUpperCase(profile.data.username)}</Typography>
                         {profile && profile.data.online ?  
                             <Typography variant="subtitle2" color="primary">Online</Typography> :
                             <Typography variant="subtitle2" color="error">Last login: {profile && profile.data.last_login}</Typography> 
@@ -212,29 +222,32 @@ const Profile = ({ match }) => {
                     </div>
                 </div>
                 <Divider variant="middle" style={{margin:"10px 0"}}/>
-                <Typography variant="subtitle1" component="span" color="primary">Name:  </Typography>
-                <Typography variant="subtitle1" component="span">{profile && toUpperCase(profile.data.firstname)} {profile && toUpperCase(profile.data.lastname)}</Typography>
+                <Typography variant="subtitle2" component="span" color="primary">Name:  </Typography>
+                <Typography variant="subtitle2" component="span">{profile && toUpperCase(profile.data.firstname)} {profile && toUpperCase(profile.data.lastname)}</Typography>
                 <br></br>
-                <Typography variant="subtitle1" component="span" color="primary">Gender:  </Typography>
-                <Typography variant="subtitle1" component="span">{(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : NaN}</Typography>
+                <Typography variant="subtitle2" component="span" color="primary">Gender:  </Typography>
+                <Typography variant="subtitle2" component="span">{(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : NaN}</Typography>
                 <br></br>
-                <Typography variant="subtitle1" component="span" color="primary">Age: </Typography>
-                <Typography variant="subtitle1" component="span">{ (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : NaN }</Typography>
+                <Typography variant="subtitle2" component="span" color="primary">Age: </Typography>
+                <Typography variant="subtitle2" component="span">{ (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : NaN }</Typography>
                 <br></br>
-                <Typography variant="subtitle1" component="span" color="primary">Orientation:  </Typography>
-                <Typography variant="subtitle1" component="span">{profile && toUpperCase(profile.data.sex_prefer)}</Typography>
+                <Typography variant="subtitle2" component="span" color="primary">Location: </Typography>
+                <Typography variant="subtitle2" component="span">(Paris)</Typography>
+                <br></br>
+                <Typography variant="subtitle2" component="span" color="primary">Orientation:  </Typography>
+                <Typography variant="subtitle2" component="span">{profile && toUpperCase(profile.data.sex_prefer)}</Typography>
                 <Divider variant="middle" style={{margin:"5px 0"}}/>
                 <div>
-                    <Typography variant="subtitle1" component="p" color="primary"color="primary">Biography:</Typography>
-                    <Typography variant="subtitle1" component="p">{profile && profile.data.biography}</Typography>
+                    <Typography variant="subtitle2" component="p" color="primary"color="primary">Biography:</Typography>
+                    <Typography variant="subtitle2" component="p">{profile && profile.data.biography}</Typography>
                 </div>
                 <Divider variant="middle" style={{margin:"5px 0"}}/>
                 <div>
-                    <Typography variant="subtitle1" component="p" color="primary">Interests:</Typography>
+                    <Typography variant="subtitle2" component="p" color="primary">Interests:</Typography>
                     <Interests interests ={profile && profile.data.interests} />
                 </div>
                 <Divider variant="middle" style={{margin:"10px 0"}}/>
-                <div><Pictures /></div>
+                <div style={{height: "480px", width: "100%"}}><Pictures /></div>
             </div>
         </Card>
     )
