@@ -31,6 +31,10 @@ body > #root > div {
   object-fit: contain !important; 
 }
 
+.image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg{
+  height:60px;
+  width: 40px;
+}
 * {
   box-sizing: border-box;
   margin: 0;
