@@ -11,6 +11,12 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ImageAvatars from '../badges/ImageAvatars';
 import ChatRoomModal from '../chats/ChatRoomModal';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,11 +29,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ChatNotif = () => {
-    const  userContext = useContext(UserContext);
+    const userContext = useContext(UserContext);
     const chatContext = useContext(ChatContext);
 
     const { loadUser } = userContext;
-    const { getFriendsList, chatNotif, loading, clearChatMsgs } = chatContext;
+    const { getFriendsList, getChatNotif,chatNotif, loading, clearChatMsgs } = chatContext;
 
     const [activeChatroom, setActiveChatroom] = useState(null);
     const [showChatroom, setShowChatroom] = useState(false);
@@ -37,6 +43,7 @@ const ChatNotif = () => {
 
     useEffect(() => {
         loadUser();
+        getChatNotif();
         getFriendsList();
         //eslint-disable-next-line
       },[]);
@@ -83,13 +90,13 @@ const ChatNotif = () => {
     if (loading) return <Spinner />;
 
     return (
-        <Fragment>
+        <div className="container">
             <List className={classes.root}>
-                { chatNotif && chatNotif.length ? 
-                    notif_message : 
+                { (chatNotif && chatNotif.length) ? 
+                    notif_message :
                     <p className="text-center">You dont have any new message</p>}
             </List>
-        </Fragment>
+        </div>
     )
 }
 

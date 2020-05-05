@@ -94,7 +94,7 @@ const Header = ({ title }) => {
         <nav className='navbar bg-primary'>
             <div className={classes.logo}>
                 <Typography variant="h4"><Link to='/'>{title}</Link></Typography>
-                <Typography variant="caption">At here, Love will find you</Typography>
+                <Typography variant="caption">In here, Love will find you</Typography>
             </div>
             
             <ul>{ token && authLinks }</ul>
