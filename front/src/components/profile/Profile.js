@@ -29,6 +29,7 @@ import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CakeIcon from '@material-ui/icons/Cake';
 import WcIcon from '@material-ui/icons/Wc';
+import FaceIcon from '@material-ui/icons/Face';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const useStyles = makeStyles(theme => ({
@@ -50,7 +51,7 @@ const useStyles = makeStyles(theme => ({
         overflow: "auto",
         maxHeight:1000,
         minWidth: 300,
-        maxWidth:600,
+        maxWidth: 680,
     },
     context: {
         padding:"15px",
@@ -210,16 +211,30 @@ const Profile = ({ match }) => {
                         <Typography variant="body2" component="p"><i className="fas fa-star" style={{color:"var(--primary-color)", paddingRight:"5px"}}></i>{profile && profile.data.fame}</Typography>
                     </div>
                 </div>
-                <Divider variant="middle" style={{color:"primary", margin:"10px 0"}}/>
+                <Divider variant="middle" style={{margin:"10px 0"}}/>
+                <Typography variant="subtitle1" component="span" color="primary">Name:  </Typography>
                 <Typography variant="subtitle1" component="span">{profile && toUpperCase(profile.data.firstname)} {profile && toUpperCase(profile.data.lastname)}</Typography>
-                <p>Gender: {(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : NaN}</p>
-                <p>Sex Orientation: {profile && toUpperCase(profile.data.sex_prefer)}</p>
-                <p>Age: { (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : NaN }</p>
-                <p>Biography: {profile && profile.data.biography}</p>
-                <p>Interests: <Interests interests ={profile && profile.data.interests} /></p>
-                <div>pictures: 
-                        <Pictures />
+                <br></br>
+                <Typography variant="subtitle1" component="span" color="primary">Gender:  </Typography>
+                <Typography variant="subtitle1" component="span">{(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : NaN}</Typography>
+                <br></br>
+                <Typography variant="subtitle1" component="span" color="primary">Age: </Typography>
+                <Typography variant="subtitle1" component="span">{ (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : NaN }</Typography>
+                <br></br>
+                <Typography variant="subtitle1" component="span" color="primary">Orientation:  </Typography>
+                <Typography variant="subtitle1" component="span">{profile && toUpperCase(profile.data.sex_prefer)}</Typography>
+                <Divider variant="middle" style={{margin:"5px 0"}}/>
+                <div>
+                    <Typography variant="subtitle1" component="p" color="primary"color="primary">Biography:</Typography>
+                    <Typography variant="subtitle1" component="p">{profile && profile.data.biography}</Typography>
                 </div>
+                <Divider variant="middle" style={{margin:"5px 0"}}/>
+                <div>
+                    <Typography variant="subtitle1" component="p" color="primary">Interests:</Typography>
+                    <Interests interests ={profile && profile.data.interests} />
+                </div>
+                <Divider variant="middle" style={{margin:"10px 0"}}/>
+                <div><Pictures /></div>
             </div>
         </Card>
     )
