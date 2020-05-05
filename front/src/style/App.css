@@ -35,6 +35,10 @@ body > #root > div {
   height:60px;
   width: 40px;
 }
+
+.image-gallery-left-nav .image-gallery-svg:hover, .image-gallery-right-nav .image-gallery-svg:hover{
+  color:var(--primary-color);
+}
 * {
   box-sizing: border-box;
   margin: 0;
