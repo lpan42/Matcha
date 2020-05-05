@@ -9,7 +9,6 @@ import Spinner from '../layout/Spinner';
 import DiscounnectComfirm from '../modals/DisconnectComfirm';
 import BlockComfirm from '../modals/BlockComfirm';
 import toUpperCase from '../../utils/toUpperCase';
-import ImageAvatars from '../badges/ImageAvatars';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import BlockIcon from '@material-ui/icons/Block';
@@ -25,6 +24,11 @@ import calculateAge from '../../utils/calculateAge';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import CakeIcon from '@material-ui/icons/Cake';
+import WcIcon from '@material-ui/icons/Wc';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -41,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     },
     card: {
         marginTop: "2%",
-        textAlign:"center",
+        textAlign:"left",
         overflow: "auto",
         maxHeight:1000,
         minWidth: 300,
@@ -146,6 +150,7 @@ const Profile = ({ match }) => {
     const RenderProfile = (
         <Card className={classes.card}>
             <div className={classes.context}>
+                <Typography variant="h4" color="primary">Profile</Typography>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"flex-end"}}>
                     {+match.params.userid === (user && user.data.id) ? 
                         <div >
@@ -190,7 +195,7 @@ const Profile = ({ match }) => {
                     <div style={{paddingLeft:"15px",textAlign:"left"}}>
                         {profile && profile.data.online ?   
                             <p style={{color:"var(--success-color)"}}>Online</p> : <p style={{color:"var(--danger-color)"}}>Last login: {profile && profile.data.last_login}</p>}
-                        <p>Fame: {profile && profile.data.fame}</p>
+                        <Typography variant="caption" component="p"><i className="fas fa-star" style={{color:"var(--primary-color)"}}></i>{profile && profile.data.fame}</Typography>
                         <p>Username: {profile && toUpperCase(profile.data.username)}</p>
                         <p>Fristname: {profile && toUpperCase(profile.data.firstname)}</p>
                         <p>Lastname: {profile && toUpperCase(profile.data.lastname)}</p>

@@ -1,5 +1,5 @@
 //rce from es7 react extension
-import React, { Fragment, useContext, useEffect, useState, } from 'react'
+import React, { useContext, useEffect, useState, } from 'react'
 import UserContext from '../../contexts/user/userContext';
 import Spinner from '../layout/Spinner';
 import Filter from './Filter';
@@ -9,7 +9,6 @@ import calculateAge from '../../utils/calculateAge';
 import toUpperCase from '../../utils/toUpperCase';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -20,6 +19,7 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import SearchIcon from '@material-ui/icons/Search';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CakeIcon from '@material-ui/icons/Cake';
 import WcIcon from '@material-ui/icons/Wc';
