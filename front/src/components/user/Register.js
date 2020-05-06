@@ -17,7 +17,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles(theme => ({
     bg: {
-        height:"90%",
+        minHeight: "100vh",
+        margin: "0",
         backgroundImage: `url(${bgImage})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
