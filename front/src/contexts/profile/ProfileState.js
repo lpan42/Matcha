@@ -64,10 +64,10 @@ const ProfileState = props => {
             }
         }catch(err){
             console.log(err)
-            // dispatch({
-            //     type: GET_PROFILE_NO,
-            //     payload: err.response.data.error
-            // });
+            dispatch({
+                type: GET_PROFILE_NO,
+                payload: err.response.data.error
+            });
         }
     }
 

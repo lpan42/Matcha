@@ -264,7 +264,9 @@ export async function blockUser(req,res) {
             await userModel.addBlock(data.id_user, data.id_sender);
             await userModel.unlike(data.id_user, data.id_sender);
             const chatroom = await chatModel.getChatroomId(data.id_sender, data.id_user);
-            await chatModel.unlinkChat(chatroom.id_chatroom);
+            if(chatroom){
+                await chatModel.unlinkChat(chatroom.id_chatroom);
+            }
             await userModel.addFame(-50, data.id_user);
             // await userModel.addNotif(data);
             return res.status(200).json({ 

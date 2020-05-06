@@ -16,12 +16,9 @@ import { toast } from 'react-toastify';
 import Divider from '@material-ui/core/Divider';
 import toUpperCase from '../../utils/toUpperCase';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      Width: '100vw',
-      backgroundColor: theme.palette.background.paper,
-    },
   }));
 
 const History = () => {
@@ -168,10 +165,10 @@ const History = () => {
     }
 
     return (
-        <div className={classes.root}>
-            <p className="large">History</p>
-            <div >
-                <Chip label="Visits" color="primary"/>
+        <div className="container">
+            <Typography variant="h5" color="primary"style={{marginBottom:"10px"}}>History</Typography>
+            <div>
+                <Chip label="Visits" color="primary" style={{width:"200px"}}/>
                 <Divider />
                 <List style={{overflow: 'auto', maxHeight:"300px"}}>
                     {visitList.length ? 
@@ -180,7 +177,7 @@ const History = () => {
                 </List>
             </div>
             <div>
-                <Chip width="500" label="Likes" color="primary"/>
+                <Chip label="Likes" color="primary"  style={{width:"200px"}}/>
                 <Divider />
                 <List style={{overflow: 'auto', maxHeight:"300px"}}>
                     {likeList.length ? 
@@ -189,7 +186,7 @@ const History = () => {
                 </List>
             </div>
             <div>
-                <Chip width="500" label="Blocks" color="primary"/>
+                <Chip label="Blocks" color="primary"  style={{width:"200px"}}/>
                 <Divider />
                 <List style={{overflow: 'auto', maxHeight:"300px"}}>
                     {blockList.length ? 

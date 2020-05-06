@@ -118,9 +118,9 @@ const Profile = ({ match }) => {
             toast.error(error);
             clearError();
         }
-        if(emptyProfile){
-            toast.warning(emptyProfile);
-        }
+        // if(emptyProfile){
+        //     toast.warning(emptyProfile);
+        // }
         if(success) {
             toast.success(success);
             clearSuccess();
