@@ -31,14 +31,13 @@ const useStyles = makeStyles(theme => ({
         marginTop: "3%",
         textAlign:"center",
         backgroundColor: fade("#FFFFFF", 0.6),
-        maxHeight:450,
+        maxHeight:500,
         minWidth: 275,
         maxWidth:350,
     },
     form: {
         "& .MuiTextField-root": {
-            margin: theme.spacing(1),
-            width: "25ch"
+            margin: theme.spacing(0.8),
           }
     },
   }));
@@ -102,7 +101,7 @@ const Register = (props) => {
             <Card className={classes.card}>
                 <CardContent>   
                     <form className={classes.form} onSubmit={onSubmit}>
-                        <TextField required id="firstname" label="firstname" style = {{width: 110}}
+                        <TextField required id="firstname" label="firstname" style = {{width: 125}}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">
@@ -112,7 +111,7 @@ const Register = (props) => {
                             }}
                             type="text" size="small" value={firstname} onChange={onChange}
                         />
-                        <TextField required id="lastname" label="lastname" style = {{width: 110}}
+                        <TextField required id="lastname" label="lastname" style = {{width: 125}}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">
@@ -122,7 +121,11 @@ const Register = (props) => {
                             }}
                             type="text" size="small" value={lastname} onChange={onChange}
                         />
-                        <TextField required id="username" label="username" style = {{width: 240}}
+                        <TextField required id="username" label="username" style = {{width: 260}}
+                            inputProps={{
+                                maxLength: 10,
+                                pattern:"[a-z0-9]+",
+                            }}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">
@@ -130,9 +133,11 @@ const Register = (props) => {
                                 </InputAdornment>
                                 ),
                             }}
-                            type="text" size="small" value={username} onChange={onChange}
+                            type="text" size="small" 
+                            helperText="Max 10 characters, lowercase letters and numbers only."
+                            value={username} onChange={onChange}
                         />
-                        <TextField required id="email" label="email" style = {{width: 240}}
+                        <TextField required id="email" label="email" style = {{width: 260}}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">
@@ -142,7 +147,11 @@ const Register = (props) => {
                             }}
                             type="email" size="small"  value={email} onChange={onChange}
                         />
-                        <TextField required id="password" label="password" style = {{width: 240}}
+                        <TextField required id="password" label="password" style = {{width: 260}}
+                            inputProps={{
+                                minLength: 8,
+                                pattern:"(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}"
+                            }}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">
@@ -150,9 +159,11 @@ const Register = (props) => {
                                 </InputAdornment>
                                 ),
                             }}
-                            type="password" size="small" value={password} onChange={onChange}
+                            type="password" size="small" 
+                            helperText="Min 8 characters, at least one number, and one uppercase and lowercase letter" 
+                            value={password} onChange={onChange}
                         />
-                        <TextField required id="re_password" label="comfirm password" style = {{width: 240}}
+                        <TextField required id="re_password" label="comfirm password" style = {{width: 260}}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">

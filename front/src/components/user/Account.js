@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
       marginTop: "2%",
       textAlign:"left",
       backgroundColor: fade("#FFFFFF", 0.6),
-      height:250,
+      height:270,
       minWidth: 250,
       maxWidth:350,
   },

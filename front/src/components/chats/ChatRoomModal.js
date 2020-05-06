@@ -29,7 +29,16 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-end',
     },
     paper: {
-        width:'80%',
+		[theme.breakpoints.down('sm')]: {
+			width:'80%',
+          },
+        [theme.breakpoints.up('md')]: {
+			width:'60%',
+        },
+        [theme.breakpoints.up('lg')]: {
+			width:'50%',
+        },
+        // width:'80%',
 		backgroundColor: 'white',
 		height:'500px',
 	},

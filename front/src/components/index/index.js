@@ -29,10 +29,9 @@ import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    // padding: theme.spacing(1),
-    width: 250,
-    // minWidth: 200,
+    width: 280,
     height: 380,
+    margin: theme.spacing(2),
   },
   media: {
     height: 180,
@@ -151,14 +150,12 @@ const Index = () => {
       break;
   }
 const updateSuggestions = (input) => {
-  // setLoading(true);
   setSuggestions(input);
 }
   if(suggestions.length){
     suggestions.map((suggestion, key) => {
       suggestUser.push(
-        <Grid item xs key={key}>
-          <Card className={classes.card}>
+          <Card key={key} className={classes.card}>
             <CardMedia
               className={classes.media}
               image={suggestion.avatar? `${suggestion.avatar}`: '../images/default_avatar'}
@@ -187,7 +184,6 @@ const updateSuggestions = (input) => {
             </CardContent>
             <Button size="small" color="primary" href={`/profile/${suggestion.id_user}`}>Visit Profile</Button>
           </Card>
-        </Grid>
       );
     });
   }
@@ -206,7 +202,7 @@ const updateSuggestions = (input) => {
         </form>
       </div>
       <div>
-        <FormControl style={{float:"right", margin:"10px"}}>
+        <FormControl style={{ margin:"10px"}}>
           <Select value={sort} onChange={e=>setSort(e.target.value)} 
             displayEmpty style={{fontSize:"12px"}}>
             <MenuItem value="fameDesc">Fame: High to Low</MenuItem>
@@ -215,9 +211,11 @@ const updateSuggestions = (input) => {
             <MenuItem value="ageAsc">Age: Low to High</MenuItem>
           </Select>
         </FormControl>
-        <Grid container spacing={2}>
-          {suggestions.length ? suggestUser : null}
-        </Grid>
+        <div style={{display:"flex",flexWrap:"wrap", }}>
+          {/* <Grid container spacing={3}> */}
+            {suggestions.length ? suggestUser : null}
+          {/* </Grid> */}
+        </div>
       </div>
     </div>
   )

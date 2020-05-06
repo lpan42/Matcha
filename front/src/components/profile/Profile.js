@@ -26,11 +26,6 @@ import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import CakeIcon from '@material-ui/icons/Cake';
-import WcIcon from '@material-ui/icons/Wc';
-import FaceIcon from '@material-ui/icons/Face';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -46,7 +41,6 @@ const useStyles = makeStyles(theme => ({
         alignContent:"center",
     },
     card: {
-        // marginTop: "0%",
         textAlign:"left",
         overflow: "auto",
         maxHeight:1000,
