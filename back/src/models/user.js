@@ -412,12 +412,13 @@ export async function uploadPics(userid, filename){
     }
 }
 
-export async function deletePics(filename){
-    fs.unlink(`../front/public/images/${filename}`, err => {
+export async function deletePics(path){
+    let filename = path.split("/");
+    fs.unlink(`../front/public/images/${filename[filename.length-1]}`, err => {
         console.log(err);
     });
     try{
-        await connection.query('DELETE FROM pics WHERE path = ?', filename);
+        await connection.query('DELETE FROM pics WHERE path = ?', path);
     }
     catch (err) {
         throw new Error(err);

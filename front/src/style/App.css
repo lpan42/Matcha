@@ -252,9 +252,13 @@ img {
 }
 
 .btn-sm {
-  font-size: 0.8rem;
+  font-family: 'Montserrat';
+  font-size: 0.9rem;
   padding: 0.2rem 0.4rem;
   margin-left: 0.4rem;
+  border: none;
+  text-align: center;
+  text-decoration: none;
 }
 
 .badge {

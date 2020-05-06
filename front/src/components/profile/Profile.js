@@ -99,7 +99,7 @@ const Profile = ({ match }) => {
         setAuthToken(localStorage.token);
         try{
             const result =  await axios.get(`/chat/getchatroom/${match.params.userid}`);
-            if(result.data.data.id_chatroom){
+            if(typeof(result.data.data)!=='undefined'){
                 setActiveChatroom(result.data.data.id_chatroom);
             }
         }catch(err){

@@ -338,7 +338,7 @@ export async function modifyPictures(req, res){
         for(let i = 0; i < getCurrent.length; i++) {
             let check = false;
             for(let ii = 0; ii < req.body.length; ii++){
-                if(getCurrent[i].path === "http://localhost:3000/images/" + req.body[ii].path)
+                if(getCurrent[i].path === req.body[ii].path)
                 {
                     check = true;
                     break ;
@@ -353,6 +353,7 @@ export async function modifyPictures(req, res){
 }
 
 export async function uploadPictures(req, res){
+    console.log(req.files)
     if(req.files == null){
         return res.status(200);
     }
@@ -370,13 +371,13 @@ export async function uploadPictures(req, res){
         }
     }else{
         const filename = req.userid + crypto.randomBytes(5).toString('hex');
-            files.mv(`../front/public/images/${filename}`, err => {
-                if(err){
-                    console.log(err);
-                    return res.status(500).send(err);
-                }
-            });
-            await userModel.uploadPics(req.userid, "http://localhost:3000/images/"+filename);
+        files.mv(`../front/public/images/${filename}`, err => {
+            if(err){
+                console.log(err);
+                return res.status(500).send(err);
+            }
+        });
+        await userModel.uploadPics(req.userid, "http://localhost:3000/images/"+filename);
     }
    
     return res.status(200);

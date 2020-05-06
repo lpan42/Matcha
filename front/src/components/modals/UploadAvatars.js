@@ -5,23 +5,34 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { toast } from 'react-toastify';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
     modal: {
       display: 'flex',
+      flexDirection:"column",
       alignItems: 'center',
       justifyContent: 'center',
     },
     paper: {
+      [theme.breakpoints.down('sm')]: {
+        width:'80vw',
+      },
+      [theme.breakpoints.up('md')]: {
+        width:'60vw',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width:'40vw',
+      },
       backgroundColor: theme.palette.background.paper,
-      border: '1px solid #000',
+      // border: '1px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
     preview: {
-        display: 'flex',
-        height: 200,
-        width: 180,
+        // display: 'flex',
+        maxHeight: "480px",
+        objectFit: "contain",
         padding: theme.spacing(1),
     }
   }));
@@ -78,9 +89,9 @@ const UploadAvatars = () => {
 
   return (
       <Fragment>
-        <button type="button" className="btn btn-primary btn-sm" onClick={handleOpen}>
+        <Button color="primary" size="small" style={{margin:"5px 0"}} onClick={handleOpen}>
         Edit Avatar
-        </button>
+        </Button>
         <Modal
           className={classes.modal}
           open={open}
@@ -97,7 +108,8 @@ const UploadAvatars = () => {
                 {picName ? <img className={classes.preview} src={src}></img> : null}
               <form onSubmit={OnSubmit}>
                   <input type="file" name="uploadPic" accept=".jpg,.png" onChange={OnChange}></input>
-                  <input type="submit" value="Change Profile Photo" className="btn btn-primary btn-block" />
+                  <br></br>
+                  <Button type="submit" color="primary" size="small" variant="contained">Change Avatar</Button>
               </form>
             </div>
           </Fade>

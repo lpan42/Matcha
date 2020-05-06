@@ -27,8 +27,9 @@ const useStyles = makeStyles(theme => ({
         position: 'relative',
     },
     image: {
-        height: 200, 
-        width: 180,
+        height: 280, 
+        width: 220,
+        objectFit: "contain",
         margin: theme.spacing(0.5),
     },
     buttons: {
@@ -55,23 +56,26 @@ const EditPictures = () => {
     }, [profilePictures]);
     
     const checkPic = (file) => {
-        const types = ['image/png', 'image/jpeg'];
-        if(types.every(type => file.type !== type)) {
-            toast.error("Only png/jpeg(jpg) is allowed");
-            return(false);
-        };
-        const size = 3000000;
-        if (file.size > size) {
-            toast.error("File is too big");
-            return(false);
-        };
-        return (true);
+        if(file){
+            const types = ['image/png', 'image/jpeg'];
+            if(types.every(type => file.type !== type)) {
+                toast.error("Only png/jpeg(jpg) is allowed");
+                return(false);
+            };
+            const size = 3000000;
+            if (file.size > size) {
+                toast.error("File is too big");
+                return(false);
+            };
+            return (true);
+        }
     }
 
     const OnChange =(e) => {
         if(checkPic(e.target.files[0])){
             setProfilePictures(profilePictures.concat({file: e.target.files[0]}));
         }
+        
     }
     
     const showDeleteBtn = () => {
@@ -81,6 +85,7 @@ const EditPictures = () => {
     const deletePic = (e) => {
         e.preventDefault();
         profilePictures.splice(e.currentTarget.id, 1);
+        setProfilePictures(profilePictures);
         setShowDelete(false);
     }
 
@@ -112,9 +117,20 @@ const EditPictures = () => {
             {pictures.length < 4 ?
             <Fragment>
                 <input accept=".jpg,.png" className={classes.input} id="contained-button-file" type="file" onChange={OnChange}/>
-                <label htmlFor="contained-button-file"><IconButton variant="contained" color="primary" component="span"><AddCircleIcon /></IconButton></label>
-            </Fragment> : null}
-            { pictures.length === 0 ? null : <IconButton  variant="contained" color="primary" component="span" onClick={showDeleteBtn}><RemoveCircleIcon /></IconButton> }
+                <label htmlFor="contained-button-file">
+                    <IconButton variant="contained" color="primary" component="span">
+                        <AddCircleIcon fontSize="large"/>
+                    </IconButton>
+                </label>
+            </Fragment> : 
+            null
+            }
+            { pictures.length === 0 ?
+                null : 
+                <IconButton  variant="contained" color="primary" component="span" onClick={showDeleteBtn}>
+                    <RemoveCircleIcon fontSize="large"/>
+                </IconButton> 
+            }
         </Fragment>
     )
 }
