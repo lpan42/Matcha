@@ -182,7 +182,7 @@ const updateSuggestions = (input) => {
               <Typography variant="caption" component="p"><WcIcon fontSize="small" color="primary"/>{toUpperCase(suggestion.sex_prefer)}</Typography>
               <Typography variant="caption" component="p"><CakeIcon fontSize="small" color="primary"/>{calculateAge(suggestion.birthday)}</Typography>
             </CardContent>
-            <Button size="small" color="primary" href={`/profile/${suggestion.id_user}`}>Visit Profile</Button>
+            <Button size="small" color="primary" href={`/profile/${suggestion.id_user}`} style={{float:"right", marginRight:"5px"}}>Visit Profile</Button>
           </Card>
       );
     });
@@ -201,8 +201,8 @@ const updateSuggestions = (input) => {
           </IconButton>
         </form>
       </div>
-      <div>
-        <FormControl style={{ margin:"10px"}}>
+      <div style={{textAlign:"right", margin:"10px"}}>
+        <FormControl>
           <Select value={sort} onChange={e=>setSort(e.target.value)} 
             displayEmpty style={{fontSize:"12px"}}>
             <MenuItem value="fameDesc">Fame: High to Low</MenuItem>
@@ -211,12 +211,13 @@ const updateSuggestions = (input) => {
             <MenuItem value="ageAsc">Age: Low to High</MenuItem>
           </Select>
         </FormControl>
-        <div style={{display:"flex",flexWrap:"wrap", }}>
-          {/* <Grid container spacing={3}> */}
-            {suggestions.length ? suggestUser : null}
-          {/* </Grid> */}
-        </div>
       </div>
+      <div style={{display:"flex",flexWrap:"wrap", }}>
+        {/* <Grid container spacing={3}> */}
+          {suggestions.length ? suggestUser : null}
+        {/* </Grid> */}
+      </div>
+    
     </div>
   )
 }

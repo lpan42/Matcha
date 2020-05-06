@@ -12,13 +12,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import toUpperCase from '../../utils/toUpperCase';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
       maxWidth: '100vw',
       overflow: 'auto', 
-      maxHeight:'75vh',
+    //   maxHeight:'75vh',
       backgroundColor: theme.palette.background.paper,
     },
 }));
@@ -74,11 +75,12 @@ const Notifications = () => {
 
     return (
         <div className="container">
-            <Button size="small" color="primary" onClick={()=>setAllReaded()}
-            >Mark All As Readed</Button>
-            <List className={classes.root}>
-                {notif && notif.length ? renderNotif : <p className="text-center">You dont have any new notification</p>}
-            </List>
+            <div style={{maxWidth:"600px", margin:"auto"}}>
+                <Button size="small" color="primary" onClick={()=>setAllReaded()}>Mark All As Readed</Button>
+                <List className={classes.root}>
+                    {notif && notif.length ? renderNotif : <p className="text-center">You dont have any new notification</p>}
+                </List>
+            </div>
         </div>
     )
 }

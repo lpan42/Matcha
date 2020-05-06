@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //components
 import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 import Register from './components/user/Register';
 import Login from './components/user/Login';
 import Index from './components/index/index';
@@ -79,7 +80,7 @@ const App = () => {
 			<ThemeProvider theme={theme}>
 				<Fragment>
 					<Header title ="Matcha"/>
-					{/* <div className="container"> */}
+					<div style={{minHeight:"100vh"}}>
 						<Switch>
 							<PrivateRoute exact path='/' component={Index} />
 							<PrivateRoute exact path='/account' component={Account} />
@@ -95,7 +96,8 @@ const App = () => {
 							<Route exact path='/login' component={Login} />
 							<Route component={NotFound} />
 						</Switch>
-					{/* </div> */}
+					</div>
+					<Footer />
 				</Fragment>
 			</ThemeProvider>
 			</Router>

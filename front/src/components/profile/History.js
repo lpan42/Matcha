@@ -166,33 +166,35 @@ const History = () => {
 
     return (
         <div className="container">
-            <Typography variant="h5" color="primary"style={{marginBottom:"10px"}}>History</Typography>
-            <div>
-                <Chip label="Visits" color="primary" style={{width:"200px"}}/>
-                <Divider />
-                <List style={{overflow: 'auto', maxHeight:"300px"}}>
-                    {visitList.length ? 
-                        visits : 
-                        <p className="text-center">You did not visit any user before.</p>}
-                </List>
-            </div>
-            <div>
-                <Chip label="Likes" color="primary"  style={{width:"200px"}}/>
-                <Divider />
-                <List style={{overflow: 'auto', maxHeight:"300px"}}>
-                    {likeList.length ? 
-                        likes : 
-                        <p className="text-center">You did not like any user before.</p>}
-                </List>
-            </div>
-            <div>
-                <Chip label="Blocks" color="primary"  style={{width:"200px"}}/>
-                <Divider />
-                <List style={{overflow: 'auto', maxHeight:"300px"}}>
-                    {blockList.length ? 
-                        blocks : 
-                        <p className="text-center">You did not block any user.</p>}
-                </List>
+            <div style={{maxWidth:"600px", margin:"auto"}}>
+                <Typography variant="h5" color="primary"style={{marginBottom:"10px"}}>History</Typography>
+                <div>
+                    <Chip label="Visits" color="primary" style={{width:"200px"}}/>
+                    <Divider />
+                    <List style={{overflow: 'auto', maxHeight:"400px"}}>
+                        {visitList.length ? 
+                            visits : 
+                            <p className="text-center">You did not visit any user before.</p>}
+                    </List>
+                </div>
+                <div>
+                    <Chip label="Likes" color="primary"  style={{width:"200px"}}/>
+                    <Divider />
+                    <List style={{overflow: 'auto', maxHeight:"400px"}}>
+                        {likeList.length ? 
+                            likes : 
+                            <p className="text-center">You did not like any user before.</p>}
+                    </List>
+                </div>
+                <div>
+                    <Chip label="Blocks" color="primary"  style={{width:"200px"}}/>
+                    <Divider />
+                    <List style={{overflow: 'auto', maxHeight:"400px"}}>
+                        {blockList.length ? 
+                            blocks : 
+                            <p className="text-center">You did not block any user.</p>}
+                    </List>
+                </div>
             </div>
         </div>
     )

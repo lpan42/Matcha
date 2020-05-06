@@ -11,6 +11,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import toUpperCase from '../../utils/toUpperCase';
 import ChatRoomModal from '../chats/ChatRoomModal';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const FriendsList = () => {
     const  userContext = useContext(UserContext);
@@ -81,14 +82,16 @@ const FriendsList = () => {
     });
 
     return (
-        <Fragment>
-            <p className="large">My Friends</p>
-            <List>
-                {friendsList && friendsList.length ? 
-                    friends : 
-                    <p className="text-center">You have not had any friend yet, go and like others.</p>}
-            </List>
-        </Fragment>
+        <div className="container">
+            <div style={{maxWidth:"600px", margin:"auto"}}>
+            <Typography variant="h5" color="primary"style={{marginBottom:"10px"}}>My Friends</Typography>
+                <List>
+                    {friendsList && friendsList.length ? 
+                        friends : 
+                        <p className="text-center">You have not had any friend yet, go and like others.</p>}
+                </List>
+            </div>
+        </div>
     )
 }
 

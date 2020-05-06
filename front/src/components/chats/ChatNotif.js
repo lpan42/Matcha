@@ -91,11 +91,13 @@ const ChatNotif = () => {
 
     return (
         <div className="container">
-            <List className={classes.root}>
-                { (chatNotif && chatNotif.length) ? 
-                    notif_message :
-                    <p className="text-center">You dont have any new message</p>}
-            </List>
+            <div style={{maxWidth:"600px", margin:"auto"}}>
+                <List className={classes.root}>
+                    { (chatNotif && chatNotif.length) ? 
+                        notif_message :
+                        <p className="text-center">You dont have any new message</p>}
+                </List>
+            </div>
         </div>
     )
 }

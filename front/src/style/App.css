@@ -9,7 +9,7 @@
 }
 
 body > #root > div {
-  height: 100vh;
+  height: 100%;
 }
 
 .Toastify__toast--success {
@@ -73,9 +73,9 @@ img {
 /* Utilities */
 .container {
   /* max-width: 1100px; */
-  height: 90vh;
+  height: 85%;
   margin: 0;
-  overflow: auto;
+  /* overflow: auto; */
   padding: 1rem 2rem;
 }
 
