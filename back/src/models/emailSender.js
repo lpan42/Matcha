@@ -72,9 +72,11 @@ export async function resetpwd(email, username, resetpwd_link){
       subject: "Reset your password on Matcha",
       html: message,
       contentType: "text/html"
-  },(err) => {
+  },(err,info) => {
       if(err)
           console.log(err)
+      console.log('Message sent: %s', info.messageId);
+      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
   );
 }

@@ -2,12 +2,49 @@ import React, { useState,useEffect } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Button from '@material-ui/core/Button';
+import bgImage from './bg_image_resetpwd.jpg';
 import Typography from '@material-ui/core/Typography';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles(theme => ({
+    bg: {
+        minHeight: "100vh",
+        margin: "0",
+        backgroundImage: `url(${bgImage})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        display:"flex",
+        flexDirection: "row",
+        justifyContent:"center",
+        alignContent:"center",
+    },
+    card: {
+        marginTop: "3%",
+        textAlign:"center",
+        backgroundColor: fade("#FFFFFF", 0.6),
+        maxHeight:200,
+        minWidth: 275,
+        maxWidth:350,
+    },
+    form: {
+        "& .MuiTextField-root": {
+            margin: theme.spacing(2),
+          }
+    },
+  }));
 
 const RequestResetPwd = () => {
     const [value, setValue] = useState('');
     const [success, setSuccess] = useState(null);
     const [error, setError] = useState(null);
+    const classes = useStyles();
 
     useEffect(() => {
         if(error) {
@@ -31,24 +68,31 @@ const RequestResetPwd = () => {
         }
     }
 
-    const OnClick = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
         resetPwd();
     }
 
     return (
-        <div>
-             <Typography variant="h6" color="primary">Reset Your Password </Typography>
-            <form>
-                <div>
-                    <input type="text"
-                        placeholder="Enter your email or username"
-                        value={value} onChange={e=>setValue(e.target.value)}
-                    />
-                </div>
-                <Button type="submit" variant="contained" color="primary"
-                    onClick={OnClick}>Comfirm</Button>
-            </form>
+        <div className={classes.bg}>
+             <Card className={classes.card}>
+                <CardContent>   
+                    <Typography variant="h6" color="primary">Reset Your Password </Typography>
+                    <form className={classes.form} onSubmit={onSubmit}>
+                        <TextField required id="email" label="Enter your username or email" style = {{width: 260}}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <MailOutlineIcon color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="text" size="small"  value={value} onChange={e=>setValue(e.target.value)}
+                        />
+                        <Button type="submit" color="primary" variant="contained" style={{margin:"8px"}}>Comfirm</Button>
+                    </form>
+                </CardContent>
+            </Card>
         </div>
         )
 }

@@ -3,8 +3,45 @@ import React, { useState,useEffect } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useHistory } from "react-router-dom";
+import bgImage from './bg_image_resetpwd.jpg';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import FaceIcon from '@material-ui/icons/Face';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
+const useStyles = makeStyles(theme => ({
+    bg: {
+        minHeight: "100vh",
+        margin: "0",
+        backgroundImage: `url(${bgImage})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        display:"flex",
+        flexDirection: "row",
+        justifyContent:"center",
+        alignContent:"center",
+    },
+    card: {
+        marginTop: "3%",
+        textAlign:"center",
+        backgroundColor: fade("#FFFFFF", 0.6),
+        maxHeight:350,
+        minWidth: 275,
+        maxWidth:350,
+    },
+    form: {
+        "& .MuiTextField-root": {
+            margin: theme.spacing(0.8),
+          }
+    },
+  }));
 
 const ResetPwd = ({ match }) => {
     const [username, setUsername] = useState('');
@@ -15,6 +52,7 @@ const ResetPwd = ({ match }) => {
 
     const resetpwd_link = match.params.resetpwd_link;
     const history = useHistory();
+    const classes = useStyles();
 
     const VerifyResetPwdLink = async () => {
         try{
@@ -58,7 +96,7 @@ const ResetPwd = ({ match }) => {
         //eslint-disable-next-line
       }, [username, error, success]);
 
-    const OnClick = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
         if(pwd === '' || rePwd === ''){
             toast.warning('All the fields need to be filled');
@@ -71,24 +109,55 @@ const ResetPwd = ({ match }) => {
     }
     
     return (
-        <div>
-            <Typography variant="h6" color="primary"> Update Your Password </Typography>
-            <form>
-                <div>
-                    <label htmlFor="username">Username: </label>
-                    <input type="text" value={username} readOnly/>
-                </div>
-                <div>
-                    <label htmlFor="password">Password: </label>
-                    <input type='password' name='password' value={pwd} onChange={e=>setPwd(e.target.value)} />
-                </div>
-                <div>
-                    <label htmlFor="re_password">Comfirm password: </label>
-                    <input type='password' name='re_password' value={rePwd} onChange={e=>setRePwd(e.target.value)} />
-                </div>
-                <Button type="submit" variant="contained" color="primary"
-                   onClick={OnClick}>Comfirm</Button>
-            </form>
+        <div className={classes.bg}>
+            <Card className={classes.card}>
+                <CardContent>   
+                    <Typography variant="h6" color="primary"> Update Your Password </Typography>
+                    <form className={classes.form} onSubmit={onSubmit}>
+                        <TextField required id="username" label="username" style = {{width: 260}}
+                            inputProps={{
+                                readOnly:"true",
+                            }}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <FaceIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="text" size="small" 
+                            value={username}
+                        />
+                        <TextField required id="password" label="password" style = {{width: 260}}
+                            inputProps={{
+                                minLength: 8,
+                                pattern:"(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}"
+                            }}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <VpnKeyIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="password" size="small" 
+                            helperText="Min 8 characters, at least one number, and one uppercase and lowercase letter" 
+                            value={pwd} onChange={e=>setPwd(e.target.value)}
+                        />
+                        <TextField required id="re_password" label="comfirm password" style = {{width: 260}}
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <VpnKeyIcon fontSize="small" color="primary"/>
+                                </InputAdornment>
+                                ),
+                            }}
+                            type="password" size="small" value={rePwd} onChange={e=>setRePwd(e.target.value)}
+                        />
+                        <Button type="submit" color="primary" variant="contained" style={{margin:"8px"}}>Comfirm</Button>
+                    </form>
+                </CardContent>
+            </Card>
         </div>
     )
 }

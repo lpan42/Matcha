@@ -79,7 +79,7 @@ const Index = () => {
   useEffect(() => {
     loadUser();
     if(!token && !user){
-       history.push(`/register`);
+       history.push('/register');
     }
     getSuggestions();
     //eslint-disable-next-line
