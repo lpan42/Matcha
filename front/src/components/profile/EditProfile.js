@@ -19,6 +19,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import toUpperCase from '../../utils/toUpperCase';
 import Input from '@material-ui/core/Input';
+import calculateAge from '../../utils/calculateAge';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -95,6 +97,12 @@ const EditProfile = () => {
         });
       };
     
+    const calculateMinBirthday = () => {
+        const minBirthday = moment().subtract(18, 'years').calendar();
+        const formatMin = moment(minBirthday).format('YYYY-MM-DD')
+        return(formatMin);
+    }
+
     return (
         <Card className={classes.card}>
             <div className={classes.context}>
@@ -137,8 +145,11 @@ const EditProfile = () => {
                             className={update.sex_prefer === 'bi' ? "btn-primary btn-sm" : "btn-light btn-sm"}
                             onClick={updateField}/>
                         <br/>
-                        <Typography variant="subtitle2" component="span" color="primary">Birthday:  </Typography><br/>
+                        <Typography variant="subtitle2" component="span" color="primary">Birthday:  </Typography>
+                        <Typography variant="caption" component="span" color="primary">(You need to be as least 18 years old)</Typography>
+                        <br/>
                         <input type='date' name='birthday' value={update.birthday} onChange={updateField} 
+                            max={calculateMinBirthday()}
                             style={{width:"150px", height:"40px",border:"1px solid #60A561"}}
                         />
                         <br/>

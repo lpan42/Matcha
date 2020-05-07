@@ -57,9 +57,9 @@ const Account = () => {
     if(success) {
       toast.success(success);
       clearSuccess();
-        setTimeout(()=>{
-          window.location.reload(1);
-        }, 2000);
+      setTimeout(()=>{
+        window.location.reload(1);
+      }, 2000);
     }
       //eslint-disable-next-line
   }, [error, success]);
