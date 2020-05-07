@@ -1,21 +1,15 @@
-import React, { Fragment, useContext, useState, Component } from 'react';
+import React, { Fragment, useContext, useState, useEffect, Component } from 'react';
 import { compose, withProps } from "recompose";
 import {  withScriptjs ,withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import Geocode from "react-geocode";
 import ProfileContext from '../../contexts/profile/profileContext';
 import UserContext from '../../contexts/user/userContext';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 
-const MyMapComponent = compose(
-    withProps({
-        googleMapURL: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/js?v=3.exp",
-        loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `300px` }} />,
-        mapElement: <div style={{ height: `100%` }} />,
-    }),
-    withGoogleMap,
-    )(props =>
+const MyMapComponent = withScriptjs(withGoogleMap
+    (props =>
         <Fragment>
         {
                 <GoogleMap
@@ -26,31 +20,26 @@ const MyMapComponent = compose(
                 </GoogleMap>
         }
         </Fragment>
-);
+));
 
 const EditLocation = ({position}) => {
     const  profileContext = useContext(ProfileContext);
-    const {profile} = profileContext;
+    const { profile } = profileContext;
 
     const [location, setLocation] = useState({
-        isMarkerShown: false,
-        zoom: 11,
+        isMarkerShown: profile ? true : false,
+        zoom: profile ? 15 : 11,
         error: null,
-        marker: null,
-        position: {lat: profile.data.location_lat, lng: profile.data.location_lon},
+        position: {
+            lat: profile ? profile.data.location_lat : 48.8534,
+            lng: profile ? profile.data.location_lon : 2.3488
+        },
+        city: null,
     });
 
-    const updateLocation = async (profile) => {
-        setAuthToken(localStorage.token);
-        const config = {
-            headers: {'Content-Type': 'application/json'}
-        }
-        try{
-            const result =  await axios.post('/user/modify/location', profile, config);
-        }catch(err){
-            console.log(err);
-        }
-    }
+    useEffect(() => {
+        updateCity();
+    }, [location.position])
 
     const allowLocation = () => {
         if(navigator.geolocation){
@@ -60,8 +49,8 @@ const EditLocation = ({position}) => {
                 const longitude = position.coords.longitude;
                 setLocation({ ...location,
                     position: { lat: latitude, lng: longitude },
-                    zoom: 14,
                     isMarkerShown: true,
+                    zoom: 15
                 });
                 profile.data.location_lat = latitude;
                 profile.data.location_lon = longitude;
@@ -70,7 +59,7 @@ const EditLocation = ({position}) => {
 			error => (error.message),
 			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         )}else{
-            this.setLocation({
+            setLocation({
                 error: true
             })
         }
@@ -97,18 +86,40 @@ const EditLocation = ({position}) => {
         });
         profile.data.location_lat = latitude;
         profile.data.location_lon = longitude;
-        console.log(profile);
         modify_location(profile);
+    };
+
+    const updateCity = () => {
+        Geocode.setApiKey("AIzaSyCzpKxEeCWg9XY84g0eFLS_-Mg-OHqxERw");
+        Geocode.setLanguage("en");
+        Geocode.fromLatLng(location.position.lat, location.position.lng)
+        .then(
+            response => {
+                const locatecity = response.results[0].address_components[2].long_name;
+                setLocation({
+                    ...location,
+                    city: locatecity
+                })
+            },
+            error => {
+                console.error(error);
+            }
+        );
     };
 
     return (
         <Fragment>
-            <LocationOnOutlinedIcon onClick={() => allowLocation()}/>Locate Me
+            <LocationOnOutlinedIcon onClick={() => allowLocation()}/>
+            City {location.city}
             <MyMapComponent
                 isMarkerShown={location.isMarkerShown}
                 zoom={location.zoom}
                 position={location.position}
                 onMarkerDragEnd={onMarkerDragEnd}
+                googleMapURL={"https://maps.googleapis.com/maps/api/js?key=AIzaSyCzpKxEeCWg9XY84g0eFLS_-Mg-OHqxERw&libraries=places"}
+                loadingElement={<div style={{ height: `100%` }} />}
+                containerElement={<div style={{ height: `300px` }} />}
+                mapElement= {<div style={{ height: `100%` }} />}
             />
         </Fragment>
         )
