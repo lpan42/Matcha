@@ -144,7 +144,7 @@ const ResetPwd = ({ match }) => {
                             helperText="Min 8 characters, at least one number, and one uppercase and lowercase letter" 
                             value={pwd} onChange={e=>setPwd(e.target.value)}
                         />
-                        <TextField required id="re_password" label="comfirm password" style = {{width: 260}}
+                        <TextField required id="re_password" label="confirm password" style = {{width: 260}}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">
@@ -154,7 +154,7 @@ const ResetPwd = ({ match }) => {
                             }}
                             type="password" size="small" value={rePwd} onChange={e=>setRePwd(e.target.value)}
                         />
-                        <Button type="submit" color="primary" variant="contained" style={{margin:"8px"}}>Comfirm</Button>
+                        <Button type="submit" color="primary" variant="contained" style={{margin:"8px"}}>Confirm</Button>
                     </form>
                 </CardContent>
             </Card>

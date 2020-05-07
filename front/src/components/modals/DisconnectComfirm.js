@@ -34,7 +34,7 @@ const DisconnectComfirm = ({show, handleClose}) => {
             </DialogContent>
             <DialogActions>
               <Button onClick={DisconnectUser} color="primary">
-                Comfirm to disconnect
+                Confirm to disconnect
               </Button>
               <Button onClick={handleClose} color="primary">
                 cancel

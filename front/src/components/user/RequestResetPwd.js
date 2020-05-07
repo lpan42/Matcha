@@ -89,7 +89,7 @@ const RequestResetPwd = () => {
                             }}
                             type="text" size="small"  value={value} onChange={e=>setValue(e.target.value)}
                         />
-                        <Button type="submit" color="primary" variant="contained" style={{margin:"8px"}}>Comfirm</Button>
+                        <Button type="submit" color="primary" variant="contained" style={{margin:"8px"}}>Confirm</Button>
                     </form>
                 </CardContent>
             </Card>

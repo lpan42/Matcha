@@ -164,7 +164,7 @@ const Register = (props) => {
                             helperText="Min 8 characters, at least one number, and one uppercase and lowercase letter" 
                             value={password} onChange={onChange}
                         />
-                        <TextField required id="re_password" label="comfirm password" style = {{width: 260}}
+                        <TextField required id="re_password" label="confirm password" style = {{width: 260}}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">

@@ -117,6 +117,9 @@ const Profile = ({ match }) => {
         if(error) {
             toast.error(error);
             clearError();
+            setTimeout(()=>{
+                window.location.reload(1);
+            }, 2000);
         }
         // if(emptyProfile){
         //     toast.warning(emptyProfile);
@@ -124,6 +127,9 @@ const Profile = ({ match }) => {
         if(success) {
             toast.success(success);
             clearSuccess();
+            setTimeout(()=>{
+                window.location.reload(1);
+            }, 2000);
         }
         // eslint-disable-next-line
     }, [error, emptyProfile, success]);

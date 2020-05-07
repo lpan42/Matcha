@@ -34,7 +34,7 @@ const BlockComfirm = ({show, handleClose}) => {
             </DialogContent>
             <DialogActions>
               <Button onClick={BlockUser} color="primary">
-                Comfirm to block
+                Confirm to block
               </Button>
               <Button onClick={handleClose} color="primary">
                 cancel

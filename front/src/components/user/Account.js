@@ -50,16 +50,22 @@ const Account = () => {
     if(error) {
         toast.error(error);
         clearError();
+        setTimeout(()=>{
+          window.location.reload(1);
+        }, 2000);
     }
     if(success) {
       toast.success(success);
       clearSuccess();
+        setTimeout(()=>{
+          window.location.reload(1);
+        }, 2000);
     }
       //eslint-disable-next-line
   }, [error, success]);
 
   const onClick = () => {
-      setEdit(true);  
+      setEdit(true); 
   }
 
   const accountInfo = (

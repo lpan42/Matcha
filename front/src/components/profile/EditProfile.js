@@ -86,7 +86,6 @@ const EditProfile = () => {
         updateInterests(profile.data.interests);
         uploadPictures(formData);
         modifyPictures(updatePics);
-        // window.location.reload();
     }
 
     const updateField = e => {
@@ -157,7 +156,7 @@ const EditProfile = () => {
                         <Typography variant="subtitle2" component="span" color="primary">Pictures:  </Typography>
                         <EditPictures />
                         <br/>
-                        <Button type="submit" color="primary" variant="contained">Comfirm</Button>
+                        <Button type="submit" color="primary" variant="contained">Confirm</Button>
                     </div>
                 </form>
             </div>

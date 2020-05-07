@@ -42,7 +42,7 @@ const Filter = ({update}) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [age, setAge] = useState([18, 100]);
-    const [distance, setDistance] = useState(10);
+    const [distance, setDistance] = useState(50);
     const [gender, setGender] = useState(null);
     const [sexPrefer, setSexPrefer] = useState(null);
     const [selectedInterests, setSelectedInterests] = useState([]);
@@ -87,7 +87,7 @@ const Filter = ({update}) => {
     const handleSexPrefer = newSf => {
         setSexPrefer(newSf);
     };
-    const comfirmFilter = () => {
+    const confirmFilter = () => {
         filterUser();
     }
 
@@ -178,7 +178,7 @@ const Filter = ({update}) => {
                     <Typography variant="body2" component="p">Interest Tags:</Typography>
                     {interests}
                 </div>
-                <Button color="primary" style={{float:"right"}} onClick={comfirmFilter}>Comfirm</Button>
+                <Button color="primary" style={{float:"right"}} onClick={confirmFilter}>Confirm</Button>
             </div>
         </Popover>
     </Fragment>

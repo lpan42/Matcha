@@ -53,7 +53,7 @@ const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, blo
             </DialogContent>
             <DialogActions>
               <Button onClick={() => unblockUser(blockUserId)} color="primary">
-                Comfirm to unblock
+                Confirm to unblock
               </Button>
               <Button onClick={handleClose} color="primary">
                 cancel

@@ -87,7 +87,7 @@ const EditAccount = () => {
                     onChange={e => user.data.email = e.target.value.toLowerCase()}
                 />
                 <br></br>
-                <Button type="submit" color="primary">Comfirm</Button>
+                <Button type="submit" color="primary">Confirm</Button>
             </form>
         </div>
     )
