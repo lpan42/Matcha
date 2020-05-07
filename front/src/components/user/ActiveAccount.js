@@ -23,11 +23,11 @@ const ActiveAccount = ({ match }) => {
         verfiyLink();
         if(error) {
             toast.error(error);
-            history.push(`/`);
+            history.push(`/login`);
         }
         if(success) {
             toast.success(success);
-            history.push(`/`);
+            history.push(`/login`);
         }
         //eslint-disable-next-line
       }, [error, success]);
