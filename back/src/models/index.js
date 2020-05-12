@@ -57,8 +57,9 @@ export async function searchUser(userid, keyword){
                     OR lastname LIKE '%${keyword}%'
                     OR biography LIKE '%${keyword}%'
                 )
+                AND users.id_user NOT IN (SELECT blocks.id_user FROM blocks WHERE id_sender = ?)
                 AND users.id_user != ?
-                ORDER BY fame DESC`,[userid]);
+                ORDER BY fame DESC`,[userid,userid]);
         return result;
     } catch (err) {
         throw new Error(err);
