@@ -56,8 +56,21 @@ const useStyles = makeStyles(theme => ({
 		padding:'5px',
 		overflow: 'auto',
 	},
-	message:{
-		width:'100%',
+	messageSelf:{
+		padding:"5px",
+		// maxWidth:'60%',
+		marginRight: "0",
+		wordBreak: "break-word",
+		borderRadius: "10px",
+		backgroundColor: theme.palette.secondary.main,
+	},
+	messageOther:{
+		padding:"5px",
+		// maxWidth:'80%',
+		color:"white",
+		wordBreak: "break-word",
+		borderRadius: "10px",
+		backgroundColor: theme.palette.primary.main,
 	},
     chatBox:{
         width:'100%',
@@ -143,8 +156,10 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 										username={chat.username}
 										avatar={chat.avatar} 
 										online={chat.online}/>  
-									<div style={{display:"flex", flexDirection:"column"}}>
-										<Chip label={ReactEmoji.emojify(chat.message)} color="secondary"></Chip>
+									<div style={{display:"flex", flexDirection:"column",maxWidth:"60%"}}>
+										<div className={classes.messageSelf}>
+											{ReactEmoji.emojify(chat.message)}
+										</div>
 										<Typography variant="caption" style={{color:'grey',textAlign:'right'}}>{processDate(chat.time)}</Typography>
 									</div>
 								</Box> :
@@ -153,8 +168,10 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 										username={chat.username}
 										avatar={chat.avatar} 
 										online={chat.online}/>
-									<div style={{display:"flex", flexDirection:"column"}}>
-										<Chip label={ReactEmoji.emojify(chat.message)} color="primary"></Chip>
+									<div style={{display:"flex", flexDirection:"column",maxWidth:"60%"}}>
+									<div className={classes.messageOther}>
+											{ReactEmoji.emojify(chat.message)}
+										</div>
 										<Typography variant="caption" style={{color:'grey',textAlign:'left'}}>{processDate(chat.time)}</Typography>
 									</div>
 								</Box> 
