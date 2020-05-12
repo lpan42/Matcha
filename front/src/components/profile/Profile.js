@@ -241,10 +241,10 @@ const Profile = ({ match }) => {
                 <Typography variant="subtitle2" component="span">{profile && toUpperCase(profile.data.firstname)} {profile && toUpperCase(profile.data.lastname)}</Typography>
                 <br></br>
                 <Typography variant="subtitle2" component="span" color="primary">Gender:  </Typography>
-                <Typography variant="subtitle2" component="span">{(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : NaN}</Typography>
+                <Typography variant="subtitle2" component="span">{(profile && profile.data.gender) ? toUpperCase(profile.data.gender) : "NaN"}</Typography>
                 <br></br>
                 <Typography variant="subtitle2" component="span" color="primary">Age: </Typography>
-                <Typography variant="subtitle2" component="span">{ (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : NaN }</Typography>
+                <Typography variant="subtitle2" component="span">{ (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : "NaN" }</Typography>
                 <br></br>
                 <Typography variant="subtitle2" component="span" color="primary">Location: </Typography>
                 <Typography variant="subtitle2" component="span">(Paris)</Typography>
