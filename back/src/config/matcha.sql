@@ -19,6 +19,14 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   PRIMARY KEY (`id_block`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `fakes` (
+  `id_fake` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_sender` int(11) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_fake`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `chatrooms` (
   `id_chatroom` int(11) NOT NULL AUTO_INCREMENT,
   `id_user_1` int(11) NOT NULL,

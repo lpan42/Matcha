@@ -42,7 +42,7 @@ const  server = http.listen(PORT,() => {
 //socket
 const io = require('socket.io').listen(server);
 io.on('connection', (socket) => {
-    console.log(`Socket ${socket.id} connected.`);
+    // console.log(`Socket ${socket.id} connected.`);
     socket.on('joinRoom', async ({token, id_chatroom}, callback) => {
         const {userid, error} = await authSocket.authSocket(token);
         if(error) return callback(error);

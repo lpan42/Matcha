@@ -231,6 +231,31 @@ const ProfileState = props => {
             // });
         }
     }
+    const reportFake = async (userid) => {
+        setAuthToken(localStorage.token);
+        const loginUser = validateToken(localStorage.token);
+        try{
+            if(loginUser !== userid){
+                let data = {
+                    notification: 'blocks',
+                    id_user: userid,
+                    id_sender: loginUser
+                }
+                socket.emit('addNotif', data);
+            }
+            const result = await axios.post(`/user/reportfake/${userid}`);
+            dispatch({
+                type: BLOCK_USER,
+                payload: result.data
+            });
+        }catch(err){
+            console.log(err)
+            // dispatch({
+            //     type: NORMAL_ERROR,
+            //     payload: err.response.data.error
+            // });
+        }
+    }
 
     const clearProfile = () => {
         dispatch({
@@ -295,6 +320,7 @@ const ProfileState = props => {
                 blockUser,
                 clearError,
                 clearSuccess,
+                reportFake,
             }}
         >
         {props.children}

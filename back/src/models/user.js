@@ -353,9 +353,35 @@ export async function checkBlock(userid, blockerid){
     }
 }
 
+export async function checkFake(userid,senderid){
+    try{
+        const result = await connection.query("SELECT * FROM fakes WHERE id_user = ? AND id_sender = ?", [userid, senderid]);
+        return result;
+    }catch (err) {
+        throw new Error(err);
+    }
+}
+
 export async function addBlock(userid, blockerid){
     try {
         await connection.query('INSERT INTO blocks (id_user, id_sender) VALUES (?, ?)', [userid, blockerid]);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function countFake(userid){
+    try {
+        const result = await connection.query('SELECT COUNT(id_user) AS count FROM Fakes WHERE id_user = ?', userid);
+        return (result[0].count);
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function addFake(userid, senderid){
+    try {
+        await connection.query('INSERT INTO fakes (id_user, id_sender) VALUES (?, ?)', [userid, senderid]);
         
     } catch (err) {
         throw new Error(err);
@@ -476,6 +502,27 @@ export async function getLikeList(userid){
             LEFT JOIN profiles on notifications.id_user = profiles.id_user
             WHERE notifications.id_sender = ? AND notifications.notification = 'likes'
             ORDER BY notif_time DESC`, userid);
+        return result;
+    }
+    catch (err) {
+        throw new Error(err);
+    }
+}
+
+export async function deleteUser(userid){
+    try{
+        const result = await connection.query(`
+            DELETE FROM users WHERE id_user = '${userid}';
+            DELETE FROM blocks WHERE id_user = '${userid}' OR id_sender = '${userid}';
+            DELETE FROM chatrooms WHERE id_user_1 = '${userid}' OR id_user_2 = '${userid}';
+            DELETE FROM fakes WHERE id_user = '${userid}' OR id_sender = '${userid}';
+            DELETE FROM likes WHERE id_user = '${userid}' OR id_sender = '${userid}';
+            DELETE FROM messages WHERE id_user = '${userid}' OR id_sender = '${userid}';
+            DELETE FROM notifications WHERE id_user = '${userid}' OR id_sender = '${userid}';
+            DELETE FROM pics WHERE id_user = '${userid}';
+            DELETE FROM profiles WHERE id_user = '${userid}';
+            DELETE FROM users_interests WHERE id_user = '${userid}';
+        `);
         return result;
     }
     catch (err) {

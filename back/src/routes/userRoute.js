@@ -25,6 +25,7 @@ router.route('/checklike/:userid').get(auth, userController.checkLike);
 router.route('/like/:userid').post(auth, userController.likeProfile);
 router.route('/unlike/:userid').post(auth, userController.unlikeProfile);
 router.route('/block/:userid').post(auth, userController.blockUser);
+router.route('/reportfake/:userid').post(auth, userController.reportFake);
 router.route('/blocklist').get(auth, userController.getBlockList);
 router.route('/likelist').get(auth, userController.getLikeList);
 router.route('/visitlist').get(auth, userController.getVisitList);

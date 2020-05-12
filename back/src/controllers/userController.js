@@ -278,6 +278,42 @@ export async function blockUser(req,res) {
     }
 }
 
+export async function reportFake(req,res) {
+    if (req.userid != req.params.userid) {
+        let data = {
+            // notification: 'blocks',
+            id_user: req.params.userid,
+            id_sender: req.userid
+        }
+        const checkFake = await userModel.checkFake(data.id_user, data.id_sender);
+        if(checkFake[0]){
+            return res.status(200).json({
+                success: 'You have report this user as a fake account before'});
+        }
+        else{
+            await userModel.addFake(data.id_user, data.id_sender);
+            await userModel.addBlock(data.id_user, data.id_sender);
+            await userModel.unlike(data.id_user, data.id_sender);
+            const chatroom = await chatModel.getChatroomId(data.id_sender, data.id_user);
+            if(chatroom){
+                await chatModel.unlinkChat(chatroom.id_chatroom);
+            }
+            await userModel.addFame(-500, data.id_user);
+            const count = await userModel.countFake(data.id_user);
+            if(count >= 5){
+                await userModel.deleteUser(data.id_user);
+                return res.status(200).json({ 
+                    success: 'There are more than 5 users report this account as a fake account. This account has been deleted!'});
+            }
+            return res.status(200).json({ 
+                success: 'You have reported this user as a fake account, you will consider as block this user'});
+        }
+    }
+    else{
+        return res.status(400).json({ error: 'You cannot block yourself'});
+    }
+}
+
 export async function unlikeProfile(req,res) {
     if (req.userid != req.params.userid) {
         let data = {

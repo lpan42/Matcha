@@ -404,7 +404,7 @@ table th {
 
 /* Navbar */
 .navbar {
-  height: 10vh;
+  min-height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -8,6 +8,7 @@ import Pictures from './Pictures';
 import Spinner from '../layout/Spinner';
 import DiscounnectComfirm from '../modals/DisconnectComfirm';
 import BlockComfirm from '../modals/BlockComfirm';
+import ReportFake from '../modals/ReportFake';
 import toUpperCase from '../../utils/toUpperCase';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -17,6 +18,7 @@ import SmsIcon from '@material-ui/icons/Sms';
 import Divider from '@material-ui/core/Divider';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
+import AssignmentLateOutlinedIcon from '@material-ui/icons/AssignmentLateOutlined';
 import { withStyles } from '@material-ui/core/styles';
 import ChatRoomModal from '../chats/ChatRoomModal';
 import axios from 'axios';
@@ -26,6 +28,7 @@ import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -92,6 +95,7 @@ const Profile = ({ match }) => {
     const [edit, setEdit] = useState(false);
     const [showUnlike, setShowUnlike] = useState(false);
     const [showBlock, setShowBlock] = useState(false);
+    const [showFake, setShowFake] = useState(false);
     const [showChatroom, setShowChatroom] = useState(false);
     const [activeChatroom, setActiveChatroom] = useState(null);
 
@@ -156,6 +160,10 @@ const Profile = ({ match }) => {
         setShowBlock(true);
     }
 
+    const reportFake = () => {
+        setShowFake(true);
+    }
+
     const openChatroom =() =>{
         setShowChatroom(true);
     }
@@ -173,6 +181,9 @@ const Profile = ({ match }) => {
                             </MyTooltip>
                         </div>: 
                         <div>
+                             <MyTooltip title="Report Fake Account">
+                                <AssignmentLateOutlinedIcon color="error" onClick={reportFake}/>
+                            </MyTooltip>
                             <MyTooltip title="Block User">
                                 <BlockIcon color="error" onClick={blockUser}/>
                             </MyTooltip>
@@ -192,6 +203,10 @@ const Profile = ({ match }) => {
                             }
                         </div>
                     }
+                    {showFake ? <ReportFake 
+                        show={showFake} 
+                        handleClose={()=>setShowFake(false)}
+                    /> : null}
                     {showBlock ? <BlockComfirm 
                         show={showBlock} 
                         handleClose={()=>setShowBlock(false)}
