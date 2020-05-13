@@ -48,4 +48,4 @@ const Profile = ({ match }) => {
     )
 }
 
-export default Profile
+export default Profile;

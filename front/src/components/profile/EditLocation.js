@@ -1,12 +1,13 @@
 import React, { Fragment, useContext, useState, useEffect, Component } from 'react';
 import { compose, withProps } from "recompose";
-import {  withScriptjs ,withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import Geocode from "react-geocode";
+import { withScriptjs ,withGoogleMap, GoogleMap, Marker} from "react-google-maps";
 import ProfileContext from '../../contexts/profile/profileContext';
 import UserContext from '../../contexts/user/userContext';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+import updateCity from '../../utils/updateCity';
+
 
 const MyMapComponent = withScriptjs(withGoogleMap
     (props =>
@@ -22,9 +23,12 @@ const MyMapComponent = withScriptjs(withGoogleMap
         </Fragment>
 ));
 
-const EditLocation = ({position}) => {
+const EditLocation = ({token, location_lat, location_lon}) => {
+
     const  profileContext = useContext(ProfileContext);
     const { profile } = profileContext;
+    const userContext = useContext(UserContext);
+    const { user } = userContext;
 
     const [location, setLocation] = useState({
         isMarkerShown: profile ? true : false,
@@ -38,7 +42,13 @@ const EditLocation = ({position}) => {
     });
 
     useEffect(() => {
-        updateCity();
+        updateCity(location.position.lat, location.position.lng)
+        .then(data => {
+                setLocation({
+                ...location,
+                city: data.city
+            })}
+        );
     }, [location.position])
 
     const allowLocation = () => {
@@ -89,23 +99,23 @@ const EditLocation = ({position}) => {
         modify_location(profile);
     };
 
-    const updateCity = () => {
-        Geocode.setApiKey("AIzaSyCzpKxEeCWg9XY84g0eFLS_-Mg-OHqxERw");
-        Geocode.setLanguage("en");
-        Geocode.fromLatLng(location.position.lat, location.position.lng)
-        .then(
-            response => {
-                const locatecity = response.results[0].address_components[2].long_name;
-                setLocation({
-                    ...location,
-                    city: locatecity
-                })
-            },
-            error => {
-                console.error(error);
-            }
-        );
-    };
+    // const updateCity = () => {
+    //     Geocode.setApiKey("AIzaSyCzpKxEeCWg9XY84g0eFLS_-Mg-OHqxERw");
+    //     Geocode.setLanguage("en");
+    //     Geocode.fromLatLng(location.position.lat, location.position.lng)
+    //     .then(
+    //         response => {
+    //             const locatecity = response.results[0].address_components[2].long_name;
+    //             setLocation({
+    //                 ...location,
+    //                 city: locatecity
+    //             })
+    //         },
+    //         error => {
+    //             console.error(error);
+    //         }
+    //     );
+    // };
 
     return (
         <Fragment>
