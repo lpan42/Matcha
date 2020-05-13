@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react';
+import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -20,8 +20,9 @@ const NotifBadge = () => {
    
     let nbr = 0; 
     notif && notif.map((message) => {
-    if(!message.readed)
-        nbr++;
+        if(!message.readed)
+            nbr++;
+    return nbr;
     });
 
     return (

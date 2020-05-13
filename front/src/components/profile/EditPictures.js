@@ -1,7 +1,6 @@
-import React, { Fragment, useContext, useState, useEffect, Children }from 'react'
+import React, { Fragment, useContext, useState, useEffect }from 'react'
 import ProfileContext from '../../contexts/profile/profileContext';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { toast } from 'react-toastify';
 import IconButton from '@material-ui/core/IconButton';
@@ -53,6 +52,7 @@ const EditPictures = () => {
 
     useEffect(() => {
         profile && (profile.data.pictures = profilePictures);
+        //eslint-disable-next-line
     }, [profilePictures]);
     
     const checkPic = (file) => {
@@ -93,7 +93,7 @@ const EditPictures = () => {
         if(picture.path){
             pictures.push(
                 <div className={classes.imageContainer} key={index}>
-                    <img className={classes.image} src={`${picture.path}`}></img>
+                    <img className={classes.image} alt={`${picture.path}`} src={`${picture.path}`}></img>
                     {showDelete ? <DeleteIcon className={classes.deleteBtn} id={index} color="primary" onClick={deletePic}/>: null}
                 </div>
             );
@@ -101,11 +101,12 @@ const EditPictures = () => {
         else if(picture.file){
             pictures.push(
                 <div className={classes.imageContainer} key={index}>
-                    <img className={classes.image} src={URL.createObjectURL(picture.file)}></img>
+                    <img className={classes.image}  alt={`${picture.file}`} src={URL.createObjectURL(picture.file)}></img>
                     {showDelete ? <DeleteIcon className={classes.deleteBtn} id={index} color="primary" onClick={deletePic}/>: null}
                 </div>
             );
         }
+        return pictures;
     })
 
 

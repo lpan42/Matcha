@@ -5,14 +5,12 @@ import UserContext from '../../contexts/user/userContext';
 import Spinner from '../layout/Spinner';
 import ImageAvatars from '../badges/ImageAvatars';
 import { makeStyles } from '@material-ui/core/styles';
-import { toast } from 'react-toastify';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import toUpperCase from '../../utils/toUpperCase';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,6 +63,7 @@ const Notifications = () => {
                     Visit Profile</Button> 
             </ListItem>
         );
+        return notif_message;
     })
 
     const renderNotif = (

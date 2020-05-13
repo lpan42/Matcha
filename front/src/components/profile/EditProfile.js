@@ -1,25 +1,16 @@
-import React, { Fragment, useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import UserContext from '../../contexts/user/userContext';
 import ProfileContext from '../../contexts/profile/profileContext';
 import EditInterests from './EditInterests';
 import UploadAvatars from '../modals/UploadAvatars';
-import ImageAvatars from '../badges/ImageAvatars';
 import EditPictures from './EditPictures';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import SmsIcon from '@material-ui/icons/Sms';
 import Divider from '@material-ui/core/Divider';
-import EditIcon from '@material-ui/icons/Edit';
-import Tooltip from '@material-ui/core/Tooltip';
-import { withStyles } from '@material-ui/core/styles';
-import ChatRoomModal from '../chats/ChatRoomModal';
-import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import toUpperCase from '../../utils/toUpperCase';
-import Input from '@material-ui/core/Input';
-import calculateAge from '../../utils/calculateAge';
 import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({

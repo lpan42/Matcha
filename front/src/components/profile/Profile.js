@@ -28,7 +28,6 @@ import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -253,7 +252,7 @@ const Profile = ({ match }) => {
                 <Typography variant="subtitle2" component="span">{profile && toUpperCase(profile.data.sex_prefer)}</Typography>
                 <Divider variant="middle" style={{margin:"5px 0"}}/>
                 <div>
-                    <Typography variant="subtitle2" component="p" color="primary"color="primary">Biography:</Typography>
+                    <Typography variant="subtitle2" component="p" color="primary">Biography:</Typography>
                     <Typography variant="subtitle2" component="p">{profile && profile.data.biography}</Typography>
                 </div>
                 <Divider variant="middle" style={{margin:"5px 0"}}/>

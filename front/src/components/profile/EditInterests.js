@@ -13,6 +13,7 @@ const EditInterests = ({ interests_list }) => {
 
     useEffect(() => {
         profile && (profile.data.interests = selectedInterests);
+        //eslint-disable-next-line
     }, [selectedInterests]);
 
     const removeInterests = (e) => {
@@ -29,12 +30,14 @@ const EditInterests = ({ interests_list }) => {
                     interests.push(<input className={selected} type="button" onClick={removeInterests} key={key} value={interest.interest}/>);
                     check = true;
                 }
+                return interests;
             })
         }
         if(check)
             check = false;
         else
             interests.push(<input className={deselected} type="button" key={key} onClick={addInterests} value={interest.interest}/>);
+        return interests;
     })
 
     return (

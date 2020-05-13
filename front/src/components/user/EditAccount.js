@@ -1,7 +1,6 @@
-import React, {Fragment, useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import UserContext from '../../contexts/user/userContext';
 import { makeStyles } from '@material-ui/core/styles';
-import bgImage from './bg_image_account.jpg';
 import Typography from '@material-ui/core/Typography';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import TextField from '@material-ui/core/TextField';

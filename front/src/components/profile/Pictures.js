@@ -1,4 +1,4 @@
-import React, { Fragment, useContext }from 'react'
+import React, { useContext }from 'react'
 import ProfileContext from '../../contexts/profile/profileContext';
 import ImageGallery from 'react-image-gallery';
 
@@ -24,6 +24,7 @@ const Pictures = () => {
                     original: `${picture.path}`,
                 }
             );
+            return true;
         })
     }
    

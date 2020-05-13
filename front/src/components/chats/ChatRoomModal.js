@@ -9,8 +9,6 @@ import { Typography } from '@material-ui/core';
 import ImageAvatars from '../badges/ImageAvatars';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
-import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -103,14 +101,15 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 		if(error) {
 			toast.error(error); 
 			clearError();
-        }
+		}
+		//eslint-disable-next-line
 	},[error]);
 
 	const processDate = (timestamp) => {
 		let time;
 		const today = moment().format("YYYY-MM-DD");
 		const day = moment(timestamp).format("YYYY-MM-DD");
-		if(today == day){
+		if(today === day){
 			time = moment(timestamp).format('HH:mm');
 		}
 		else{
@@ -150,7 +149,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 						<List>
 						{
 							chatMsgs.map((chat, key) => (
-								(chat.id_sender == user.data.id) ?
+								(chat.id_sender === user.data.id) ?
 								<Box display="flex" flexDirection="row-reverse" alignItems="center" key={key}>
 									<ImageAvatars 
 										username={chat.username}

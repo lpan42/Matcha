@@ -105,7 +105,7 @@ const UploadAvatars = () => {
           <Fade in={open}>
             <div className={classes.paper}>
                 <div>preview</div>
-                {picName ? <img className={classes.preview} src={src}></img> : null}
+                {picName ? <img className={classes.preview} alt="upload Avatar" src={src}></img> : null}
               <form onSubmit={OnSubmit}>
                   <input type="file" name="uploadPic" accept=".jpg,.png" onChange={OnChange}></input>
                   <br></br>

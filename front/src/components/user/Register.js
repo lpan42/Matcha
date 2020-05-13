@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/user/userContext';
 import { toast } from 'react-toastify';
-import Spinner from '../layout/Spinner';
 import bgImage from './bg_image.jpg';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -69,6 +68,7 @@ const Register = (props) => {
         if(success) {
             toast.success(success);
             clearSuccess();
+            props.history.push('login');
         }
         //eslint-disable-next-line
     }, [error, token, props.history, success]);

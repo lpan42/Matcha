@@ -1,5 +1,5 @@
 //rce from es7 react extension
-import React, { useContext, useEffect, useState, } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import UserContext from '../../contexts/user/userContext';
 import Spinner from '../layout/Spinner';
 import Filter from './Filter';
@@ -14,7 +14,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -148,6 +147,7 @@ const Index = () => {
         return 0;
       })
       break;
+      default:
   }
 const updateSuggestions = (input) => {
   setSuggestions(input);

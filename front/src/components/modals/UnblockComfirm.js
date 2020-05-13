@@ -23,7 +23,7 @@ const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, blo
         try{
             const result =  await axios.post(`/user/unblock/${blockUserId}`);
             success(result.data.success);
-            if(loginUser != blockUserId){
+            if(loginUser !== blockUserId){
               let data = {
                   notification: 'unblocks',
                   id_user: blockUserId,

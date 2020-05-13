@@ -1,9 +1,7 @@
-import React, { useState, useEffect }from 'react'
+import React from 'react'
 import Avatar from '@material-ui/core/Avatar';
-import axios from 'axios';
-import setAuthToken from '../../utils/setAuthToken';
 import Badge from '@material-ui/core/Badge';
-import {withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const ImageAvatars = ({ username, avatar, online }) => {
 

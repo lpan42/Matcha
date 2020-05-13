@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import UserContext from '../../contexts/user/userContext';
 import ChatContext from '../../contexts/chat/chatContext';
@@ -79,6 +79,7 @@ const FriendsList = () => {
                     /> : null}
             </ListItem>
         );
+        return friends;
     });
 
     return (

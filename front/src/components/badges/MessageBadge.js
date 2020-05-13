@@ -20,8 +20,9 @@ const MessageBadge = () => {
    
     let nbr = 0; 
     chatNotif && chatNotif.map((message) => {
-    if(!message.readed)
-        nbr++;
+        if(!message.readed)
+            nbr++;
+        return nbr;
     });
     
     return (

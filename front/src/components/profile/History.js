@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import UserContext from '../../contexts/user/userContext';
@@ -11,15 +10,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Chip from '@material-ui/core/Chip';
-import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 import Divider from '@material-ui/core/Divider';
 import toUpperCase from '../../utils/toUpperCase';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles((theme) => ({
-  }));
 
 const History = () => {
     const  userContext = useContext(UserContext);
@@ -32,8 +27,6 @@ const History = () => {
     const [success, setSuccess] = useState(null);
     const [showUnblock, setShowUnblock] = useState(false);
 
-    const classes = useStyles();
-    const history = useHistory();
     const blocks = [];
     const visits = [];
     const likes = [];
@@ -115,6 +108,7 @@ const History = () => {
                         /> : null}
                 </ListItem>
             );
+            return blocks;
         });
     }
 
@@ -138,6 +132,7 @@ const History = () => {
                     </Button>
                 </ListItem>
             );
+           return visits;
         });
     }
 
@@ -161,6 +156,7 @@ const History = () => {
                     </Button>
                 </ListItem>
             );
+            return likes;
         });
     }
 

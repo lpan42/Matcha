@@ -12,7 +12,7 @@ import {
     GET_INTERESTS_LIST,
     CLEAR_SUCCESS,
     CLEAR_ERROR,
-    UPDATE_INTERESTS,
+    // UPDATE_INTERESTS,
     UPDATE_PROFILE,
     CHECK_LIKE,
     ADD_LIKE,
@@ -20,8 +20,8 @@ import {
     NORMAL_ERROR,
     CLEAR_PROFILE,
     UPDATE_AVATAR,
-    UPLOAD_PICTURES,    
-    MODIFY_PICTURES,
+    // UPLOAD_PICTURES,    
+    // MODIFY_PICTURES,
     BLOCK_USER,
 } from '../types';
 

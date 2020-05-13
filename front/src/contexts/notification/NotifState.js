@@ -41,7 +41,7 @@ import {
             }
         });
         socket.on('getNotif', result => {
-            if(result.id_receiver == loginUser){
+            if(result.id_receiver === loginUser){
                   dispatch({
                     type: GET_NOTIF,
                     payload: result.data

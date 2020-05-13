@@ -43,7 +43,7 @@ let socket;
             }
         });
         socket.on('getChatNotif', result => {
-            if(result.id_receiver == userid){
+            if(result.id_receiver === userid){
                 dispatch({
                     type: GET_CHAT_NOTIF,
                     payload: result.data

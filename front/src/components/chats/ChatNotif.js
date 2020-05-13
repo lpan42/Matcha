@@ -1,4 +1,4 @@
-import React, { Fragment, useContext,useEffect,useState} from 'react'
+import React, {useContext,useEffect,useState} from 'react'
 import Spinner from '../layout/Spinner';
 import UserContext from '../../contexts/user/userContext';
 import ChatContext from '../../contexts/chat/chatContext';
@@ -11,12 +11,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ImageAvatars from '../badges/ImageAvatars';
 import ChatRoomModal from '../chats/ChatRoomModal';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -85,6 +79,7 @@ const ChatNotif = () => {
                     /> : null}
             </ListItem>
         );
+       return notif_message;
     });
     
     if (loading) return <Spinner />;

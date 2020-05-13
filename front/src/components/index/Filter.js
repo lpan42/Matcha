@@ -122,6 +122,7 @@ const Filter = ({update}) => {
                     );
                     check = true;
                 }
+                return true;
             })
         }
         if(check)
@@ -132,6 +133,7 @@ const Filter = ({update}) => {
                     <Typography variant="caption">{interest.interest}</Typography>
                 </Button>
             );
+        return true;
         })
     }
 
