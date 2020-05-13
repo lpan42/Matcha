@@ -167,13 +167,6 @@ export async function modifyInterests(req, res) {
     res.status(200).json({ success: 'Profile has been successfully updated' });
 }
 
-// export async function getNotif(req, res) {
-//     const result = await userModel.getNotif(req.userid);
-//     return res.status(200).json({
-//         data: result
-//     });
-// }
-
 export async function setAllReaded(req,res){
     await userModel.setAllReaded(req.userid);
     const result = await userModel.getNotif(req.userid);
@@ -360,7 +353,6 @@ export async function uploadAvatar(req,res) {
     const filename = req.userid + crypto.randomBytes(5).toString('hex');
     file.mv(`../front/public/images/${filename}`, err => {
         if(err){
-            console.log(err);
             return res.status(500).send(err);
         }
     });
@@ -372,7 +364,7 @@ export async function uploadAvatar(req,res) {
 
 export async function modifyPictures(req, res){
     const getCurrent = await userModel.getPictureById(req.userid);//must have previous pics
-    // if(req.body.length){
+    if(req.body.length){
         for(let i = 0; i < getCurrent.length; i++) {
             let check = false;
             for(let ii = 0; ii < req.body.length; ii++){
@@ -386,12 +378,11 @@ export async function modifyPictures(req, res){
                 await userModel.deletePics(getCurrent[i].path);
             }
         }
-    // }
+    }
     return res.status(200);
 }
 
 export async function uploadPictures(req, res){
-    console.log(req.files)
     if(req.files == null){
         return res.status(200);
     }
@@ -417,7 +408,6 @@ export async function uploadPictures(req, res){
         });
         await userModel.uploadPics(req.userid, "http://localhost:3000/images/"+filename);
     }
-   
     return res.status(200);
 }
 

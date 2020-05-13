@@ -90,7 +90,7 @@ const EditProfile = () => {
     
     const calculateMinBirthday = () => {
         const minBirthday = moment().subtract(18, 'years').calendar();
-        const formatMin = moment(minBirthday).format('YYYY-MM-DD')
+        const formatMin = moment(minBirthday).format('YYYY-MM-DD');
         return(formatMin);
     }
 

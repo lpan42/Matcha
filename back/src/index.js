@@ -32,7 +32,7 @@ app.get("/generate", (req, res) => {
     res.send({ message: "1000 Users generated" });
   });
 
-const PORT = 8000;
+const PORT = 8080;
 
 // starting server
 const  server = http.listen(PORT,() => {

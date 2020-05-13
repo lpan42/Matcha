@@ -66,15 +66,14 @@ const ChatNotif = () => {
                         primary={primary}
                         secondary={secondary}
                     />
-                <Button color="primary" variant="contained" size="small" 
-                    style={{margin:"4px"}}
+                <Button color="primary" variant="contained" size="small" style={{margin:"4px"}}
                     onClick={()=>showChatroomModal(message.id_chatroom)}>
                     Send a Message
                 </Button>
                 {showChatroom ? 
                     <ChatRoomModal 
                         show={showChatroom} 
-                        handleClose={()=>closeChatroomModal()} 
+                        handleClose={closeChatroomModal}
                         activeChatroom={activeChatroom}
                     /> : null}
             </ListItem>

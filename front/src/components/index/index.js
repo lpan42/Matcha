@@ -185,6 +185,7 @@ const updateSuggestions = (input) => {
             <Button size="small" color="primary" href={`/profile/${suggestion.id_user}`} style={{float:"right", marginRight:"5px"}}>Visit Profile</Button>
           </Card>
       );
+      return suggestUser;
     });
   }
 

@@ -14,7 +14,7 @@ let socket;
 
 const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, blockUserLastname, success}) => {
     if(!socket){
-      socket = io.connect(':8000');
+      socket = io.connect(':8080');
   }
 
     const unblockUser = async (blockUserId) => {

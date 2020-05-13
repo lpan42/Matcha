@@ -29,7 +29,7 @@ let socket;
 
 const ProfileState = props => {
     if(!socket){
-        socket = io.connect(':8000');
+        socket = io.connect(':8080');
     }
 
     const initialState = {
