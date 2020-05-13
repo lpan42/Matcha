@@ -39,3 +39,5 @@ export const GET_CHAT_MSGS = 'GET_CHAT_MSGS';
 export const GET_CHAT_NOTIF = 'GET_CHAT_NOTIF';
 export const CLEAR_CHAT = 'CLEAR_CHAT';
 export const CLEAR_CHAT_MSGS = 'CLEAR_CHAT_MSGS';
+
+export const GET_GEOLOCATION = 'GET_GEOLOCATION';
