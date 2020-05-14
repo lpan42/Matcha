@@ -26,6 +26,9 @@ const History = () => {
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(null);
     const [showUnblock, setShowUnblock] = useState(false);
+    const [blockId,setBlockId] = useState(null);
+    const [blockFirstname,setBlockFristname] = useState(null);
+    const [blockLastname,setBlockLastname] = useState(null);
 
     const blocks = [];
     const visits = [];
@@ -78,7 +81,10 @@ const History = () => {
     
     if (loading) return <Spinner />;
     
-    const showUnblockComfirm = () => {
+    const showUnblockComfirm = (id_user,firstname,lastname) => {
+        setBlockId(id_user);
+        setBlockFristname(firstname);
+        setBlockLastname(lastname);
         setShowUnblock(true);
     }
 
@@ -94,18 +100,11 @@ const History = () => {
                         online={blockUser.online}/>  
                     </ListItemAvatar>
                         <ListItemText primary={primary} />
-                    <Button size="small" color="primary" variant="contained" onClick={showUnblockComfirm}>
+                    <Button size="small" color="primary" variant="contained" 
+                        onClick={()=>showUnblockComfirm(blockUser.id_user, blockUser.firstname,blockUser.lastname)}
+                    >
                         Unblock User
                     </Button>
-                    {showUnblock ? 
-                        <UnblockComfirm 
-                            show={showUnblock} 
-                            handleClose={()=>setShowUnblock(false)} 
-                            blockUserId={blockUser.id_user} 
-                            blockUserFirstname = {toUpperCase(blockUser.firstname)}
-                            blockUserLastname = {toUpperCase(blockUser.lastname)}
-                            success={(data)=>setSuccess(data)}
-                        /> : null}
                 </ListItem>
             );
             return blocks;
@@ -192,6 +191,15 @@ const History = () => {
                     </List>
                 </div>
             </div>
+            {showUnblock ? 
+                        <UnblockComfirm 
+                            show={showUnblock} 
+                            handleClose={()=>setShowUnblock(false)} 
+                            blockUserId={blockId} 
+                            blockUserFirstname = {toUpperCase(blockFirstname)}
+                            blockUserLastname = {toUpperCase(blockLastname)}
+                            success={(data)=>setSuccess(data)}
+                        /> : null}
         </div>
     )
 }
