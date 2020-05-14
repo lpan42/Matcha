@@ -12,7 +12,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        minHeight: 430,
+        minHeight: 470,
         minWidth: 250,
         maxWidth: 300,
         border: '1px solid #60A561',
@@ -42,6 +42,7 @@ const Filter = ({update}) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [age, setAge] = useState([18, 100]);
+    const [fame, setFame] = useState([0, 1000]);
     const [distance, setDistance] = useState(50);
     const [gender, setGender] = useState(null);
     const [sexPrefer, setSexPrefer] = useState(null);
@@ -56,6 +57,7 @@ const Filter = ({update}) => {
         const data = {
             age:age,
             distance:distance,
+            fame: fame,
             gender:gender,
             sexPrefer:sexPrefer,
             selectedInterests:selectedInterests
@@ -149,8 +151,13 @@ const Filter = ({update}) => {
                 <div>
                     <Typography variant="body2">Age: {age[0]}-{age[1]}</Typography>
                     <Slider className={classes.slider} min={18} max={100} value={age} onChange={(e,newAge)=>{setAge(newAge);}}/>
+                    
                     <Typography variant="body2">Max Distance: {distance}km</Typography>
                     <Slider className={classes.slider} value={distance} step={10} min={5} max={500} onChange={(e,newDis)=>{setDistance(newDis);}}/>
+                    
+                    <Typography variant="body2">Fame: {fame[0]}-{fame[1]}{fame[1]===1000? "+":null}</Typography>
+                    <Slider className={classes.slider} min={0} max={1000} step={50} value={fame} onChange={(e,newfame)=>{setFame(newfame);}}/>
+                    
                     <Typography variant="body2" component="p">Gender: {gender}</Typography>
                     <ButtonGroup size="small" className={classes.buttonGroup}>
                         <Button onClick={()=>handleGender("male")}
@@ -162,6 +169,7 @@ const Filter = ({update}) => {
                             <Typography variant="caption">Female</Typography>
                         </Button>
                     </ButtonGroup>
+                    
                     <Typography variant="body2" component="p">Sex Preference: {sexPrefer}</Typography>
                     <ButtonGroup size="small" className={classes.buttonGroup}>
                         <Button onClick={()=>handleSexPrefer("straight")}
@@ -177,6 +185,7 @@ const Filter = ({update}) => {
                             <Typography variant="caption">Bi</Typography>
                         </Button>
                     </ButtonGroup>
+                    
                     <Typography variant="body2" component="p">Interest Tags:</Typography>
                     {interests}
                 </div>

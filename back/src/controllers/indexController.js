@@ -86,6 +86,11 @@ export async function filterUser(req,res){
         { latitude: profile.location_lat, longitude: profile.location_lon },
         req.body.distance*1000
     );
+    let fameMin = req.body.fame[0];
+    let fameMax = req.body.fame[1];
+    if(fameMax === 1000){
+        fameMax = 2147483647;
+    }
     let ageMin = ageToBirthYear(req.body.age[1]);
     let ageMax = ageToBirthYear(req.body.age[0]);
     let gender = req.body.gender;
@@ -104,7 +109,7 @@ export async function filterUser(req,res){
         sexPrefer = profile.sex_prefer;
     }
     let tags = req.body.selectedInterests;
-    let users = await indexModel.filterUser(ageMin,ageMax,gender,sexPrefer,
+    let users = await indexModel.filterUser(ageMin,ageMax,fameMin,fameMax,gender,sexPrefer,
         range[0].latitude,range[1].latitude,range[0].longitude,range[1].longitude,req.userid);
     for (var i = 0; i < users.length; i++) {
         const interests = await userModel.getInterestsById(users[i].id_user);

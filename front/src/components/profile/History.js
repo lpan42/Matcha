@@ -192,14 +192,14 @@ const History = () => {
                 </div>
             </div>
             {showUnblock ? 
-                        <UnblockComfirm 
-                            show={showUnblock} 
-                            handleClose={()=>setShowUnblock(false)} 
-                            blockUserId={blockId} 
-                            blockUserFirstname = {toUpperCase(blockFirstname)}
-                            blockUserLastname = {toUpperCase(blockLastname)}
-                            success={(data)=>setSuccess(data)}
-                        /> : null}
+                <UnblockComfirm 
+                    show={showUnblock} 
+                    handleClose={()=>setShowUnblock(false)} 
+                    blockUserId={blockId} 
+                    blockUserFirstname = {toUpperCase(blockFirstname)}
+                    blockUserLastname = {toUpperCase(blockLastname)}
+                    success={(data)=>setSuccess(data)}
+                /> : null}
         </div>
     )
 }
