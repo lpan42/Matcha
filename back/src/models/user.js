@@ -417,7 +417,8 @@ export async function uploadAvatar(userid, filename){
         }
     }else{
         if(profile[0].avatar){
-            fs.unlink(`../front/public/images/${profile[0].avatar}`, err => {
+            let filename = profile[0].avatar.split("/");
+            fs.unlink(`../front/public/images/${filename[filename.length-1]}`, err => {
                 console.log(err);
             });
         }

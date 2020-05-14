@@ -364,7 +364,7 @@ export async function uploadAvatar(req,res) {
 
 export async function modifyPictures(req, res){
     const getCurrent = await userModel.getPictureById(req.userid);//must have previous pics
-    if(req.body.length){
+    // if(req.body.length){
         for(let i = 0; i < getCurrent.length; i++) {
             let check = false;
             for(let ii = 0; ii < req.body.length; ii++){
@@ -378,7 +378,7 @@ export async function modifyPictures(req, res){
                 await userModel.deletePics(getCurrent[i].path);
             }
         }
-    }
+    // }
     return res.status(200);
 }
 

@@ -86,7 +86,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
     const chatContext = useContext(ChatContext);
 	const userContext = useContext(UserContext);
 
-	const { friendsList, joinRoom, addMessage, getMessage, readChatNotif, chatMsgs, error, clearError } = chatContext;
+	const { friendsList, joinRoom, addMessage, readChatNotif, chatMsgs, error, clearError } = chatContext;
 	const { user } = userContext;
 
 	const choosedfriend = friendsList.find(friend => {
@@ -97,13 +97,13 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 	
 	useEffect(() => {
 		joinRoom(activeChatroom);
-		getMessage();
+		// getMessage();
 		if(error) {
 			toast.error(error); 
 			clearError();
 		}
 		//eslint-disable-next-line
-	},[error]);
+	},[activeChatroom, error]);
 
 	const processDate = (timestamp) => {
 		let time;
@@ -168,9 +168,7 @@ const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
 										avatar={chat.avatar} 
 										online={chat.online}/>
 									<div style={{display:"flex", flexDirection:"column",maxWidth:"60%"}}>
-									<div className={classes.messageOther}>
-											{ReactEmoji.emojify(chat.message)}
-										</div>
+										<div className={classes.messageOther}>{ReactEmoji.emojify(chat.message)}</div>
 										<Typography variant="caption" style={{color:'grey',textAlign:'left'}}>{processDate(chat.time)}</Typography>
 									</div>
 								</Box> 

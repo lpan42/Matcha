@@ -29,7 +29,7 @@ export default (state, action) => {
         case GET_PROFILE_NO:
             return{
                 ...state,
-                emptyProfile: action.payload,
+                emptyProfile: action.payload.data.error,
                 loading: false
             }
         case GET_INTERESTS_LIST:

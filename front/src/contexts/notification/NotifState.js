@@ -18,7 +18,7 @@ import {
 
  const NotifState = props => {
     if(!socket){
-        socket = io.connect(':8080');
+        socket = io.connect(':8000');
     }
     const initialState = {
         notif: null,

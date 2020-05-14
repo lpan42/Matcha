@@ -29,7 +29,7 @@ let socket;
 
 const ProfileState = props => {
     if(!socket){
-        socket = io.connect(':8080');
+        socket = io.connect(':8000');
     }
 
     const initialState = {
@@ -66,7 +66,7 @@ const ProfileState = props => {
             console.log(err)
             dispatch({
                 type: GET_PROFILE_NO,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }

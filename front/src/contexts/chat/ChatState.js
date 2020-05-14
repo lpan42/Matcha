@@ -20,7 +20,7 @@ let socket;
 
  const ChatState = props => {
     if(!socket){
-        socket = io.connect(':8080');
+        socket = io.connect(':8000');
     }
 
     const initialState = {
@@ -86,8 +86,6 @@ let socket;
                 });
             }
         });
-    }
-    const getMessage = () => {
         socket.on('getMessage', result => {
             dispatch({
                 type: GET_CHAT_MSGS,
@@ -95,6 +93,9 @@ let socket;
             });
         })
     }
+    // const getMessage = () => {
+        
+    // }
   
     const addMessage = (newMessage, id_chatroom) => {
         const token = localStorage.token;
@@ -146,7 +147,7 @@ let socket;
                 error: state.error,
                 getFriendsList,
                 getChatNotif,
-                getMessage,
+                // getMessage,
                 readChatNotif,
                 addMessage,
                 joinRoom,
