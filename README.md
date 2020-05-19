@@ -1,4 +1,4 @@
-## 2nd web project in 42.
+# 2nd web project in 42.
 This project is about creating a dating website allowing two potential lovers to meet,
 from the registration to the final encounter
 
@@ -13,6 +13,7 @@ from the registration to the final encounter
     * Node JS (Express)
     * JWT Token
     * Socket.io for real-time messges and notifications
+    * Faker for generate 1000 default users
 * Database:
     * MySQL
 
@@ -54,7 +55,7 @@ from the registration to the final encounter
     * Sexual preferences
     * Biography
     * Choose from a list of interests
-    * Upload max 4 pictures (excluding avatar).
+    * Upload max 4 pictures (excluding avatar), The profile pictures will be shown as a slideshow.
 ![profile](https://user-images.githubusercontent.com/45174444/82326750-9da6d500-99dd-11ea-8af0-034613ec7eb1.png)
 * My Account: access and edit Username, email, firstname, lastname.
 ![Account](https://user-images.githubusercontent.com/45174444/82327267-6d136b00-99de-11ea-96b5-6c2e20307e13.png)
@@ -70,3 +71,16 @@ from the registration to the final encounter
 ![notification](https://user-images.githubusercontent.com/45174444/82327746-22deb980-99df-11ea-9634-2932b9046ba3.png)
 * Also a real time message notification if a connected user send him a message.
 ![newMessage](https://user-images.githubusercontent.com/45174444/82327896-63d6ce00-99df-11ea-910c-1a977640ece3.png)
+
+### Run project
+
+* The configuration is the following:
+    * MySQL Database -> Port `3306`
+    * Node JS server -> Port `8000`
+    * React app -> Port `3000`
+* Create DB:
+    * You script from shell using command: `sh back/src/config/install.sh` at root directory. 
+* Generate more random users:
+    * there are 1000 default random users when install the db
+    * if need more users -> url: localhost:8000/generate (1000 users each time)
+* start project: cd to the back directory, run `npm start` 
