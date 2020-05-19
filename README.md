@@ -34,7 +34,26 @@ from the registration to the final encounter
     * Biography
     * Choose from a list of interests
     * Upload max 4 pictures (excluding avatar).
+* The Index Page
+    * suggestions a list of users, based on user's gender, sex preferrence, location(100km default).
+    * Can select rank susggestions by: fame, ageAsc, ageDesc, distance, and interest tags. 
+    * Can search users. (keywords from username, lastname, firstname, and bio)
+    * Can filter suggested users by one or multiple customize selections:
+        * age range (10-100)
+        * Max distance (5-500km)
+        * Fame (0-1000+)
+        * Gender (if not selected, will be based on user profile)
+        * Sex Preference (if not selected, will be based on user profile)
+        * interest tags
+![index]()
 ![profile](https://user-images.githubusercontent.com/45174444/82326750-9da6d500-99dd-11ea-8af0-034613ec7eb1.png)
 * Account: access and edit Username, email, firstname, lastname.
 ![Account](https://user-images.githubusercontent.com/45174444/82327267-6d136b00-99de-11ea-96b5-6c2e20307e13.png)
 ![EditAccount](https://user-images.githubusercontent.com/45174444/82327269-6dac0180-99de-11ea-9510-beb013838371.png)
+* Real time notification
+    * User receives real time notifications when other users check his profile, “liked” him, and block him. User will not be notified if he blocks this user.
+    * notifications have readed and unreaded seperation. Once the user check the notificaiton, it will be labeled as readed.
+    * User can also label all the notifications as readed by one click.
+![notification](https://user-images.githubusercontent.com/45174444/82327746-22deb980-99df-11ea-9634-2932b9046ba3.png)
+* Also a real time message notification if a connected user send him a message.
+![newMessage](https://user-images.githubusercontent.com/45174444/82327896-63d6ce00-99df-11ea-910c-1a977640ece3.png)
