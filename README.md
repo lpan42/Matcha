@@ -59,6 +59,10 @@ from the registration to the final encounter
 * My Account: access and edit Username, email, firstname, lastname.
 ![Account](https://user-images.githubusercontent.com/45174444/82327267-6d136b00-99de-11ea-96b5-6c2e20307e13.png)
 ![EditAccount](https://user-images.githubusercontent.com/45174444/82327269-6dac0180-99de-11ea-9510-beb013838371.png)
+* My history: User has a my hisory page to show his visit, like and block history. User can visit profile and unblock user from this page. 
+![My history](https://user-images.githubusercontent.com/45174444/82330525-43107780-99e3-11ea-9f59-ee1bc7a629c6.png)
+* My friends: All connected user will be shown on this page, user can visit profile and send messages from this page.
+![my friends](https://user-images.githubusercontent.com/45174444/82330747-84a12280-99e3-11ea-9776-547ab1aa289f.png)
 * Real time notification
     * User receives real time notifications when other users check his profile, “liked” him, and block him. User will not be notified if he blocks this user.
     * notifications have readed and unreaded seperation. Once the user check the notificaiton, it will be labeled as readed.
