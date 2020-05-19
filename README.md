@@ -21,6 +21,7 @@ from the registration to the final encounter
     * email, username(Max 10 characters, lowercase letters and numbers only.), lastname, firstname and pwd (Min 8 characters, at least one number, and one uppercase and lowercase letter)
     * Verify if username && email already exists
     * Verify if user fills all fields and if inputs are the right format as required
+[Register:](https://user-images.githubusercontent.com/45174444/82326321-e7db8680-99dc-11ea-8b24-8e0486858c3e.png)
 * An e-mail with an unique link to the registered user to verify and active his account before first login.
 * Login with username or email and the right pwd.
 * An e-mail with an unique link to re-initialize user's password if he request to reset the pwd.
@@ -31,3 +32,4 @@ from the registration to the final encounter
     * Biography
     * Choose from a list of interests
     * Upload max 4 pictures (excluding avatar).
+* Account: access and edit Username, email, firstname, lastname.
