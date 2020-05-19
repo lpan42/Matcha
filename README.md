@@ -36,4 +36,5 @@ from the registration to the final encounter
     * Upload max 4 pictures (excluding avatar).
 ![profile](https://user-images.githubusercontent.com/45174444/82326750-9da6d500-99dd-11ea-8af0-034613ec7eb1.png)
 * Account: access and edit Username, email, firstname, lastname.
-![Account](https://user-images.githubusercontent.com/45174444/82327071-26257580-99de-11ea-921e-d72531776108.png)
+![Account](https://user-images.githubusercontent.com/45174444/82327267-6d136b00-99de-11ea-96b5-6c2e20307e13.png)
+![EditAccount](https://user-images.githubusercontent.com/45174444/82327269-6dac0180-99de-11ea-9510-beb013838371.png)
