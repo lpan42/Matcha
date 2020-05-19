@@ -81,7 +81,7 @@ const useStyles = makeStyles(theme => ({
 		width:'90%',
 	}
   }));
-  
+
 const ChatRoomModal = ({show, handleClose, activeChatroom}) => {
     const chatContext = useContext(ChatContext);
 	const userContext = useContext(UserContext);

@@ -25,6 +25,8 @@ import WcIcon from '@material-ui/icons/Wc';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { getDistance } from 'geolib';
 import { useHistory } from "react-router-dom";
+import updateCity from '../../utils/updateCity';
+import profileContext from '../../contexts/profile/profileContext';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -58,6 +60,7 @@ const Index = () => {
         setSuggestions(result.data.data);
         setSort("fameDesc");
         setLoading(false);
+        console.log(result);
     }catch(err){
         console.log(err);
     }
@@ -95,7 +98,21 @@ const Index = () => {
     else{
       setLoading(true);
       getSuggestions();
+      console.log(user);
     }
+  }
+
+  const compareInterests = () => {
+    // console.log(suggestion.interests.length);
+    let sameInterestNum = 0;
+    console.log(user);
+    // suggestions.map((suggestion) => {
+    //   suggestion.ForEach(element =>{
+    //         if (suggestion.interests === profileContext.){
+    //       }
+    //     }
+    //   )
+    // })
   }
 
   const sortingDesc = (obj1, obj2, key) => {
@@ -151,6 +168,7 @@ const Index = () => {
   }
 const updateSuggestions = (input) => {
   setSuggestions(input);
+  compareInterests();
 }
   if(suggestions.length){
     suggestions.map((suggestion, key) => {
@@ -178,7 +196,7 @@ const updateSuggestions = (input) => {
                 <i className="fas fa-male" style={{color:"var(--primary-color)",paddingLeft:"5px"}}></i> : 
                 <i className="fas fa-female" style={{color:"var(--primary-color)",paddingLeft:"5px"}}></i>}
               <Typography variant="caption" component="p"></Typography>
-              <Typography variant="caption" component="p"><LocationOnIcon fontSize="small" color="primary"/>(city)</Typography>
+              <Typography variant="caption" component="p"><LocationOnIcon fontSize="small" color="primary"/>(cit)</Typography>
               <Typography variant="caption" component="p"><WcIcon fontSize="small" color="primary"/>{toUpperCase(suggestion.sex_prefer)}</Typography>
               <Typography variant="caption" component="p"><CakeIcon fontSize="small" color="primary"/>{calculateAge(suggestion.birthday)}</Typography>
             </CardContent>
