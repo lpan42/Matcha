@@ -34,4 +34,6 @@ from the registration to the final encounter
     * Biography
     * Choose from a list of interests
     * Upload max 4 pictures (excluding avatar).
+![profile](https://user-images.githubusercontent.com/45174444/82326750-9da6d500-99dd-11ea-8af0-034613ec7eb1.png)
 * Account: access and edit Username, email, firstname, lastname.
+![Account](https://user-images.githubusercontent.com/45174444/82327071-26257580-99de-11ea-921e-d72531776108.png)
