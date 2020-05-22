@@ -17,14 +17,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header( 'Access-Control-Allow-Credentials', 'true');
     next();
-  });
-
-app.use(requestIp.mw())
-// app.use(function(req, res) {
-//     // by default, the ip address will be set on the `clientIp` attribute
-//     var IP = req.clientIp;
-//     res.end();
-// });
+});
 
 // include router
 const userRoute = require('./routes/userRoute');
