@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const moment = require('moment');
 const fs = require('fs');
+const publicIp = require('public-ip');
 const emailSender = require('./emailSender');
 const ipLocation = require("iplocation");
 
@@ -105,7 +106,14 @@ export async function createNewUser(body) {
     try {
         const result = await connection.query('INSERT INTO users SET ?', data);
         try{
-            await connection.query('INSERT INTO profiles (id_user) value (?)', result.insertId);
+            const IP = await publicIp.v4();
+            const LatLng = await ipLocation(IP);
+            const dataProfile = {
+                id_user: result.insertId,
+                location_lat: LatLng.latitude,
+                location_lon: LatLng.longitude
+            }
+            await connection.query('INSERT INTO profiles SET ?', dataProfile);
         }catch (err) {
             throw new Error(err);
         }
