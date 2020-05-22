@@ -59,7 +59,10 @@ import {
                 payload: result.data
             });
         }catch(err){
-            console.log(err);
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
     const clearNotif = () => {

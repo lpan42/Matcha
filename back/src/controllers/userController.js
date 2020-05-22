@@ -124,6 +124,9 @@ export async function modifyAccount(req,res){
 }
 
 export async function getProfile(req, res) {
+    if(!Number.isInteger(+req.params.userid)){
+        return res.status(400).json({error: "UserID has to be a number."});
+    }
     const getProfile = await userModel.getProfileInfoById(req.params.userid);
     if(getProfile.err)
         return res.status(400).json({error: getProfile.err});
@@ -176,6 +179,9 @@ export async function setAllReaded(req,res){
 }
 
 export async function readNotif(req, res) {
+    if(!Number.isInteger(+req.params.id_notif)){
+        return res.status(400).json({error: "NotifID has to be a number."});
+    }
     await userModel.readNotif(req.params.id_notif);
     const result = await userModel.getNotif(req.userid);
     return res.status(200).json({
@@ -183,14 +189,20 @@ export async function readNotif(req, res) {
     });
 }
 
-export async function getHistory(req, res){
-    const result = await userModel.getHistory(req.params.userid);
-    return res.status(200).json({
-        data: result
-    });
-}
+// export async function getHistory(req, res){
+//     if(!Number.isInteger(+req.params.userid)){
+//         return res.status(400).json({error: "userID has to be a number."});
+//     }
+//     const result = await userModel.getHistory(req.params.userid);
+//     return res.status(200).json({
+//         data: result
+//     });
+// }
 
 export async function checkLike(req,res){
+    if(!Number.isInteger(+req.params.userid)){
+        return res.status(400).json({error: "userID has to be a number."});
+    }
     const result = await userModel.checkLike(req.params.userid, req.userid);
     let like = false;
     let connected = false;
@@ -208,6 +220,9 @@ export async function checkLike(req,res){
 }
 
 export async function likeProfile(req,res) {
+    if(!Number.isInteger(+req.params.userid)){
+        return res.status(400).json({error: "userID has to be a number."});
+    }
     if (req.userid != req.params.userid) {
         let data = {
             // notification: 'likes',
@@ -242,6 +257,9 @@ export async function likeProfile(req,res) {
 }
 
 export async function blockUser(req,res) {
+    if(!Number.isInteger(+req.params.userid)){
+        return res.status(400).json({error: "userID has to be a number."});
+    }
     if (req.userid != req.params.userid) {
         let data = {
             // notification: 'blocks',
@@ -272,6 +290,9 @@ export async function blockUser(req,res) {
 }
 
 export async function reportFake(req,res) {
+    if(!Number.isInteger(+req.params.userid)){
+        return res.status(400).json({error: "userID has to be a number."});
+    }
     if (req.userid != req.params.userid) {
         let data = {
             // notification: 'blocks',
@@ -308,6 +329,9 @@ export async function reportFake(req,res) {
 }
 
 export async function unlikeProfile(req,res) {
+    if(!Number.isInteger(+req.params.userid)){
+        return res.status(400).json({error: "userID has to be a number."});
+    }
     if (req.userid != req.params.userid) {
         let data = {
             // notification: 'unlikes',

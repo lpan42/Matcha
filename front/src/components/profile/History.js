@@ -18,13 +18,14 @@ import Typography from '@material-ui/core/Typography';
 
 const History = () => {
     const  userContext = useContext(UserContext);
-    const { loadUser, clearSuccess } = userContext;
+    const { loadUser } = userContext;
 
     const [blockList, setBlockList] = useState([]);
     const [visitList, setVisitList] = useState([]);
     const [likeList, setLikeList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState(null);
+    const [error, setError] = useState(null);
     const [showUnblock, setShowUnblock] = useState(false);
     const [blockId,setBlockId] = useState(null);
     const [blockFirstname,setBlockFristname] = useState(null);
@@ -74,10 +75,14 @@ const History = () => {
         getLikeList();
         if(success) {
             toast.success(success);
-            clearSuccess();
+            setSuccess(null);
+        }
+        if(error) {
+            toast.error(error);
+            setError(null);
         }
         //eslint-disable-next-line
-      }, [success]);
+      }, [success,error]);
     
     if (loading) return <Spinner />;
     
@@ -199,6 +204,7 @@ const History = () => {
                     blockUserFirstname = {toUpperCase(blockFirstname)}
                     blockUserLastname = {toUpperCase(blockLastname)}
                     success={(data)=>setSuccess(data)}
+                    error={(data)=>setError(data)}
                 /> : null}
         </div>
     )

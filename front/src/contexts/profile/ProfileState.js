@@ -63,7 +63,6 @@ const ProfileState = props => {
                 socket.emit('addNotif', data);
             }
         }catch(err){
-            console.log(err)
             dispatch({
                 type: GET_PROFILE_NO,
                 payload: err.response
@@ -80,6 +79,10 @@ const ProfileState = props => {
             });
         }
         catch(err){
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
 
@@ -95,7 +98,10 @@ const ProfileState = props => {
                 payload: result.data.success
             });
         }catch(err){
-            console.log(err);
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
 
@@ -110,6 +116,10 @@ const ProfileState = props => {
             //     type: UPDATE_INTERESTS
             // });
         }catch(err){
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
     
@@ -124,7 +134,10 @@ const ProfileState = props => {
             //     type: UPLOAD_PICTURES
             // });
         }catch(err){
-            console.log(err);
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
 
@@ -139,7 +152,10 @@ const ProfileState = props => {
             //     type: MODIFY_PICTURES
             // });
         }catch(err){
-            console.log(err);
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
 
@@ -152,7 +168,10 @@ const ProfileState = props => {
                 payload: result.data
             });
         }catch(err){
-            console.log(err);
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
 
@@ -224,11 +243,10 @@ const ProfileState = props => {
                 payload: result.data
             });
         }catch(err){
-            console.log(err)
-            // dispatch({
-            //     type: NORMAL_ERROR,
-            //     payload: err.response.data.error
-            // });
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
     const reportFake = async (userid) => {
@@ -249,11 +267,10 @@ const ProfileState = props => {
                 payload: result.data
             });
         }catch(err){
-            console.log(err)
-            // dispatch({
-            //     type: NORMAL_ERROR,
-            //     payload: err.response.data.error
-            // });
+            dispatch({
+                type: NORMAL_ERROR,
+                payload: err.response.data.error
+            });
         }
     }
 

@@ -103,6 +103,9 @@ const Register = (props) => {
                 <CardContent>   
                     <form className={classes.form} onSubmit={onSubmit}>
                         <TextField required id="firstname" label="firstname" style = {{width: 125}}
+                            inputProps={{
+                                maxLength: 20,
+                            }}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">
@@ -113,6 +116,9 @@ const Register = (props) => {
                             type="text" size="small" value={firstname} onChange={onChange}
                         />
                         <TextField required id="lastname" label="lastname" style = {{width: 125}}
+                            inputProps={{
+                                maxLength: 20,
+                            }}
                             InputProps={{
                                 startAdornment: (
                                 <InputAdornment position="start">

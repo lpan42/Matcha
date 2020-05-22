@@ -12,7 +12,7 @@ import io from 'socket.io-client';
 
 let socket;
 
-const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, blockUserLastname, success}) => {
+const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, blockUserLastname, success,error}) => {
     if(!socket){
       socket = io.connect(':8000');
   }
@@ -32,7 +32,7 @@ const UnblockComfirm = ({show, handleClose, blockUserId, blockUserFirstname, blo
               socket.emit('addNotif', data);
           }
         }catch(err){
-            console.log(err);
+          error(err.response.data.error);
         }
         handleClose();
     }
