@@ -4,6 +4,7 @@ import ProfileContext from '../../contexts/profile/profileContext';
 import EditInterests from './EditInterests';
 import UploadAvatars from '../modals/UploadAvatars';
 import EditPictures from './EditPictures';
+import EditLocation from './EditLocation';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -153,6 +154,8 @@ const EditProfile = () => {
                         <Divider variant="middle" style={{margin:"10px 0"}}/>
                         <Typography variant="subtitle2" component="span" color="primary">Interests:  </Typography><br/>
                         <EditInterests interests_list={interests_list && interests_list.data} />
+                        <br/>
+                        <EditLocation/>
                         <br/>
                         <Divider variant="middle" style={{margin:"10px 0"}}/>
                         <Typography variant="subtitle2" component="span" color="primary">Pictures:  </Typography>

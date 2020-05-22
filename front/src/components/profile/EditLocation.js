@@ -17,7 +17,7 @@ const MyMapComponent = withScriptjs(withGoogleMap
                     zoom={props.zoom}
                     center={{ lat: props.position.lat, lng: props.position.lng }}
                 >
-                {props.isMarkerShown && <Marker position={{ lat: props.position.lat, lng: props.position.lng }} draggable={true} onDragEnd={(e) => {props.onMarkerDragEnd(e.latLng.lat(), e.latLng.lng())}} />}
+                {<Marker position={{ lat: props.position.lat, lng: props.position.lng }} draggable={true} onDragEnd={(e) => {props.onMarkerDragEnd(e.latLng.lat(), e.latLng.lng())}} />}
                 </GoogleMap>
         }
         </Fragment>
@@ -31,7 +31,7 @@ const EditLocation = ({token, location_lat, location_lon}) => {
     const { user } = userContext;
 
     const [location, setLocation] = useState({
-        isMarkerShown: profile ? true : false,
+        isMarkerShown: true,
         zoom: profile ? 15 : 11,
         error: null,
         position: {
@@ -99,24 +99,6 @@ const EditLocation = ({token, location_lat, location_lon}) => {
         modify_location(profile);
     };
 
-    // const updateCity = () => {
-    //     Geocode.setApiKey("AIzaSyCzpKxEeCWg9XY84g0eFLS_-Mg-OHqxERw");
-    //     Geocode.setLanguage("en");
-    //     Geocode.fromLatLng(location.position.lat, location.position.lng)
-    //     .then(
-    //         response => {
-    //             const locatecity = response.results[0].address_components[2].long_name;
-    //             setLocation({
-    //                 ...location,
-    //                 city: locatecity
-    //             })
-    //         },
-    //         error => {
-    //             console.error(error);
-    //         }
-    //     );
-    // };
-
     return (
         <Fragment>
             <LocationOnOutlinedIcon onClick={() => allowLocation()}/>
@@ -126,7 +108,7 @@ const EditLocation = ({token, location_lat, location_lon}) => {
                 zoom={location.zoom}
                 position={location.position}
                 onMarkerDragEnd={onMarkerDragEnd}
-                googleMapURL={"https://maps.googleapis.com/maps/api/js?key=AIzaSyCzpKxEeCWg9XY84g0eFLS_-Mg-OHqxERw&libraries=places"}
+                googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `300px` }} />}
                 mapElement= {<div style={{ height: `100%` }} />}
@@ -136,7 +118,4 @@ const EditLocation = ({token, location_lat, location_lon}) => {
 }
 
 export default EditLocation
-
-//in index.html include the api key for googlemap
-
 

@@ -7,15 +7,24 @@ const authSocket = require('./middleware/authSocket');
 const chatController = require('./controllers/chatController');
 const userModel = require('./models/user');
 const generateUser = require('./config/generateUsers');
+let requestIp = require('request-ip');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(fileUpload());
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header( 'Access-Control-Allow-Credentials', 'true');
     next();
   });
+
+app.use(requestIp.mw())
+// app.use(function(req, res) {
+//     // by default, the ip address will be set on the `clientIp` attribute
+//     var IP = req.clientIp;
+//     res.end();
+// });
 
 // include router
 const userRoute = require('./routes/userRoute');
@@ -26,11 +35,11 @@ const chatRoute = require('./routes/chatRoute');
 app.use('/user/', userRoute);
 app.use('/index/', indexRoute);
 app.use('/chat/', chatRoute);
-  
+
 app.get("/generate", (req, res) => {
     generateUser.generateUser();
     res.send({ message: "1000 Users generated" });
-  });
+});
 
 const PORT = 8000;
 

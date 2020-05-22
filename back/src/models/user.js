@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const moment = require('moment');
 const fs = require('fs');
 const emailSender = require('./emailSender');
+const ipLocation = require("iplocation");
 
 export async function getUserInfoById(userid) {
     try {
@@ -99,7 +100,7 @@ export async function createNewUser(body) {
         firstname: body.firstname.toLowerCase(),
         lastname: body.lastname.toLowerCase(),
         password: hash,
-        active_link: active_link
+        active_link: active_link,
     };
     try {
         const result = await connection.query('INSERT INTO users SET ?', data);
