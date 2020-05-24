@@ -32,7 +32,7 @@ const EditLocation = ({token, location_lat, location_lon}) => {
 
     const [location, setLocation] = useState({
         isMarkerShown: true,
-        zoom: profile ? 15 : 11,
+        zoom: 15,
         error: null,
         position: {
             lat: profile ? profile.data.location_lat : 48.8534,
@@ -41,14 +41,23 @@ const EditLocation = ({token, location_lat, location_lon}) => {
         city: null,
     });
 
-    useEffect(() => {
-        updateCity(location.position.lat, location.position.lng)
-        .then(data => {
+    const getCityName = () => {
+        const cityName = updateCity(location.position.lat, location.position.lng)
+        .then(
+            res => {
+                const cityname = res.results[0].address_components[2].long_name;
                 setLocation({
-                ...location,
-                city: data.city
-            })}
-        );
+                    ...location,
+                    city: cityname
+                })
+            },
+            error => {
+                console.error(error);
+        })
+    }
+
+    useEffect(() => {
+        getCityName();
     }, [location.position])
 
     const allowLocation = () => {
@@ -67,8 +76,8 @@ const EditLocation = ({token, location_lat, location_lon}) => {
                 modify_location(profile);
 			},
 			error => (error.message),
-			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        )}else{
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 })
+        }else{
             setLocation({
                 error: true
             })
@@ -108,7 +117,7 @@ const EditLocation = ({token, location_lat, location_lon}) => {
                 zoom={location.zoom}
                 position={location.position}
                 onMarkerDragEnd={onMarkerDragEnd}
-                googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"}
+                googleMapURL={"https://maps.googleapis.com/maps/api/js?key="}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `300px` }} />}
                 mapElement= {<div style={{ height: `100%` }} />}
