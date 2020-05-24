@@ -1,18 +1,9 @@
 import Geocode from "react-geocode";
 
-const updateCity = (lat, lng) =>{
-    // Geocode.setApiKey("");
-    Geocode.setLanguage("en");
-    let cityname = '';
-    Geocode.fromLatLng(lat, lng)
-    .then(
-        res => {
-            cityname = res.results[0].address_components[2].long_name;
-        },
-        error => {
-            console.error(error);
-        })
-        return (cityname);
+const updateCity = async (lat, lng) =>{
+    Geocode.setApiKey("");
+    const result = Geocode.fromLatLng(lat.toString(), lng.toString());
+    return (result);
 }
 
 export default updateCity;
