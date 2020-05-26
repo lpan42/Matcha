@@ -1,8 +1,6 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
-// import { compose, withProps } from "recompose";
 import { withScriptjs ,withGoogleMap, GoogleMap, Marker} from "react-google-maps";
 import ProfileContext from '../../contexts/profile/profileContext';
-import UserContext from '../../contexts/user/userContext';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
@@ -27,8 +25,6 @@ const EditLocation = ({token, location_lat, location_lon}) => {
 
     const  profileContext = useContext(ProfileContext);
     const { profile } = profileContext;
-    const userContext = useContext(UserContext);
-    const { user } = userContext;
 
     const [location, setLocation] = useState({
         isMarkerShown: true,
@@ -41,26 +37,25 @@ const EditLocation = ({token, location_lat, location_lon}) => {
         city: profile.data.city,
     });
 
-    const getCityName = async () => {
-        updateCity(location.position.lat, location.position.lng)
-        .then(
-            res => {
-                const cityname = res.results[0].address_components[2].long_name;
-                setLocation({
-                    ...location,
-                    city: cityname
-                })
-            },
-            error => {
-                console.error(error);
-        })
-    }
-
     useEffect(() => {
+        const getCityName = () => {
+            updateCity(location.position.lat, location.position.lng)
+            .then(
+                res => {
+                    const cityname = res.results[0].address_components[2].long_name;
+                    setLocation({
+                        ...location,
+                        city: cityname
+                    })
+                },
+                error => {
+                    console.error(error);
+            })
+        };
         getCityName();
         profile.data.city = location.city;
         modify_location(profile);
-    }, [location.city, location.position])
+    }, [location.position, location.city])// eslint-disable-line 
 
     const allowLocation = () => {
         if(navigator.geolocation){
