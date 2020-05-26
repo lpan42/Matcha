@@ -10,7 +10,7 @@ const ipLocation = require("iplocation");
 export async function getUserInfoById(userid) {
     try {
         const result = await connection.query(`
-        SELECT users.id_user,username,firstname,lastname,email,online,avatar,location_lat,location_lon
+        SELECT users.id_user,username,firstname,lastname,email,online,avatar,location_lat,location_lon, city
         FROM users 
         LEFT JOIN profiles ON profiles.id_user = users.id_user
         WHERE users.id_user = ?
@@ -111,8 +111,10 @@ export async function createNewUser(body) {
             const dataProfile = {
                 id_user: result.insertId,
                 location_lat: LatLng.latitude,
-                location_lon: LatLng.longitude
+                location_lon: LatLng.longitude,
+                city: LatLng.city
             }
+            console.log(dataProfile)
             await connection.query('INSERT INTO profiles SET ?', dataProfile);
         }catch (err) {
             throw new Error(err);
@@ -182,7 +184,7 @@ export async function logout(userid) {
 export async function getProfileInfoById(userid) {
     try {
         const result = await connection.query(
-            `SELECT profiles.id_user, gender, birthday, sex_prefer, biography, location_lat, location_lon, avatar, fame, username, firstname, lastname, last_login, online
+            `SELECT profiles.id_user, gender, birthday, sex_prefer, biography, location_lat, location_lon, avatar, fame, city, username, firstname, lastname, last_login, online
             FROM profiles 
             LEFT JOIN users on profiles.id_user = users.id_user
             WHERE profiles.id_user = ?`,
@@ -319,7 +321,8 @@ export async function modify_location(data) {
     try{
         let lat = data.data.location_lat;
         let lon = data.data.location_lon;
-        await connection.query('UPDATE profiles set location_lat = ?, location_lon = ? WHERE id_user = ?', [lat, lon, data.id_user]);
+        let city = data.data.city;
+        await connection.query('UPDATE profiles set location_lat = ?, location_lon = ?, city = ? WHERE id_user = ?', [lat, lon, city, data.id_user]);
     }catch(err){
         throw new Error(err);
     }

@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `location_lon` float NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `fame` int(11) NOT NULL DEFAULT '0',
+  `city` varchar(255) DEFAULT '(City)',
   PRIMARY KEY (`id_profile`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1002 DEFAULT CHARSET=utf8;
 

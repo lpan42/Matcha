@@ -124,7 +124,7 @@ const MyProfile = () => {
                 <Typography variant="subtitle2" component="span">{ (profile && profile.data.birthday) ? calculateAge(profile && profile.data.birthday) : "NaN" }</Typography>
                 <br></br>
                 <Typography variant="subtitle2" component="span" color="primary">Location: </Typography>
-                <Typography variant="subtitle2" component="span">(Paris)</Typography>
+                <Typography variant="subtitle2" component="span">{profile && profile.data.city }</Typography>
                 <br></br>
                 <Typography variant="subtitle2" component="span" color="primary">Orientation:  </Typography>
                 <Typography variant="subtitle2" component="span">{profile && toUpperCase(profile.data.sex_prefer)}</Typography>
