@@ -25,7 +25,6 @@ import WcIcon from '@material-ui/icons/Wc';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { getDistance } from 'geolib';
 import { useHistory } from "react-router-dom";
-import updateCity from '../../utils/updateCity';
 import profileContext from '../../contexts/profile/profileContext';
 
 
@@ -61,7 +60,7 @@ const Index = () => {
         setSuggestions(result.data.data);
         setSort("fameDesc");
         setLoading(false);
-        // console.log(result);
+
     }catch(err){
         console.log(err);
     }
