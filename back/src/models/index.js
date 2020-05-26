@@ -76,7 +76,7 @@ export async function getSuggestionsIfBi(minLat, maxLat, minLong, MaxLong, useri
         const result = await connection.query(`
             SELECT users.id_user, username, firstname, lastname, online,
                 gender, birthday, sex_prefer, avatar, biography,
-                location_lat, location_lon, fame
+                location_lat, location_lon, fame, city
                 FROM users
                 LEFT JOIN profiles on users.id_user = profiles.id_user
                 WHERE sex_prefer = ?
@@ -97,7 +97,7 @@ export async function searchUser(userid, keyword){
         const result = await connection.query(`
             SELECT users.id_user, username, firstname, lastname, online,
                 gender, birthday, sex_prefer, avatar, biography, 
-                location_lat, location_lon, fame
+                location_lat, location_lon, fame, city
                 FROM users
                 LEFT JOIN profiles on users.id_user = profiles.id_user
                 WHERE (
@@ -119,7 +119,7 @@ export async function filterUser(ageMin,ageMax,gender,sexPrefer,minLat,maxLat,mi
         const result = await connection.query(`
             SELECT users.id_user, username, firstname, lastname, online,
                 gender, birthday, sex_prefer, avatar, biography, 
-                location_lat, location_lon, fame
+                location_lat, location_lon, fame, city
                 FROM users
                 LEFT JOIN profiles on users.id_user = profiles.id_user
                 WHERE gender = ?
