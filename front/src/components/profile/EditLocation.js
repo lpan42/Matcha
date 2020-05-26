@@ -58,13 +58,9 @@ const EditLocation = ({token, location_lat, location_lon}) => {
 
     useEffect(() => {
         getCityName();
-        modify_location(profile);
-    }, [location.position])
-
-    useEffect(() => {
         profile.data.city = location.city;
         modify_location(profile);
-    }, [location.city])
+    }, [location.city, location.position])
 
     const allowLocation = () => {
         if(navigator.geolocation){
