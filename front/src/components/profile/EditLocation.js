@@ -1,5 +1,5 @@
-import React, { Fragment, useContext, useState, useEffect, Component } from 'react';
-import { compose, withProps } from "recompose";
+import React, { Fragment, useContext, useState, useEffect } from 'react';
+// import { compose, withProps } from "recompose";
 import { withScriptjs ,withGoogleMap, GoogleMap, Marker} from "react-google-maps";
 import ProfileContext from '../../contexts/profile/profileContext';
 import UserContext from '../../contexts/user/userContext';
@@ -38,11 +38,11 @@ const EditLocation = ({token, location_lat, location_lon}) => {
             lat: profile ? profile.data.location_lat : 48.8534,
             lng: profile ? profile.data.location_lon : 2.3488
         },
-        city: null,
+        city: profile.data.city,
     });
 
-    const getCityName = () => {
-        const cityName = updateCity(location.position.lat, location.position.lng)
+    const getCityName = async () => {
+        updateCity(location.position.lat, location.position.lng)
         .then(
             res => {
                 const cityname = res.results[0].address_components[2].long_name;
@@ -58,12 +58,18 @@ const EditLocation = ({token, location_lat, location_lon}) => {
 
     useEffect(() => {
         getCityName();
+        modify_location(profile);
     }, [location.position])
+
+    useEffect(() => {
+        profile.data.city = location.city;
+        modify_location(profile);
+    }, [location.city])
 
     const allowLocation = () => {
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(
-			position => {
+			async (position) => {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
                 setLocation({ ...location,
@@ -73,12 +79,12 @@ const EditLocation = ({token, location_lat, location_lon}) => {
                 });
                 profile.data.location_lat = latitude;
                 profile.data.location_lon = longitude;
-                modify_location(profile);
 			},
 			error => (error.message),
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 })
         }else{
             setLocation({
+                ...location,
                 error: true
             })
         }
@@ -92,20 +98,19 @@ const EditLocation = ({token, location_lat, location_lon}) => {
             }
         }
         try{
-            const result = await axios.post('/user/modify/location', data, config);
+            await axios.post('/user/modify/location', data, config);
         }catch(err){
             console.log(err);
         }
     }
         
-    const onMarkerDragEnd = (latitude, longitude) => {
+    const onMarkerDragEnd = async (latitude, longitude) => {
         setLocation({
             ...location,
             position: { lat: latitude, lng: longitude },
         });
         profile.data.location_lat = latitude;
         profile.data.location_lon = longitude;
-        modify_location(profile);
     };
 
     return (

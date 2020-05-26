@@ -28,6 +28,7 @@ import { useHistory } from "react-router-dom";
 import updateCity from '../../utils/updateCity';
 import profileContext from '../../contexts/profile/profileContext';
 
+
 const useStyles = makeStyles((theme) => ({
   card: {
     width: 280,
@@ -60,7 +61,7 @@ const Index = () => {
         setSuggestions(result.data.data);
         setSort("fameDesc");
         setLoading(false);
-        console.log(result);
+        // console.log(result);
     }catch(err){
         console.log(err);
     }
@@ -102,18 +103,9 @@ const Index = () => {
     }
   }
 
-  const compareInterests = () => {
-    // console.log(suggestion.interests.length);
-    let sameInterestNum = 0;
-    console.log(user);
-    // suggestions.map((suggestion) => {
-    //   suggestion.ForEach(element =>{
-    //         if (suggestion.interests === profileContext.){
-    //       }
-    //     }
-    //   )
-    // })
-  }
+  // const compareInterests = () => {
+
+  //   }
 
   const sortingDesc = (obj1, obj2, key) => {
     if (obj1[key] > obj2[key])
@@ -132,6 +124,10 @@ const Index = () => {
   }
 
   switch(sort){
+    case 'interestNb' :
+    suggestions.sort((sugg1, sugg2) => {
+        return sortingDesc(sugg1, sugg2, 'CommonInterestNb')
+     })
     case 'fameDesc':
       suggestions.sort((obj1, obj2) => {
         return sortingDesc(obj1, obj2, 'fame')
@@ -168,7 +164,7 @@ const Index = () => {
   }
 const updateSuggestions = (input) => {
   setSuggestions(input);
-  compareInterests();
+  // compareInterests();
 }
   if(suggestions.length){
     suggestions.map((suggestion, key) => {
@@ -196,7 +192,7 @@ const updateSuggestions = (input) => {
                 <i className="fas fa-male" style={{color:"var(--primary-color)",paddingLeft:"5px"}}></i> : 
                 <i className="fas fa-female" style={{color:"var(--primary-color)",paddingLeft:"5px"}}></i>}
               <Typography variant="caption" component="p"></Typography>
-              <Typography variant="caption" component="p"><LocationOnIcon fontSize="small" color="primary"/>(cit)</Typography>
+              <Typography variant="caption" component="p"><LocationOnIcon fontSize="small" color="primary"/>{suggestion.city}</Typography>
               <Typography variant="caption" component="p"><WcIcon fontSize="small" color="primary"/>{toUpperCase(suggestion.sex_prefer)}</Typography>
               <Typography variant="caption" component="p"><CakeIcon fontSize="small" color="primary"/>{calculateAge(suggestion.birthday)}</Typography>
             </CardContent>
