@@ -103,10 +103,6 @@ const Index = () => {
     }
   }
 
-  // const compareInterests = () => {
-
-  //   }
-
   const sortingDesc = (obj1, obj2, key) => {
     if (obj1[key] > obj2[key])
       return -1;
@@ -124,13 +120,14 @@ const Index = () => {
   }
 
   switch(sort){
-    case 'interestNb' :
-    suggestions.sort((sugg1, sugg2) => {
-        return sortingDesc(sugg1, sugg2, 'CommonInterestNb')
-     })
     case 'fameDesc':
       suggestions.sort((obj1, obj2) => {
         return sortingDesc(obj1, obj2, 'fame')
+      })
+      break;
+    case 'interestNb' :
+      suggestions.sort((sugg1, sugg2) => {
+          return sortingDesc(sugg1, sugg2, 'CommonInterestNb')
       })
       break;
     case 'ageDesc':
@@ -221,6 +218,7 @@ const updateSuggestions = (input) => {
           <Select value={sort} onChange={e=>setSort(e.target.value)} 
             displayEmpty style={{fontSize:"12px"}}>
             <MenuItem value="fameDesc">Fame: High to Low</MenuItem>
+            <MenuItem value="interestNb">Interest: High to Low</MenuItem>
             <MenuItem value="distanceAsc">Distance: Close to Far</MenuItem>
             <MenuItem value="ageDesc">Age: High to Low</MenuItem>
             <MenuItem value="ageAsc">Age: Low to High</MenuItem>
