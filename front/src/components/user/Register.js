@@ -76,7 +76,7 @@ const Register = (props) => {
     const { username, email, firstname, lastname, password, re_password } = user;
 
     const onChange = e => {
-        setUser({ ...user, [e.target.id]: e.target.value });
+        setUser({ ...user, [e.target.id]: e.target.value.trim() });
     }
 
     const onSubmit = e => {

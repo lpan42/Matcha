@@ -104,6 +104,7 @@ const ResetPwd = ({ match }) => {
         else if(pwd !== rePwd){
             toast.error('Two passwords unmatched');
         }else{
+            pwd = pwd.trim();
             updatePwd();
         }
     }
