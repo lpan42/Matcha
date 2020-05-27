@@ -60,16 +60,21 @@ const Index = () => {
         setSuggestions(result.data.data);
         setSort("fameDesc");
         setLoading(false);
-
     }catch(err){
         console.log(err);
     }
   }
 
+  const myTrim = (x) => {
+    const replaced = x.replace(/[^\w0-9-]+/ ,'') === '' ? '*' : x.replace(/[^\w0-9-]+/ ,'');
+    return replaced;
+  }
+
   const searchUser = async () => {
     setAuthToken(localStorage.token);
+    const searchInputTrim = myTrim(searchUserInput);
     try{
-        const result =  await axios.get(`/index/search/${searchUserInput}`);
+        const result =  await axios.get(`/index/search/${searchInputTrim}`);
         setSuggestions(result.data.data);
         setSort("fameDesc");
         setLoading(false);
