@@ -50,7 +50,7 @@ const EditAccount = () => {
                         ),
                     }}
                     type="text" size="small" placeholder={user && user.data.firstname} 
-                    onChange={e => user.data.firstname = e.target.value.toLowerCase()}
+                    onChange={e => user.data.firstname = e.target.value.toLowerCase().trim()}
                 />
                 <TextField id="lastname" label="lastname" style = {{width: 110}}
                     InputProps={{
@@ -61,7 +61,7 @@ const EditAccount = () => {
                         ),
                     }}
                     type="text" size="small" placeholder={user && user.data.lastname} 
-                    onChange={e => user.data.lastname = e.target.value.toLowerCase()}
+                    onChange={e => user.data.lastname = e.target.value.toLowerCase().trim()}
                 />
                 <TextField id="username" label="username" style = {{width: 240}}
                     InputProps={{
@@ -72,7 +72,7 @@ const EditAccount = () => {
                         ),
                     }}
                     type="text" size="small" placeholder={user && user.data.username} 
-                    onChange={e => user.data.username = e.target.value.toLowerCase()}
+                    onChange={e => user.data.username = e.target.value.toLowerCase().trim()}
                 />
                 <TextField id="email" label="email" style = {{width: 240}}
                     InputProps={{
@@ -83,7 +83,7 @@ const EditAccount = () => {
                         ),
                     }}
                     type="email" size="small"  placeholder={user && user.data.email} 
-                    onChange={e => user.data.email = e.target.value.toLowerCase()}
+                    onChange={e => user.data.email = e.target.value.toLowerCase().trim()}
                 />
                 <br></br>
                 <Button type="submit" color="primary">Confirm</Button>
