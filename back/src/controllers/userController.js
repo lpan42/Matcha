@@ -159,17 +159,6 @@ export async function modifyProfile(req, res) {
     return res.status(200).json({ success: 'Profile has been successfully updated' });
 }
 
-// export async function modifyLocation(req, res) {
-//     let data = {        
-//         lat: body.data.latitude,
-//         lon: body.data.longtitude,
-//     }
-//     data.id_user = req.body.data.id_user;
-//     console.log(data.id_user);
-//     await userModel.modify_location(data);
-//     return res.status(200).json({ success: 'Location has been successfully updated' });
-// }
-
 
 export async function modifyLocation(req, res){
     let data = req.body;
@@ -412,7 +401,6 @@ export async function uploadPictures(req, res){
             const filename = req.userid + crypto.randomBytes(5).toString('hex');
             files[i].mv(`../front/public/images/${filename}`, err => {
                 if(err){
-                    console.log(err);
                     return res.status(500).send(err);
                 }
             });
@@ -422,7 +410,6 @@ export async function uploadPictures(req, res){
         const filename = req.userid + crypto.randomBytes(5).toString('hex');
         files.mv(`../front/public/images/${filename}`, err => {
             if(err){
-                console.log(err);
                 return res.status(500).send(err);
             }
         });

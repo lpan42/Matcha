@@ -114,7 +114,6 @@ export async function createNewUser(body) {
                 location_lon: LatLng.longitude,
                 city: LatLng.city
             }
-            console.log(dataProfile)
             await connection.query('INSERT INTO profiles SET ?', dataProfile);
         }catch (err) {
             throw new Error(err);
