@@ -71,7 +71,7 @@ const ResetPwd = ({ match }) => {
         }
         const data = {
             username:username,
-            password:pwd,
+            password:pwd.trim(),
         }
         try{
             const result = await axios.post(`/user/updatepwd`, data, config);
@@ -104,7 +104,6 @@ const ResetPwd = ({ match }) => {
         else if(pwd !== rePwd){
             toast.error('Two passwords unmatched');
         }else{
-            pwd = pwd.trim();
             updatePwd();
         }
     }
