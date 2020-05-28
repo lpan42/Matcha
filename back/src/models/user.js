@@ -419,7 +419,7 @@ export async function uploadAvatar(userid, filename){
         if(profile[0].avatar){
             let filename = profile[0].avatar.split("/");
             fs.unlink(`../front/public/images/${filename[filename.length-1]}`, err => {
-                console.log(err);
+                if(err) console.log(err);
             });
         }
         try{
@@ -442,7 +442,7 @@ export async function uploadPics(userid, filename){
 export async function deletePics(path){
     let filename = path.split("/");
     fs.unlink(`../front/public/images/${filename[filename.length-1]}`, err => {
-        console.log(err);
+        if(err) console.log(err);
     });
     try{
         await connection.query('DELETE FROM pics WHERE path = ?', path);
