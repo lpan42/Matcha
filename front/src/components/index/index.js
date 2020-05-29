@@ -66,7 +66,7 @@ const Index = () => {
   }
 
   const myTrim = (x) => {
-    const replaced = x.replace(/[^\w0-9-]+/ ,'') === '' ? '*' : x.replace(/[^\w0-9-]+/ ,'');
+    const replaced = x.replace(/[^\w0-9- ]+/ ,'') === '' ? '*' : x.replace(/[^\w0-9- ]+/ ,'');
     return replaced;
   }
 

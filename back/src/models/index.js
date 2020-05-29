@@ -108,13 +108,18 @@ export async function searchUser(userid, keyword){
                 )
                 AND users.id_user != ?
                 ORDER BY fame DESC`,[userid]);
+        const userinterest = await user_interest(userid);
+        const resultOfgetIntNum = await getInterestNum(userinterest, result);
+        for (let k = 0; k < result.length; k++){
+            result[k]['CommonInterestNb'] = resultOfgetIntNum[k];
+        }
         return result;
     } catch (err) {
         throw new Error(err);
     }
 }
 
-export async function filterUser(ageMin,ageMax,gender,sexPrefer,minLat,maxLat,minLong,MaxLong,userid){
+export async function filterUser(ageMin,ageMax,fameMin,fameMax,gender,sexPrefer,minLat,maxLat,minLong,MaxLong,userid){
     try {
         const result = await connection.query(`
             SELECT users.id_user, username, firstname, lastname, online,
@@ -131,6 +136,11 @@ export async function filterUser(ageMin,ageMax,gender,sexPrefer,minLat,maxLat,mi
                 AND users.id_user != ?
                 ORDER BY fame DESC
         `,[gender, sexPrefer, ageMin,ageMax,minLat, maxLat, minLong, MaxLong, userid, userid]);
+        const userinterest = await user_interest(userid);
+        const resultOfgetIntNum = await getInterestNum(userinterest, result);
+        for (let k = 0; k < result.length; k++){
+            result[k]['CommonInterestNb'] = resultOfgetIntNum[k];
+        }
         return result;
     } catch (err) {
         throw new Error(err);
