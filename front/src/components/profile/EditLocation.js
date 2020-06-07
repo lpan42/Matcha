@@ -5,7 +5,7 @@ import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import updateCity from '../../utils/updateCity';
-
+import { APIKEY } from '../APIkey.js'
 
 const MyMapComponent = withScriptjs(withGoogleMap
     (props =>
@@ -113,7 +113,7 @@ const EditLocation = ({token, location_lat, location_lon}) => {
                 zoom={location.zoom}
                 position={location.position}
                 onMarkerDragEnd={onMarkerDragEnd}
-                googleMapURL={"https://maps.googleapis.com/maps/api/js?key="}
+                googleMapURL={"https://maps.googleapis.com/maps/api/js?key="+ APIKEY}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `300px` }} />}
                 mapElement= {<div style={{ height: `100%` }} />}

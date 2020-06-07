@@ -81,7 +81,7 @@ const ProfileState = props => {
         catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -100,7 +100,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -136,7 +136,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -154,7 +154,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -170,7 +170,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -195,7 +195,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -220,7 +220,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -245,7 +245,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -269,7 +269,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -295,7 +295,7 @@ const ProfileState = props => {
             console.log(err);
             dispatch({
                 type: NORMAL_ERROR,
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
