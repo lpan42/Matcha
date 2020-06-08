@@ -4,7 +4,7 @@ const util = require('util');
 const connection = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '123456',
+    password: 'rootroot',
     database: 'matcha',
     connectionLimit: 10,
     dateStrings : true,

@@ -7,7 +7,6 @@ const authSocket = require('./middleware/authSocket');
 const chatController = require('./controllers/chatController');
 const userModel = require('./models/user');
 const generateUser = require('./config/generateUsers');
-let requestIp = require('request-ip');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -18,7 +17,7 @@ app.use((req, res, next) => {
     res.header( 'Access-Control-Allow-Credentials', 'true');
     next();
 });
-
+  
 // include router
 const userRoute = require('./routes/userRoute');
 const indexRoute = require('./routes/indexRoute');

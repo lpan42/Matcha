@@ -96,9 +96,6 @@ CREATE TABLE IF NOT EXISTS `pics` (
   PRIMARY KEY (`id_pic`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `pics` (`id_pic`, `id_user`, `path`) VALUES
-(1, 1, 'http://localhost:3000/images/1018b3784a3');
-
 CREATE TABLE IF NOT EXISTS `profiles` (
   `id_profile` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,

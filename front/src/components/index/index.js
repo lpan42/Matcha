@@ -25,8 +25,6 @@ import WcIcon from '@material-ui/icons/Wc';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { getDistance } from 'geolib';
 import { useHistory } from "react-router-dom";
-import profileContext from '../../contexts/profile/profileContext';
-
 
 const useStyles = makeStyles((theme) => ({
   card: {

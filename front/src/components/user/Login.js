@@ -43,6 +43,10 @@ const useStyles = makeStyles(theme => ({
             width: "25ch"
           },
     },
+    logoImg:{
+        height:"30px",
+        width:"30px",
+    }
   }));
 
 const Login = (props) => {
@@ -96,6 +100,7 @@ const Login = (props) => {
            });
         }
     }
+
     return (
         <div className={classes.bg}>
             <Card className={classes.card}>
