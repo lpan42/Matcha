@@ -65,7 +65,7 @@ const ProfileState = props => {
         }catch(err){
             dispatch({
                 type: GET_PROFILE_NO,
-                payload: err.response
+                payload: err.response.data.error
             });
         }
     }

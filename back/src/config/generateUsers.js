@@ -60,11 +60,11 @@ export async function generateUser(){
             random = randomInt(1, 14);
             if (!interests.includes(random)) {
                 interests.push(random);
-            }
-            try {
-                await connection.query('INSERT IGNORE INTO users_interests (id_user, id_interest) VALUES (?,?)', [result.insertId,random]);
-            } catch (err) {
-                throw new Error(err);
+                try {
+                    await connection.query('INSERT IGNORE INTO users_interests (id_user, id_interest) VALUES (?,?)', [result.insertId,random]);
+                } catch (err) {
+                    throw new Error(err);
+                }
             }
         };
     }
