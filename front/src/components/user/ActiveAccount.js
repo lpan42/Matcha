@@ -21,6 +21,9 @@ const ActiveAccount = ({ match }) => {
 
     useEffect(() => {
         verfiyLink();
+    },[])
+
+    useEffect(() => {
         if(error) {
             toast.error(error);
             history.push(`/login`);
